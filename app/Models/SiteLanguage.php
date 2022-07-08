@@ -8,4 +8,9 @@ use Illuminate\Database\Eloquent\Model;
 class SiteLanguage extends Model
 {
     use HasFactory;
+
+    protected $fillable = [
+        'name',
+        'locale'
+    ];
 }
