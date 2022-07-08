@@ -3,83 +3,93 @@
 namespace App\Http\Controllers\Dashboard;
 
 use App\Http\Controllers\Controller;
-use Illuminate\Http\Request;
+use App\Http\Requests\Roles\RoleStoreRequest;
+use App\Http\Requests\Roles\RoleUpdateRequest;
+use Exception;
+use Illuminate\Http\RedirectResponse;
+use Illuminate\Support\Facades\DB;
+use RealRashid\SweetAlert\Facades\Alert;
+use Spatie\Permission\Models\Permission;
+use Spatie\Permission\Models\Role;
+use Symfony\Component\HttpFoundation\Response;
 
 class RolesController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
     public function index()
     {
-        //
+        abort_if(!auth()->user()->can('access_role'), Response::HTTP_FORBIDDEN, '403 Forbidden');
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
+    public function store(RoleStoreRequest $request): RedirectResponse
+    {
+        DB::beginTransaction();
+
+        try {
+            $role = Role::query()->create([
+                'name' => $request->name,
+                'guard_name' => 'web',
+            ]);
+
+            $role->syncPermissions($request->permissions ?? []);
+
+            DB::commit();
+
+            Alert::success('Success', 'Role Created Successfully');
+
+            return redirect()->route('dashboard.roles.index');
+
+        } catch (Exception $e) {
+            DB::rollBack();
+            Alert::error('Error', 'Something went wrong, please try again');
+            return redirect()->route('dashboard.roles.index');
+        }
+    }
+
     public function create()
     {
-        //
+        abort_if(!auth()->user()->can('create_role'), Response::HTTP_FORBIDDEN, '403 Forbidden');
+        $permissions = Permission::query()->get();
+        return view('dashboard.roles.create', compact('permissions'));
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
+    public function edit(Role $role)
     {
-        //
+        abort_if(!auth()->user()->can('edit_role'), Response::HTTP_FORBIDDEN, '403 Forbidden');
+        $role->load('permissions');
+        $permissions = Permission::query()->get();
+        return view('dashboard.roles.edit', compact('role'));
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
+    public function update(RoleUpdateRequest $request, Role $role): RedirectResponse
     {
-        //
+        DB::beginTransaction();
+
+        try {
+            $role->update([
+                'name' => $request->name,
+                'guard_name' => 'web',
+            ]);
+
+            $role->syncPermissions($request->permissions ?? []);
+
+            DB::commit();
+
+            Alert::success('Success', 'Role Updated Successfully');
+
+            return redirect()->route('dashboard.roles.index');
+
+        } catch (Exception $e) {
+            DB::rollBack();
+            Alert::error('Error', 'Something went wrong, please try again');
+            return redirect()->route('dashboard.roles.index');
+        }
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
+    public function destroy(Role $role): RedirectResponse
     {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, $id)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy($id)
-    {
-        //
+        abort_if(!auth()->user()->can('delete_role'), Response::HTTP_FORBIDDEN, '403 Forbidden');
+        $role->delete();
+        Alert::warning('Warning', 'Role Deleted Successfully');
+        return redirect()->route('dashboard.roles.index');
     }
 }

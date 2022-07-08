@@ -16,7 +16,7 @@ class UserStoreRequest extends FormRequest
      */
     public function authorize()
     {
-        return auth()->user()->hasRole('super-admin');
+        return auth()->user()->can('create_user');
     }
 
     /**

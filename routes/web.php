@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Dashboard\CompanyController;
 use App\Http\Controllers\Dashboard\DashboardPageController;
 use App\Http\Controllers\Dashboard\PermissionController;
 use App\Http\Controllers\Dashboard\RolesController;
@@ -22,11 +23,12 @@ Route::group(
         // Management System Routes
         Route::resource('users', UserController::class);
 
-        Route::resource('roles', RolesController::class);
+        Route::resource('roles', RolesController::class)->except('show');
 
-        Route::resource('permissions', PermissionController::class);
+        Route::resource('permissions', PermissionController::class)->except('show');
 
         // Organization
+        Route::resource('companies', CompanyController::class);
 
     });
 

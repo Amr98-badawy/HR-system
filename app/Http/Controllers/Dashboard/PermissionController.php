@@ -3,83 +3,87 @@
 namespace App\Http\Controllers\Dashboard;
 
 use App\Http\Controllers\Controller;
-use Illuminate\Http\Request;
+use App\Http\Requests\Permissions\PermissionStoreRequest;
+use App\Http\Requests\Permissions\PermissionUpdateRequest;
+use Exception;
+use Illuminate\Http\RedirectResponse;
+use Illuminate\Support\Facades\DB;
+use RealRashid\SweetAlert\Facades\Alert;
+use Spatie\Permission\Models\Permission;
+use Symfony\Component\HttpFoundation\Response;
 
 class PermissionController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
     public function index()
     {
-        //
+        abort_if(!auth()->user()->can('access_permission'),Response::HTTP_FORBIDDEN, '403 Forbidden');
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
+    public function store(PermissionStoreRequest $request): RedirectResponse
+    {
+        DB::beginTransaction();
+
+        try {
+            Permission::create([
+                'name' => $request->name,
+                'guard_name' => 'web',
+            ]);
+
+            DB::commit();
+
+            Alert::success('Success', 'Permission Created Successfully');
+
+            return redirect()->route('dashboard.permissions.index');
+
+        } catch (Exception $e) {
+            DB::rollBack();
+            Alert::error('Error', 'Something went wrong, please try again');
+            return redirect()->route('dashboard.permissions.index');
+        }
+    }
+
     public function create()
     {
-        //
+        abort_if(!auth()->user()->can('create_permission'),Response::HTTP_FORBIDDEN, '403 Forbidden');
+        return view('dashboard.permissions.create');
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
+    public function edit(Permission $permission)
     {
-        //
+        abort_if(!auth()->user()->can('edit_permission'),Response::HTTP_FORBIDDEN, '403 Forbidden');
+        return view('dashboard.permissions.edit', compact('permission'));
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
+    public function update(PermissionUpdateRequest $request, Permission $permission): RedirectResponse
     {
-        //
+        DB::beginTransaction();
+
+        try {
+            $permission->update([
+                'name' => $request->name,
+                'guard_name' => 'web',
+            ]);
+
+            DB::commit();
+
+            Alert::success('Success', 'Permission Updated Successfully');
+
+            return redirect()->route('dashboard.permissions.index');
+
+        } catch (Exception $e) {
+            DB::rollBack();
+            Alert::error('Error', 'Something went wrong, please try again');
+            return redirect()->route('dashboard.permissions.index');
+        }
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
+    public function destroy(Permission $permission): RedirectResponse
     {
-        //
-    }
+        abort_if(!auth()->user()->can('delete_permission'),Response::HTTP_FORBIDDEN, '403 Forbidden');
+        $permission->delete();
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, $id)
-    {
-        //
-    }
+        Alert::warning('Warning', 'Permission Deleted Successfully');
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy($id)
-    {
-        //
+        return redirect()->route('dashboard.permissions.index');
     }
 }

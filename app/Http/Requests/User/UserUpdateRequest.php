@@ -14,7 +14,7 @@ class UserUpdateRequest extends FormRequest
      */
     public function authorize()
     {
-        return auth()->user()->hasRole('super-admin');
+        return auth()->user()->can('edit_user');
     }
 
     /**

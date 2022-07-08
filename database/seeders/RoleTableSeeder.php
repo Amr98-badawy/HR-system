@@ -3,6 +3,7 @@
 namespace Database\Seeders;
 
 use Illuminate\Database\Seeder;
+use Spatie\Permission\Models\Permission;
 use Spatie\Permission\Models\Role;
 
 class RoleTableSeeder extends Seeder
@@ -14,9 +15,13 @@ class RoleTableSeeder extends Seeder
      */
     public function run()
     {
-        Role::query()->create([
+        $role = Role::query()->create([
             'name' => 'super-admin',
             'guard_name' => 'web',
         ]);
+
+        $permissions = Permission::all();
+
+        $role->syncPermissions($permissions->pluck('id'));
     }
 }
