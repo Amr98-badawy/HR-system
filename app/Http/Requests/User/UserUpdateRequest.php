@@ -4,7 +4,6 @@ namespace App\Http\Requests\User;
 
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Rule;
-use Illuminate\Validation\Rules\Password;
 
 class UserUpdateRequest extends FormRequest
 {
@@ -15,7 +14,7 @@ class UserUpdateRequest extends FormRequest
      */
     public function authorize()
     {
-        return false;
+        return auth()->user()->hasRole('super-admin');
     }
 
     /**
@@ -26,36 +25,44 @@ class UserUpdateRequest extends FormRequest
     public function rules()
     {
         return [
-        'first_name' => [
-            'required',
-            'string',
-            'min:1',
-            'max:150'
-        ],
-        'second_name' => [
-            'required',
-            'string',
-            'min:1',
-            'max:150'
-        ],
-        'last_name' => [
-            'required',
-            'string',
-            'min:1',
-            'max:150'
-        ],
-        'email' => [
-            'required',
-            'email',
-            'min:1',
-            'max:255',
-            Rule::unique('users', 'email')->ignore($this->user)
-        ],
-        'role_id' => [
-            'required',
-            'integer',
-            Rule::exists('roles', 'id'),
-        ]
-    ];
+            'first_name' => [
+                'required',
+                'string',
+                'min:1',
+                'max:150'
+            ],
+            'second_name' => [
+                'required',
+                'string',
+                'min:1',
+                'max:150'
+            ],
+            'last_name' => [
+                'required',
+                'string',
+                'min:1',
+                'max:150'
+            ],
+            'email' => [
+                'required',
+                'email',
+                'min:1',
+                'max:255',
+                Rule::unique('users', 'email')->ignore($this->user)
+            ],
+            'roles' => [
+                'required',
+            ],
+            'roles.*' => [
+                'integer',
+                Rule::exists('roles', 'id'),
+            ],
+            'picture' => [
+                'nullable',
+                'image',
+                'max:2500',
+                'mimes:jpg,jpeg,png,webp,svg'
+            ]
+        ];
     }
 }

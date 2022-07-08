@@ -1,10 +1,13 @@
 <?php
 
+use App\Http\Controllers\Dashboard\DashboardPageController;
+use App\Http\Controllers\Dashboard\PermissionController;
+use App\Http\Controllers\Dashboard\RolesController;
 use App\Http\Controllers\Dashboard\UserController;
 use Illuminate\Support\Facades\Route;
 use Mcamara\LaravelLocalization\Facades\LaravelLocalization;
 
-Route::redirect('/', 'admin');
+Route::redirect('/', 'login');
 
 Route::group(
     [
@@ -14,11 +17,16 @@ Route::group(
 
     Route::group(['prefix' => 'admin', 'as' => 'dashboard.', 'middleware' => 'auth'], function () {
 
-        Route::get('/', function () {
-            return view('dashboard.site.home');
-        })->name('dashboard.home');
+        Route::get('/', [DashboardPageController::class, 'index'])->name('home');
 
+        // Management System Routes
         Route::resource('users', UserController::class);
+
+        Route::resource('roles', RolesController::class);
+
+        Route::resource('permissions', PermissionController::class);
+
+        // Organization
 
     });
 

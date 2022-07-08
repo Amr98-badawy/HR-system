@@ -58,10 +58,18 @@ class UserStoreRequest extends FormRequest
                 'max:25',
                 Password::min(8)->letters()->mixedCase()
             ],
-            'role_id' => [
+            'roles' => [
                 'required',
+            ],
+            'roles.*' => [
                 'integer',
                 Rule::exists('roles', 'id'),
+            ],
+            'picture' => [
+                'nullable',
+                'image',
+                'max:2500',
+                'mimes:jpg,jpeg,png,webp,svg'
             ]
         ];
     }

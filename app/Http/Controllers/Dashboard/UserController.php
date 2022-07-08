@@ -6,8 +6,10 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\User\UserStoreRequest;
 use App\Http\Requests\User\UserUpdateRequest;
 use App\Models\User;
+use Exception;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 use RealRashid\SweetAlert\Facades\Alert;
 use Spatie\Permission\Models\Role;
@@ -18,7 +20,7 @@ class UserController extends Controller
     public function index(Request $request)
     {
         if ($request->ajax()) {
-            $query = User::with('roles')->get();
+            $query = User::with('roles', 'media')->latest()->get();
 
             return DataTables::of($query)
                 ->addColumn('actions', function ($row) {
@@ -51,6 +53,20 @@ class UserController extends Controller
 
                     return $btn;
                 })
+                ->editColumn('picture', function ($row) {
+                    if ($row->getFirstMedia('picture')) {
+                        return sprintf(
+                            '<a href="%s" target="_blank"><img class="rounded-50" src="%s" width="50px" height="50px"></a>',
+                            $row->getFirstMedia('picture')->getUrl(),
+                            $row->getFirstMedia('picture')->getUrl('thumb'),
+                        );
+                    }
+                    return sprintf(
+                        '<a href="%s" target="_blank"><img class="rounded-50" src="%s" width="50px" height="50px"></a>',
+                        asset('assets/img/Avatar/user-avatar.png'),
+                        asset('assets/img/Avatar/user-avatar.png'),
+                    );
+                })
                 ->editColumn('roles', function ($row) {
                     if ($row->roles) {
                         foreach ($row->roles as $role) {
@@ -62,11 +78,39 @@ class UserController extends Controller
                 ->editColumn('created_at', function ($row) {
                     return $row->created_at ? $row->created_at->format('Md Y') : '';
                 })
-                ->rawColumns(['actions', 'roles', 'created_at'])
+                ->rawColumns(['actions', 'roles', 'created_at', 'picture'])
                 ->make(true);
         }
 
         return view('dashboard.user.index');
+    }
+
+    public function store(UserStoreRequest $request): RedirectResponse
+    {
+        DB::beginTransaction();
+        try {
+            $user = User::query()->create([
+                'name' => $request->first_name . ' ' . $request->second_name . ' ' . $request->last_name,
+                'email' => $request->email,
+                'password' => Hash::make($request->password),
+            ]);
+
+            if ($request->hasFile('picture')) {
+                $user->addMedia($request->file('picture'))->toMediaCollection('picture');
+            }
+
+            $user->syncRoles($request->roles);
+
+            DB::commit();
+
+            Alert::success('success', 'Record created successfully');
+
+            return redirect()->route('dashboard.users.index');
+        } catch (Exception $e) {
+            DB::rollBack();
+            Alert::error('Error', 'Something went wrong please try again');
+            return redirect()->route('dashboard.users.index');
+        }
     }
 
     public function create()
@@ -76,44 +120,63 @@ class UserController extends Controller
         return view('dashboard.user.create', compact('roles'));
     }
 
-    public function store(UserStoreRequest $request): RedirectResponse
-    {
-        $user = User::query()->create([
-            'name' => $request->first_name . ' ' . $request->second_name . ' ' . $request->last_name,
-            'email' => $request->email,
-            'password' => Hash::make($request->password),
-        ]);
-
-        $user->syncRoles($request->roles);
-
-        Alert::success('success', 'Record created successfully');
-
-        return redirect()->route('dashboard.users.index');
-    }
-
     public function show(User $user)
     {
-        //
+        $user->load('roles', 'media');
+        return view('dashboard.user.show', compact('user'));
     }
 
     public function edit(User $user)
     {
-        $user->load('roles');
+        $user->load('roles', 'media');
         $roles = Role::query()->pluck('name', 'id');
-
+        $name = explode(' ', $user->name);
         return view('dashboard.user.edit', compact([
             'user',
-            'roles'
+            'roles',
+            'name',
         ]));
     }
 
     public function update(UserUpdateRequest $request, User $user)
     {
-        //
+        DB::beginTransaction();
+        try {
+            $user->update([
+                'name' => $request->first_name . ' ' . $request->second_name . ' ' . $request->last_name,
+                'email' => $request->email,
+            ]);
+
+            if ($request->hasFile('picture')) {
+                $user->addMedia($request->file('picture'))->toMediaCollection('picture');
+            }
+
+            $user->syncRoles($request->roles);
+
+            DB::commit();
+
+            Alert::success('success', 'Record Updated successfully');
+
+            return redirect()->route('dashboard.users.index');
+        } catch (Exception $e) {
+            DB::rollBack();
+            Alert::error('Error', 'Something went wrong please try again');
+            return redirect()->route('dashboard.users.index');
+        }
     }
 
     public function destroy(User $user): RedirectResponse
     {
+        if ($user->hasRole('super-admin')) {
+            Alert::error('Error', 'Can`t delete super admin account');
+            return redirect()->route('dashboard.users.index');
+        }
+
+        if (auth()->user()->email === $user->email) {
+            Alert::error('Error', 'Please logout first then delete account');
+            return redirect()->route('dashboard.users.index');
+        }
+
         $user->delete();
 
         Alert::warning('Warning', 'Record Deleted Successfully');

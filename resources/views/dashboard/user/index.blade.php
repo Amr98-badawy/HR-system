@@ -38,6 +38,7 @@
                         <tr>
                             <th class="border-bottom-0">Name</th>
                             <th class="border-bottom-0">Email</th>
+                            <th class="border-bottom-0">Picture</th>
                             <th class="border-bottom-0">Role</th>
                             <th class="border-bottom-0">Created At</th>
                             <th class="border-bottom-0">Actions</th>
@@ -94,6 +95,7 @@
             columns: [
                 {data: "name"},
                 {data: "email"},
+                {data: "picture"},
                 {data: "roles"},
                 {data: "created_at"},
                 {data: 'actions', name: 'actions', orderable: false, searchable: false},
