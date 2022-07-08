@@ -20,9 +20,13 @@ class UserController extends Controller
 {
     public function index(Request $request)
     {
-        abort_if(!auth()->user()->can('access_user'),Response::HTTP_FORBIDDEN, '403 Forbidden');
+        abort_if(!auth()->user()->can('access_user'), Response::HTTP_FORBIDDEN, '403 Forbidden');
         if ($request->ajax()) {
-            $query = User::with('roles', 'media')->latest()->get();
+            $query = User::with('roles', 'media')->whereHas('roles', function ($query) {
+                if (!auth()->user()->hasRole('super-admin')) {
+                    $query->where('name', '!=', 'super-admin');
+                }
+            })->latest()->get();
 
             return DataTables::of($query)
                 ->addColumn('actions', function ($row) {
@@ -117,25 +121,25 @@ class UserController extends Controller
 
     public function create()
     {
-        abort_if(!auth()->user()->can('create_user'),Response::HTTP_FORBIDDEN, '403 Forbidden');
+        abort_if(!auth()->user()->can('create_user'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
-        $roles = Role::query()->pluck('name', 'id');
+        $roles = Role::query()->where('name', '!=', 'super-admin')->pluck('name', 'id');
 
         return view('dashboard.user.create', compact('roles'));
     }
 
     public function show(User $user)
     {
-        abort_if(!auth()->user()->can('show_user'),Response::HTTP_FORBIDDEN, '403 Forbidden');
+        abort_if(!auth()->user()->can('show_user'), Response::HTTP_FORBIDDEN, '403 Forbidden');
         $user->load('roles', 'media');
         return view('dashboard.user.show', compact('user'));
     }
 
     public function edit(User $user)
     {
-        abort_if(!auth()->user()->can('edit_user'),Response::HTTP_FORBIDDEN, '403 Forbidden');
+        abort_if(!auth()->user()->can('edit_user'), Response::HTTP_FORBIDDEN, '403 Forbidden');
         $user->load('roles', 'media');
-        $roles = Role::query()->pluck('name', 'id');
+        $roles = Role::query()->where('name', '!=', 'super-admin')->pluck('name', 'id');
         $name = explode(' ', $user->name);
         return view('dashboard.user.edit', compact([
             'user',
@@ -173,7 +177,7 @@ class UserController extends Controller
 
     public function destroy(User $user): RedirectResponse
     {
-        abort_if(!auth()->user()->can('delete_user'),Response::HTTP_FORBIDDEN, '403 Forbidden');
+        abort_if(!auth()->user()->can('delete_user'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
         if ($user->hasRole('super-admin')) {
             Alert::error('Error', 'Can`t delete super admin account');
