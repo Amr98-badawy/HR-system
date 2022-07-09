@@ -22,6 +22,7 @@ class RolesController extends Controller
 
     public function store(RoleStoreRequest $request): RedirectResponse
     {
+
         DB::beginTransaction();
 
         try {
@@ -47,8 +48,9 @@ class RolesController extends Controller
 
     public function create()
     {
+
         abort_if(!auth()->user()->can('create_role'), Response::HTTP_FORBIDDEN, '403 Forbidden');
-        $permissions = Permission::query()->get();
+        $permissions = Permission::query()->pluck('name','id');
         return view('dashboard.roles.create', compact('permissions'));
     }
 
@@ -56,8 +58,8 @@ class RolesController extends Controller
     {
         abort_if(!auth()->user()->can('edit_role'), Response::HTTP_FORBIDDEN, '403 Forbidden');
         $role->load('permissions');
-        $permissions = Permission::query()->get();
-        return view('dashboard.roles.edit', compact('role'));
+        $permissions = Permission::query()->pluck('name','id');
+        return view('dashboard.roles.edit', compact('role' ,'permissions'));
     }
 
     public function update(RoleUpdateRequest $request, Role $role): RedirectResponse

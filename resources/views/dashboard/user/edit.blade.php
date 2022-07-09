@@ -110,7 +110,7 @@
                                                     @foreach($roles as $key=>$item)
                                                         <option
                                                             {{ in_array($key, old('roles', [])) || $user->roles->contains($key) ? 'selected' : '' }}
-                                                            value="{{ $key }}" {{ old('roles', '') === $key ? 'selected' : '' }}>
+                                                            value="{{ $key }}" >
                                                             {{ $item }}
                                                         </option>
                                                     @endforeach

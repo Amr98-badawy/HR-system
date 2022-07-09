@@ -17,6 +17,7 @@ class CompanyStoreRequest extends FormRequest
     {
         $data = [];
 
+
         foreach (siteLanguages() as $locale) {
             $data[$locale . '.name'] = [
                 'required',
