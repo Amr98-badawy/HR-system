@@ -8,21 +8,21 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 
-class Company extends Model implements TranslatableContracts
+class Department extends Model implements TranslatableContracts
 {
     use HasFactory;
     use Translatable;
 
-    protected $table = 'companies';
+    protected $table = 'departments';
 
     protected $guarded = [];
 
     protected array $translatedAttributes = [
-        'name'
+        'name',
     ];
 
-    public function departments(): BelongsToMany
+    public function companies(): BelongsToMany
     {
-        return $this->belongsToMany(Department::class);
+        return $this->belongsToMany(Company::class);
     }
 }

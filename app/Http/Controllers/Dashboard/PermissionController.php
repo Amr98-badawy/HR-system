@@ -7,16 +7,49 @@ use App\Http\Requests\Permissions\PermissionStoreRequest;
 use App\Http\Requests\Permissions\PermissionUpdateRequest;
 use Exception;
 use Illuminate\Http\RedirectResponse;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use RealRashid\SweetAlert\Facades\Alert;
 use Spatie\Permission\Models\Permission;
+use Spatie\Permission\Models\Role;
 use Symfony\Component\HttpFoundation\Response;
+use Yajra\DataTables\Facades\DataTables;
 
 class PermissionController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
         abort_if(!auth()->user()->can('access_permission'),Response::HTTP_FORBIDDEN, '403 Forbidden');
+
+        if ($request->ajax()) {
+            $query = Permission::latest()->get();
+
+            return DataTables::of($query)
+                ->addColumn('actions', function ($row) {
+                    $showGate = 'show_permission';
+                    $editGate = 'edit_permission';
+                    $deleteGate = 'delete_permission';
+                    $crudRoutePart = 'permissions';
+                    $key = $row->id;
+                    $show = false;
+
+                    return view('dashboard.partials.datatable-actions', compact([
+                        'showGate',
+                        'editGate',
+                        'deleteGate',
+                        'crudRoutePart',
+                        'key',
+                        'show',
+                    ]));
+                })
+                ->editColumn('created_at', function ($row) {
+                    return $row->created_at ? $row->created_at->format('Md Y') : '';
+                })
+                ->rawColumns(['actions', 'created_at',])
+                ->make(true);
+        }
+
+        return view('dashboard.permissions.index');
     }
 
     public function store(PermissionStoreRequest $request): RedirectResponse

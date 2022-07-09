@@ -10,8 +10,6 @@
         <link rel="stylesheet" href="{{asset('assets/plugins/sumoselect/sumoselect.css')}}">
     @endif
 
-
-
 @endsection
 @section('page-header')
     <!-- breadcrumb -->
@@ -49,7 +47,7 @@
                                 <div class="card">
                                     <div class="card-body">
                                         <div class="row">
-                                            <div class="col-md-6 col-lg-6 mg-t-20 mg-md-t-0">
+                                            <div class="col-md-12 col-lg-12 mg-t-20 mg-md-t-0 mb-3">
                                                 <label id="email" class="form-control-label"> Name:
                                                     <span class="tx-danger">*</span>
                                                 </label>
@@ -65,11 +63,12 @@
                                                 @enderror
                                             </div>
 
-                                            <div class="col-md-6 col-lg-6 mg-t-20 mg-md-t-0">
-                                                <p class="mg-b-10">Roles</p>
+                                            <div class="col-md-12 col-lg-12 mg-t-20 mg-md-t-0">
+                                                <p class="mg-b-10">Permissions</p>
                                                 <select multiple="multiple" name="permissions[]" class="testselect2">
                                                     @foreach($permissions as $key=>$val)
-                                                    <option  value="{{$key}}">{{$val}}</option>
+                                                        <option
+                                                            {{ in_array($key, old('permissions',[])) ? 'selected' : '' }} value="{{$key}}">{{$val}}</option>
                                                     @endforeach
                                                 </select>
 
@@ -82,8 +81,6 @@
                                 </div>
                             </div>
                         </div>
-
-
 
 
                         <div class="row row-xs wd-xl-80p">

@@ -30,34 +30,21 @@ class UserController extends Controller
 
             return DataTables::of($query)
                 ->addColumn('actions', function ($row) {
-                    $view = route('dashboard.users.show', $row->id);
-                    $edit = route('dashboard.users.edit', $row->id);
-                    $delete = route('dashboard.users.destroy', $row->id);
+                    $showGate = 'show_user';
+                    $editGate = 'edit_user';
+                    $deleteGate = 'delete_user';
+                    $crudRoutePart = 'users';
+                    $key = $row->id;
+                    $show = true;
 
-                    $btn = sprintf(
-                        '<div class="row row-xs wd-xl-80p">
-                                    <div class="col-sm-6 col-md-3">
-                                        <button data-toggle="dropdown" class="btn btn-indigo btn-block">Actions <i class="icon ion-ios-arrow-down tx-11 mg-l-3"></i></button>
-                                        <div class="dropdown-menu">
-                                            <a href="%s" class="dropdown-item text-primary"><i class="fas fa-eye"></i> View</a>
-                                            <a href="%s" class="dropdown-item text-warning"><i class="fas fa-edit"></i> Edit</a>
-                                            <a href="" onclick="event.preventDefault();document.getElementById(\'deleteForm-%s\'    ).submit()" class="dropdown-item text-danger"><i class="fas fa-trash"></i> Delete</a>
-                                        </div>
-                                    </div>
-		                        </div>
-		                        <form action="%s" method="post" id="deleteForm-%s" class="d-none">
-                                    <input type="hidden" name="_method" value="DELETE">
-		                            %s
-                                </form>',
-                        $view,
-                        $edit,
-                        $row->id,
-                        $delete,
-                        $row->id,
-                        csrf_field(),
-                    );
-
-                    return $btn;
+                    return view('dashboard.partials.datatable-actions', compact([
+                        'showGate',
+                        'editGate',
+                        'deleteGate',
+                        'crudRoutePart',
+                        'key',
+                        'show',
+                    ]));
                 })
                 ->editColumn('picture', function ($row) {
                     if ($row->getFirstMedia('picture')) {
@@ -75,9 +62,11 @@ class UserController extends Controller
                 })
                 ->editColumn('roles', function ($row) {
                     if ($row->roles) {
+                        $links = [];
                         foreach ($row->roles as $role) {
-                            return sprintf("<span class='badge badge-primary'>%s</span>", $role->name);
+                            $links[] = sprintf("<span class='badge badge-primary'>%s</span>", $role->name);
                         }
+                        return implode(' ', $links);
                     }
                     return '';
                 })

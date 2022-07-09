@@ -18,7 +18,7 @@ class PermissionUpdateRequest extends FormRequest
             'name' => [
                 'required',
                 'string',
-                Rule::unique('permissions', 'name'),
+                Rule::unique('permissions', 'name')->ignore($this->permission),
             ]
         ];
     }

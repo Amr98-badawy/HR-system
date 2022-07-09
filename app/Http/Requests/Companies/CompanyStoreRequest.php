@@ -15,7 +15,15 @@ class CompanyStoreRequest extends FormRequest
 
     public function rules(): array
     {
-        $data = [];
+        $data = [
+            'departments' => [
+                'sometimes'
+            ],
+            'departments.*' => [
+                'integer',
+                Rule::exists('departments', 'id')
+            ]
+        ];
 
 
         foreach (siteLanguages() as $locale) {
@@ -26,5 +34,12 @@ class CompanyStoreRequest extends FormRequest
         }
 
         return $data;
+    }
+
+    protected function prepareForValidation()
+    {
+        if ($this->departments == null) {
+            $this->request->remove('departments');
+        }
     }
 }

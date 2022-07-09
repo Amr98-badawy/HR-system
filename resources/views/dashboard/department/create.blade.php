@@ -7,7 +7,7 @@
     <div class="breadcrumb-header justify-content-between">
         <div class="my-auto">
             <div class="d-flex">
-                <h4 class="content-title mb-0 my-auto">Dashboard</h4><span class="text-muted mt-1 tx-13 mr-2 mb-0"> / update / company</span>
+                <h4 class="content-title mb-0 my-auto">Dashboard</h4><span class="text-muted mt-1 tx-13 mr-2 mb-0"> / create / department</span>
             </div>
         </div>
     </div>
@@ -22,15 +22,13 @@
 
                 <div class="card-header pb-0">
                     <div class="d-flex justify-content-between">
-                        <h4 class="card-title mg-b-0">Update company</h4>
+                        <h4 class="card-title mg-b-0">Add New Department</h4>
                         <i class="mdi mdi-dots-horizontal text-gray"></i>
                     </div>
                 </div>
 
                 <div class="card-body">
-                    <form method="post" action="{{ route('dashboard.companies.update', $company->id) }}"
-                          data-parsley-validate="">
-                        @method('PUT')
+                    <form method="post" action="{{ route('dashboard.departments.store') }}" data-parsley-validate="">
                         @csrf
                         <div class="row row-sm mg-b-20">
                             <div class="col-md-12 col-xl-12 col-xs-12 col-sm-12">
@@ -49,7 +47,7 @@
 
                                                         name="{{$locale}}[name]"
                                                         placeholder="Company {{$locale}} "
-                                                        value="{{ old($locale.'.name', $company->translate($locale, true)->name) }}"
+                                                        value="{{ old($locale.'.name') }}"
                                                         required
                                                         type="text">
                                                     @error($locale.'.name')
@@ -70,19 +68,19 @@
                                     <div class="card-body">
                                         <div class="row">
                                             <div class="col-md-12 col-lg-12 mg-t-20 mg-md-t-0">
-                                                <p class="mg-b-10"> Departments: </p>
-                                                <select class="form-control select2" name="departments[]" multiple>
+                                                <p class="mg-b-10"> Companies: </p>
+                                                <select class="form-control select2" name="companies[]" multiple>
                                                     <option label="Choose roles for user">
                                                     </option>
-                                                    @foreach($departments as $item)
+                                                    @foreach($companies as $item)
                                                         <option
-                                                            {{ in_array($item->id, old('departments', [])) || $company->departments->contains($item->id) ? 'selected' : '' }}
+                                                            {{ in_array($item->id, old('companies', [])) ? 'selected' : '' }}
                                                             value="{{ $item->id }}">
                                                             {{ $item->name }}
                                                         </option>
                                                     @endforeach
                                                 </select>
-                                                @error('departments')
+                                                @error('companies')
                                                 <p class="text-danger">{{ $message }}</p>
                                                 @enderror
                                             </div>

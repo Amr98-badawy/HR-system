@@ -1,5 +1,6 @@
 @extends('Dashboard.layouts.master')
 @section('css')
+    <link href="{{asset('assets/plugins/select2/css/select2.min.css')}}" rel="stylesheet">
 @endsection
 @section('page-header')
     <!-- breadcrumb -->
@@ -13,7 +14,6 @@
     <!-- breadcrumb -->
 @endsection
 @section('content')
-
 
     <!-- row -->
     <div class="row">
@@ -36,19 +36,21 @@
                                     <div class="card-body">
                                         <div class="row">
 
-                                            @foreach(siteLanguages() as $lan)
+                                            @foreach(siteLanguages() as $locale)
                                                 <div class="col-md-6 col-lg-6 mg-t-20 mg-md-t-0">
-                                                    <label id="email" class="form-control-label"> Company {{$lan}}:
+                                                    <label id="email" class="form-control-label"> Company
+                                                        Name {{$locale}}:
                                                         <span class="tx-danger">*</span>
                                                     </label>
-                                                    <input class="form-control @error($lan.'.name') is-invalid @enderror"
+                                                    <input
+                                                        class="form-control @error($locale.'.name') is-invalid @enderror"
 
-                                                           name="{{$lan}}.name"
-                                                           placeholder="Company {{$lan}} "
-                                                           value="{{ old($lan.'.name') }}"
-                                                           required
-                                                           type="text">
-                                                    @error($lan.'.name')
+                                                        name="{{$locale}}[name]"
+                                                        placeholder="Company {{$locale}} "
+                                                        value="{{ old($locale.'.name') }}"
+                                                        required
+                                                        type="text">
+                                                    @error($locale.'.name')
                                                     <p class="text-danger">{{ $message }}</p>
                                                     @enderror
                                                 </div>
@@ -59,6 +61,35 @@
                                 </div>
                             </div>
                         </div>
+
+                        <div class="row row-sm mg-b-20">
+                            <div class="col-md-12 col-xl-12 col-xs-12 col-sm-12">
+                                <div class="card">
+                                    <div class="card-body">
+                                        <div class="row">
+                                            <div class="col-md-12 col-lg-12 mg-t-20 mg-md-t-0">
+                                                <p class="mg-b-10"> Departments: </p>
+                                                <select class="form-control select2" name="departments[]" multiple>
+                                                    <option label="Choose roles for user">
+                                                    </option>
+                                                    @foreach($departments as $item)
+                                                        <option
+                                                            {{ in_array($item->id, old('departments', [])) ? 'selected' : '' }}
+                                                            value="{{ $item->id }}">
+                                                            {{ $item->name }}
+                                                        </option>
+                                                    @endforeach
+                                                </select>
+                                                @error('departments')
+                                                <p class="text-danger">{{ $message }}</p>
+                                                @enderror
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
                         <div class="row row-xs wd-xl-80p">
                             <div class="col-sm-6 col-md-3 mg-t-10 mg-md-t-0">
                                 <button type="submit" class="btn btn-success">Submit</button>
@@ -73,6 +104,10 @@
     </div>
 @endsection
 @section('js')
+    <!-- Internal Select2.min js -->
+    <script src="{{URL::asset('assets/plugins/select2/js/select2.min.js')}}"></script>
+    <!-- Internal form-elements js -->
+    <script src="{{URL::asset('assets/js/form-elements.js')}}"></script>
     <!-- Internal Form-validation js -->
     <script src="{{URL::asset('assets/js/form-validation.js')}}"></script>
 @endsection

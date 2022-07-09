@@ -1,33 +1,39 @@
 <?php
 
-namespace App\Http\Requests\Companies;
+namespace App\Http\Requests\Departments;
 
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Rule;
 
-class CompanyUpdateRequest extends FormRequest
+class DepartmentStoreRequest extends FormRequest
 {
+    /**
+     * Determine if the user is authorized to make this request.
+     *
+     * @return bool
+     */
     public function authorize()
     {
-        return auth()->user()->can('edit_company');
+        return auth()->user()->can('create_department');
     }
 
     public function rules(): array
     {
         $data = [
-            'departments' => [
+            'companies' => [
                 'sometimes'
             ],
-            'departments.*' => [
+            'companies.*' => [
                 'integer',
-                Rule::exists('departments', 'id')
+                Rule::exists('companies', 'id')
             ]
         ];
+
 
         foreach (siteLanguages() as $locale) {
             $data[$locale . '.name'] = [
                 'required',
-                Rule::unique('company_translations', 'name')->ignore($this->company->translate($locale) ? $this->company->translate($locale)->id : $this->company->id)
+                Rule::unique('department_translations', 'name')
             ];
         }
 
@@ -36,8 +42,8 @@ class CompanyUpdateRequest extends FormRequest
 
     protected function prepareForValidation()
     {
-        if ($this->departments == null) {
-            $this->request->remove('departments');
+        if ($this->companies == null) {
+            $this->request->remove('companies');
         }
     }
 }

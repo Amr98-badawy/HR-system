@@ -81,6 +81,7 @@
             ajax: "{{ route('dashboard.users.index') }}",
             buttons: ['copy', 'excel', 'pdf', 'colvis'],
             responsive: true,
+            pageLength: 25,
             language: {
                 searchPlaceholder: 'Search...',
                 sSearch: '',

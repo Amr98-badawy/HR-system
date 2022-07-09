@@ -13,7 +13,7 @@
     <div class="breadcrumb-header justify-content-between">
         <div class="my-auto">
             <div class="d-flex">
-                <h4 class="content-title mb-0 my-auto">Dashboard</h4><span class="text-muted mt-1 tx-13 mr-2 mb-0">/ Roles</span>
+                <h4 class="content-title mb-0 my-auto">Dashboard</h4><span class="text-muted mt-1 tx-13 mr-2 mb-0">/ Departments</span>
             </div>
         </div>
     </div>
@@ -27,8 +27,8 @@
         <div class="card mg-b-20">
             <div class="card-header pb-0">
                 <div class="d-flex justify-content-between">
-                    <h4 class="card-title mg-b-0">Roles Table</h4>
-                    <a href="{{ route('dashboard.roles.create') }}" class="btn btn-success">Create</a>
+                    <h4 class="card-title mg-b-0">Departments Table</h4>
+                    <a href="{{ route('dashboard.departments.create') }}" class="btn btn-success">Create</a>
                 </div>
             </div>
             <div class="card-body">
@@ -37,8 +37,6 @@
                         <thead>
                         <tr>
                             <th class="border-bottom-0">Name</th>
-                            <th class="border-bottom-0">Guard Name</th>
-                            <th class="border-bottom-0">Permission Count</th>
                             <th class="border-bottom-0">Created At</th>
                             <th class="border-bottom-0">Actions</th>
                         </tr>
@@ -77,7 +75,7 @@
             serverSide: true,
             processing: true,
             lengthChange: false,
-            ajax: "{{ route('dashboard.roles.index') }}",
+            ajax: "{{ route('dashboard.departments.index') }}",
             buttons: ['copy', 'excel', 'pdf', 'colvis'],
             responsive: true,
             pageLength: 25,
@@ -88,8 +86,6 @@
             },
             columns: [
                 {data: "name"},
-                {data: "guard_name"},
-                {data: "permissions_count"},
                 {data: "created_at"},
                 {data: 'actions', name: 'actions', orderable: false, searchable: false},
             ]
