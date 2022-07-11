@@ -51,7 +51,11 @@ class CompanyController extends Controller
                             $row->getFirstMedia('logo')->getUrl('thumb'),
                         );
                     }
-                    return '<span class="badge badge-warning">No Image</span>';
+                    return sprintf(
+                        '<a href="%s" target="_blank"><img src="%s" width="50px" height="50px"></a>',
+                        asset('assets/img/website -images/company-building.jpg'),
+                        asset('assets/img/website -images/company-building.jpg')
+                    );
                 })
                 ->editColumn('departments', function ($row) {
                     if ($row->departments) {
@@ -146,7 +150,6 @@ class CompanyController extends Controller
 
         } catch (Exception $e) {
             DB::rollBack();
-            dd($e->getMessage());
             Alert::error('Error', 'Something went wrong, please try again');
             return redirect()->route('dashboard.companies.index');
         }

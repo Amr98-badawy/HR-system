@@ -72,6 +72,12 @@
                     <li>
                         <a class="slide-item" href="{{ route('dashboard.sections.index') }}">Sections</a>
                     </li>
+                    <li>
+                        <a class="slide-item" href="{{ route('dashboard.shifts.index') }}">Shifts</a>
+                    </li>
+                    <li>
+                        <a class="slide-item" href="{{ route('dashboard.employees.index') }}">Employees</a>
+                    </li>
                 </ul>
             </li>
 

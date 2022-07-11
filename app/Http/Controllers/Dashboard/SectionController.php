@@ -127,6 +127,7 @@ class SectionController extends Controller
 
     public function destroy(Section $section): RedirectResponse
     {
+        abort_if(!auth()->user()->can('delete_section'), Response::HTTP_FORBIDDEN, '403 Forbidden');
         $section->delete();
 
         Alert::warning('Warning', 'Record Deleted Successfully');

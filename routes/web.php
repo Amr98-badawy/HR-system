@@ -3,6 +3,7 @@
 use App\Http\Controllers\Dashboard\CompanyController;
 use App\Http\Controllers\Dashboard\DashboardPageController;
 use App\Http\Controllers\Dashboard\DepartmentController;
+use App\Http\Controllers\Dashboard\EmployeeController;
 use App\Http\Controllers\Dashboard\PermissionController;
 use App\Http\Controllers\Dashboard\RolesController;
 use App\Http\Controllers\Dashboard\SectionController;
@@ -38,6 +39,8 @@ Route::group(
         Route::resource('sections', SectionController::class);
 
         Route::resource('shifts', ShiftController::class);
+
+        Route::resource('employees', EmployeeController::class);
 
     });
 

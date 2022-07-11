@@ -113,7 +113,7 @@ class ShiftController extends Controller
         return view('dashboard.shift.edit', compact('shift'));
     }
 
-    public function update(UpdateShiftRequest $request, Shift $shift)
+    public function update(UpdateShiftRequest $request, Shift $shift): RedirectResponse
     {
         DB::beginTransaction();
 
