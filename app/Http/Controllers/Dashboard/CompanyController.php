@@ -110,8 +110,7 @@ class CompanyController extends Controller
     public function show(Company $company)
     {
         abort_if(!auth()->user()->can('show_company'), Response::HTTP_FORBIDDEN, '403 Forbidden');
-        $company->load('departments');
-        $company->withTranslation();
+        $company->load('departments.translations', 'departments.sections.translations', 'media');
         return view('dashboard.company.show', compact('company'));
     }
 
