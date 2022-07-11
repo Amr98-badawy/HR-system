@@ -5,6 +5,8 @@ use App\Http\Controllers\Dashboard\DashboardPageController;
 use App\Http\Controllers\Dashboard\DepartmentController;
 use App\Http\Controllers\Dashboard\PermissionController;
 use App\Http\Controllers\Dashboard\RolesController;
+use App\Http\Controllers\Dashboard\SectionController;
+use App\Http\Controllers\Dashboard\ShiftController;
 use App\Http\Controllers\Dashboard\UserController;
 use Illuminate\Support\Facades\Route;
 use Mcamara\LaravelLocalization\Facades\LaravelLocalization;
@@ -32,6 +34,10 @@ Route::group(
         Route::resource('companies', CompanyController::class);
 
         Route::resource('departments', DepartmentController::class);
+
+        Route::resource('sections', SectionController::class);
+
+        Route::resource('shifts', ShiftController::class);
 
     });
 

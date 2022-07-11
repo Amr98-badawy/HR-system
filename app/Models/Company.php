@@ -7,11 +7,15 @@ use Astrotomic\Translatable\Translatable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
+use Spatie\MediaLibrary\HasMedia;
+use Spatie\MediaLibrary\InteractsWithMedia;
+use Spatie\MediaLibrary\MediaCollections\Models\Media;
 
-class Company extends Model implements TranslatableContracts
+class Company extends Model implements TranslatableContracts, HasMedia
 {
     use HasFactory;
     use Translatable;
+    use InteractsWithMedia;
 
     protected $table = 'companies';
 
@@ -20,6 +24,17 @@ class Company extends Model implements TranslatableContracts
     protected array $translatedAttributes = [
         'name'
     ];
+
+    public function registerMediaCollections(): void
+    {
+        $this->addMediaCollection('logo')
+            ->singleFile();
+    }
+
+    public function registerMediaConversions(Media $media = null): void
+    {
+        $this->addMediaConversion('thumb')->fit('crop', 50, 50)->performOnCollections('logo');
+    }
 
     public function departments(): BelongsToMany
     {

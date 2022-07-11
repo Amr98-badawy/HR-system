@@ -72,11 +72,11 @@
                                                 <select class="form-control select2" name="companies[]" multiple>
                                                     <option label="Choose roles for user">
                                                     </option>
-                                                    @foreach($companies as $item)
+                                                    @foreach($companies as $key=>$item)
                                                         <option
-                                                            {{ in_array($item->id, old('companies', [])) ? 'selected' : '' }}
-                                                            value="{{ $item->id }}">
-                                                            {{ $item->name }}
+                                                            {{ in_array($key, old('companies', [])) ? 'selected' : '' }}
+                                                            value="{{ $key }}">
+                                                            {{ $item }}
                                                         </option>
                                                     @endforeach
                                                 </select>

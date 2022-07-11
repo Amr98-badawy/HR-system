@@ -79,7 +79,7 @@ class DepartmentController extends Controller
     public function create()
     {
         abort_if(!auth()->user()->can('create_department'), Response::HTTP_FORBIDDEN, '403 Forbidden');
-        $companies = Company::query()->withTranslation()->get();
+        $companies = Company::query()->listsTranslations('name')->pluck('name','id');
         return view('dashboard.department.create', compact('companies'));
     }
 
@@ -94,7 +94,7 @@ class DepartmentController extends Controller
     {
         abort_if(!auth()->user()->can('edit_department'), Response::HTTP_FORBIDDEN, '403 Forbidden');
         $department->load('companies');
-        $companies = Company::query()->withTranslation()->get();
+        $companies = Company::query()->listsTranslations('name')->pluck('name','id');
         return view('dashboard.department.edit', compact([
             'department',
             'companies'

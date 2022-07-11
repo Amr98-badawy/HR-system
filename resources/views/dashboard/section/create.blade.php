@@ -7,7 +7,7 @@
     <div class="breadcrumb-header justify-content-between">
         <div class="my-auto">
             <div class="d-flex">
-                <h4 class="content-title mb-0 my-auto">Dashboard</h4><span class="text-muted mt-1 tx-13 mr-2 mb-0"> / create / company</span>
+                <h4 class="content-title mb-0 my-auto">Dashboard</h4><span class="text-muted mt-1 tx-13 mr-2 mb-0"> / create / section</span>
             </div>
         </div>
     </div>
@@ -22,13 +22,13 @@
 
                 <div class="card-header pb-0">
                     <div class="d-flex justify-content-between">
-                        <h4 class="card-title mg-b-0">Add New company</h4>
+                        <h4 class="card-title mg-b-0">Add New Section</h4>
                         <i class="mdi mdi-dots-horizontal text-gray"></i>
                     </div>
                 </div>
 
                 <div class="card-body">
-                    <form method="post" action="{{ route('dashboard.companies.store') }}" data-parsley-validate="" enctype="multipart/form-data">
+                    <form method="post" action="{{ route('dashboard.sections.store') }}" data-parsley-validate="">
                         @csrf
                         <div class="row row-sm mg-b-20">
                             <div class="col-md-12 col-xl-12 col-xs-12 col-sm-12">
@@ -38,7 +38,7 @@
 
                                             @foreach(siteLanguages() as $locale)
                                                 <div class="col-md-6 col-lg-6 mg-t-20 mg-md-t-0">
-                                                    <label id="email" class="form-control-label"> Company
+                                                    <label id="email" class="form-control-label"> Section
                                                         Name {{$locale}}:
                                                         <span class="tx-danger">*</span>
                                                     </label>
@@ -68,39 +68,19 @@
                                     <div class="card-body">
                                         <div class="row">
                                             <div class="col-md-12 col-lg-12 mg-t-20 mg-md-t-0">
-                                                <div class="form-group">
-                                                    <label for="logo" class="mg-b-10"> logo: </label>
-                                                    <input type="file" name="logo" id="logo" class="form-control">
-                                                    @error('logo')
-                                                    <p class="text-danger">{{ $message }}</p>
-                                                    @enderror
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="row row-sm mg-b-20">
-                            <div class="col-md-12 col-xl-12 col-xs-12 col-sm-12">
-                                <div class="card">
-                                    <div class="card-body">
-                                        <div class="row">
-                                            <div class="col-md-12 col-lg-12 mg-t-20 mg-md-t-0">
-                                                <p class="mg-b-10"> Departments: </p>
-                                                <select class="form-control select2" name="departments[]" multiple>
+                                                <p class="mg-b-10"> Department: </p>
+                                                <select class="form-control select2" name="department_id">
                                                     <option label="Choose roles for user">
                                                     </option>
                                                     @foreach($departments as $key=>$item)
                                                         <option
-                                                            {{ in_array($key, old('departments', [])) ? 'selected' : '' }}
+                                                            {{ old('department_id') == $key ? 'selected' : '' }}
                                                             value="{{ $key }}">
                                                             {{ $item }}
                                                         </option>
                                                     @endforeach
                                                 </select>
-                                                @error('departments')
+                                                @error('department_id')
                                                 <p class="text-danger">{{ $message }}</p>
                                                 @enderror
                                             </div>

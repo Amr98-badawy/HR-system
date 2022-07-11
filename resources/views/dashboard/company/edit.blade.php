@@ -29,7 +29,7 @@
 
                 <div class="card-body">
                     <form method="post" action="{{ route('dashboard.companies.update', $company->id) }}"
-                          data-parsley-validate="">
+                          data-parsley-validate="" enctype="multipart/form-data">
                         @method('PUT')
                         @csrf
                         <div class="row row-sm mg-b-20">
@@ -70,15 +70,35 @@
                                     <div class="card-body">
                                         <div class="row">
                                             <div class="col-md-12 col-lg-12 mg-t-20 mg-md-t-0">
+                                                <div class="form-group">
+                                                    <label for="logo" class="mg-b-10"> logo: </label>
+                                                    <input type="file" name="logo" id="logo" class="form-control">
+                                                    @error('logo')
+                                                    <p class="text-danger">{{ $message }}</p>
+                                                    @enderror
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row row-sm mg-b-20">
+                            <div class="col-md-12 col-xl-12 col-xs-12 col-sm-12">
+                                <div class="card">
+                                    <div class="card-body">
+                                        <div class="row">
+                                            <div class="col-md-12 col-lg-12 mg-t-20 mg-md-t-0">
                                                 <p class="mg-b-10"> Departments: </p>
                                                 <select class="form-control select2" name="departments[]" multiple>
                                                     <option label="Choose roles for user">
                                                     </option>
-                                                    @foreach($departments as $item)
+                                                    @foreach($departments as $key=>$item)
                                                         <option
-                                                            {{ in_array($item->id, old('departments', [])) || $company->departments->contains($item->id) ? 'selected' : '' }}
-                                                            value="{{ $item->id }}">
-                                                            {{ $item->name }}
+                                                            {{ in_array($key, old('departments', [])) || $company->departments->contains($key) ? 'selected' : '' }}
+                                                            value="{{ $key }}">
+                                                            {{ $item }}
                                                         </option>
                                                     @endforeach
                                                 </select>

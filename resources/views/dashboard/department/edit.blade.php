@@ -71,14 +71,14 @@
                                         <div class="row">
                                             <div class="col-md-12 col-lg-12 mg-t-20 mg-md-t-0">
                                                 <p class="mg-b-10"> Companies: </p>
-                                                <select class="form-control select2" name="departments[]" multiple>
+                                                <select class="form-control select2" name="companies[]" multiple>
                                                     <option label="Choose roles for user">
                                                     </option>
-                                                    @foreach($companies as $item)
+                                                    @foreach($companies as $key=>$item)
                                                         <option
-                                                            {{ in_array($item->id, old('companies', [])) || $department->companies->contains($item->id) ? 'selected' : '' }}
-                                                            value="{{ $item->id }}">
-                                                            {{ $item->name }}
+                                                            {{ in_array($key, old('companies', [])) || $department->companies->contains($key) ? 'selected' : '' }}
+                                                            value="{{ $key }}">
+                                                            {{ $item }}
                                                         </option>
                                                     @endforeach
                                                 </select>

@@ -69,6 +69,9 @@
                     <li>
                         <a class="slide-item" href="{{ route('dashboard.departments.index') }}">Departments</a>
                     </li>
+                    <li>
+                        <a class="slide-item" href="{{ route('dashboard.sections.index') }}">Sections</a>
+                    </li>
                 </ul>
             </li>
 

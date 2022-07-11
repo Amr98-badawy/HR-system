@@ -15,6 +15,11 @@ class CompanyUpdateRequest extends FormRequest
     public function rules(): array
     {
         $data = [
+            'logo' => [
+                'nullable',
+                'image',
+                'mimes:png,svg,webp,jpg,jpeg'
+            ],
             'departments' => [
                 'sometimes'
             ],

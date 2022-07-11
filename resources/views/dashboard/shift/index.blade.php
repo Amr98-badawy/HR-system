@@ -13,7 +13,7 @@
     <div class="breadcrumb-header justify-content-between">
         <div class="my-auto">
             <div class="d-flex">
-                <h4 class="content-title mb-0 my-auto">Dashboard</h4><span class="text-muted mt-1 tx-13 mr-2 mb-0">/ Users</span>
+                <h4 class="content-title mb-0 my-auto">Dashboard</h4><span class="text-muted mt-1 tx-13 mr-2 mb-0">/ Shifts</span>
             </div>
         </div>
     </div>
@@ -27,8 +27,8 @@
         <div class="card mg-b-20">
             <div class="card-header pb-0">
                 <div class="d-flex justify-content-between">
-                    <h4 class="card-title mg-b-0">Users Table</h4>
-                    <a href="{{ route('dashboard.companies.create') }}" class="btn btn-success">Create</a>
+                    <h4 class="card-title mg-b-0">Shifts Table</h4>
+                    <a href="{{ route('dashboard.shifts.create') }}" class="btn btn-success">Create</a>
                 </div>
             </div>
             <div class="card-body">
@@ -37,9 +37,10 @@
                         <thead>
                         <tr>
                             <th class="border-bottom-0">Name</th>
-                            <th class="border-bottom-0">Logo</th>
-                            <th class="border-bottom-0">Departments</th>
-                            <th class="border-bottom-0">Created At</th>
+                            <th class="border-bottom-0">from</th>
+                            <th class="border-bottom-0">to</th>
+                            <th class="border-bottom-0">extra time</th>
+                            <th class="border-bottom-0">active</th>
                             <th class="border-bottom-0">Actions</th>
                         </tr>
                         </thead>
@@ -77,7 +78,7 @@
             serverSide: true,
             processing: true,
             lengthChange: false,
-            ajax: "{{ route('dashboard.companies.index') }}",
+            ajax: "{{ route('dashboard.shifts.index') }}",
             buttons: ['copy', 'excel', 'pdf', 'colvis'],
             responsive: true,
             pageLength: 25,
@@ -88,9 +89,10 @@
             },
             columns: [
                 {data: "name"},
-                {data: "logo"},
-                {data: "departments"},
-                {data: "created_at"},
+                {data: "from"},
+                {data: "to"},
+                {data: "extra_time"},
+                {data: "active"},
                 {data: 'actions', name: 'actions', orderable: false, searchable: false},
             ]
         });

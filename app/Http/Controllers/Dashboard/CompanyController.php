@@ -7,7 +7,6 @@ use App\Http\Requests\Companies\CompanyStoreRequest;
 use App\Http\Requests\Companies\CompanyUpdateRequest;
 use App\Models\Company;
 use App\Models\Department;
-use App\Models\User;
 use Exception;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
@@ -24,7 +23,7 @@ class CompanyController extends Controller
         abort_if(!auth()->user()->can('access_company'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
         if ($request->ajax()) {
-            $query = Company::query()->with('departments')->latest()->get();
+            $query = Company::query()->with('departments', 'media')->latest()->get();
 
             return DataTables::of($query)
                 ->addColumn('actions', function ($row) {
@@ -44,6 +43,16 @@ class CompanyController extends Controller
                         'show',
                     ]));
                 })
+                ->editColumn('logo', function ($row) {
+                    if ($row->getFirstMedia('logo')) {
+                        return sprintf(
+                            '<a href="%s" target="_blank"><img src="%s" width="50px" height="50px"></a>',
+                            $row->getFirstMedia('logo')->getUrl(),
+                            $row->getFirstMedia('logo')->getUrl('thumb'),
+                        );
+                    }
+                    return '<span class="badge badge-warning">No Image</span>';
+                })
                 ->editColumn('departments', function ($row) {
                     if ($row->departments) {
                         $links = [];
@@ -57,7 +66,7 @@ class CompanyController extends Controller
                 ->editColumn('created_at', function ($row) {
                     return $row->created_at ? $row->created_at->format('Md Y') : '';
                 })
-                ->rawColumns(['actions', 'departments', 'created_at'])
+                ->rawColumns(['actions', 'logo', 'departments', 'created_at'])
                 ->make(true);
         }
 
@@ -70,7 +79,11 @@ class CompanyController extends Controller
 
         try {
 
-            $company = Company::query()->create($request->except('departments'));
+            $company = Company::query()->create($request->except('departments', 'logo'));
+
+            if ($request->hasFile('logo')) {
+                $company->addMedia($request->file('logo'))->toMediaCollection('logo');
+            }
 
             $company->departments()->sync($request->departments ?? []);
 
@@ -90,13 +103,14 @@ class CompanyController extends Controller
     public function create()
     {
         abort_if(!auth()->user()->can('create_company'), Response::HTTP_FORBIDDEN, '403 Forbidden');
-        $departments = Department::query()->withTranslation()->get();
+        $departments = Department::query()->listsTranslations('name')->pluck('name', 'id');
         return view('dashboard.company.create', compact('departments'));
     }
 
     public function show(Company $company)
     {
         abort_if(!auth()->user()->can('show_company'), Response::HTTP_FORBIDDEN, '403 Forbidden');
+        $company->load('departments');
         $company->withTranslation();
         return view('dashboard.company.show', compact('company'));
     }
@@ -106,7 +120,7 @@ class CompanyController extends Controller
         abort_if(!auth()->user()->can('edit_company'), Response::HTTP_FORBIDDEN, '403 Forbidden');
         $company->load('departments');
         $company->withTranslation();
-        $departments = Department::query()->withTranslation()->get();
+        $departments = Department::query()->listsTranslations('name')->pluck('name', 'id');
         return view('dashboard.company.edit', compact('company', 'departments'));
     }
 
@@ -117,7 +131,11 @@ class CompanyController extends Controller
 
         try {
 
-            $company->update($request->except('departments'));
+            $company->update($request->except('departments', 'logo'));
+
+            if ($request->hasFile('logo')) {
+                $company->addMedia($request->file('logo'))->toMediaCollection('logo');
+            }
 
             $company->departments()->sync($request->departments ?? []);
 
@@ -129,6 +147,7 @@ class CompanyController extends Controller
 
         } catch (Exception $e) {
             DB::rollBack();
+            dd($e->getMessage());
             Alert::error('Error', 'Something went wrong, please try again');
             return redirect()->route('dashboard.companies.index');
         }
