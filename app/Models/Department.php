@@ -31,4 +31,9 @@ class Department extends Model implements TranslatableContracts
     {
         return $this->hasMany(Section::class);
     }
+
+    public function employees(): HasMany
+    {
+        return $this->hasMany(Employee::class);
+    }
 }

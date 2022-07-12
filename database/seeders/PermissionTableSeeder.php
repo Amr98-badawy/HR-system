@@ -170,6 +170,31 @@ class PermissionTableSeeder extends Seeder
         ]);
 
         Permission::create([
+            'name' => 'access_shift',
+            'guard_name' => 'web'
+        ]);
+
+        Permission::create([
+            'name' => 'create_shift',
+            'guard_name' => 'web'
+        ]);
+
+        Permission::create([
+            'name' => 'edit_shift',
+            'guard_name' => 'web'
+        ]);
+
+        Permission::create([
+            'name' => 'show_shift',
+            'guard_name' => 'web'
+        ]);
+
+        Permission::create([
+            'name' => 'delete_shift',
+            'guard_name' => 'web'
+        ]);
+
+        Permission::create([
             'name' => 'access_employee',
             'guard_name' => 'web'
         ]);
