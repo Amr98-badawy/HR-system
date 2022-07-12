@@ -29,19 +29,7 @@ class EmployeeController extends Controller
         abort_if(!auth()->user()->can('access_employee'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
         if ($request->ajax()) {
-            $query = Employee::query()->with('media')
-                ->with('company', function ($query) {
-                    $query->listsTranslations('name')->pluck('name');
-                })
-                ->with('department', function ($query) {
-                    $query->listsTranslations('name')->pluck('name');
-                })
-                ->with('section', function ($query) {
-                    $query->listsTranslations('name')->pluck('name');
-                })
-                ->with('shift', function ($query) {
-                    $query->listsTranslations('name')->pluck('name');
-                })->latest()->get();
+            $query = Employee::query()->with(['media', 'company.translations', 'department.translations', 'section.translations', 'shift'])->latest()->get();
 
             return DataTables::of($query)
                 ->addColumn('actions', function ($row) {
@@ -97,6 +85,12 @@ class EmployeeController extends Controller
                     }
                     return '';
                 })
+                ->editColumn('salary', function ($row) {
+                    if ($row->salary) {
+                        return $row->salary . 'EGP';
+                    }
+                    return '';
+                })
                 ->editColumn('office_tel', function ($row) {
                     if ($row->office_tel) {
                         return sprintf(
@@ -121,7 +115,7 @@ class EmployeeController extends Controller
                         asset('assets/img/Avatar/user-avatar.png'),
                     );
                 })
-                ->rawColumns(['photo', 'company', 'department', 'section', 'shift', 'date_of_employment', 'actions'])
+                ->rawColumns(['photo', 'company', 'department', 'section', 'shift', 'date_of_employment', 'office_tel', 'salary', 'actions'])
                 ->make(true);
         }
 
@@ -133,31 +127,31 @@ class EmployeeController extends Controller
         DB::beginTransaction();
 
         try {
-//            $company = Company::query()->whereTranslation('company_id', $request->company_id)
-//                ->listsTranslations('name')
-//                ->pluck('name')
-//                ->first()[0];
-//            $department = Department::query()->whereTranslation('department_id', $request->department_id)
-//                ->listsTranslations('name')
-//                ->pluck('name')
-//                ->first()[0];
-//            $section = Section::query()->whereTranslation('section_id', $request->section_id)
-//                ->listsTranslations('name')
-//                ->pluck('name')
-//                ->first()[0];
-//
-//            $str = "{$company}{$department}{$section}";
+            $company = Company::query()->whereTranslation('company_id', $request->company_id)
+                ->listsTranslations('name')
+                ->pluck('name')
+                ->first()[0];
+            $department = Department::query()->whereTranslation('department_id', $request->department_id)
+                ->listsTranslations('name')
+                ->pluck('name')
+                ->first()[0];
+            $section = Section::query()->whereTranslation('section_id', $request->section_id)
+                ->listsTranslations('name')
+                ->pluck('name')
+                ->first()[0];
+
+            $str = "{$company}{$department}{$section}";
 
             $employee = Employee::query()->create([
-                'slug' => Str::slug("{$request->first_name} {$request->second_name} {$request->family_name}"),
-                'account_no' => $this->generateUniqueCode($request->str, Employee::class, 'account_id'),
+                'slug' => $request->slug,
+                'account_no' => $this->generateUniqueCode($str, new Employee(), 'account_no', 100, 999999),
                 'first_name' => $request->first_name,
                 'second_name' => $request->second_name,
                 'family_name' => $request->family_name,
                 'gender' => $request->gender,
                 'job_title' => $request->job_title,
                 'date_of_birth' => $request->date_of_birth,
-                'id_Card' => $request->id_Card,
+                'id_card' => $request->id_card,
                 'address' => $request->address,
                 'mobile' => $request->mobile,
                 'date_of_employment' => $request->date_of_employment,

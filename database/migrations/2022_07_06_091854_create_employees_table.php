@@ -21,6 +21,9 @@ class CreateEmployeesTable extends Migration
             $table->string('first_name');
             $table->string('second_name');
             $table->string('family_name');
+            $table->string('id_card');
+            $table->text('address');
+            $table->text('mobile');
             $table->string('gender', 1);
             $table->string('job_title');
             $table->date('date_of_birth');
@@ -29,6 +32,8 @@ class CreateEmployeesTable extends Migration
             $table->string('nationality');
             $table->integer('salary');
             $table->string('bank_account');
+            $table->unique('slug');
+            $table->unique('account_no');
             $table->timestamps();
         });
     }

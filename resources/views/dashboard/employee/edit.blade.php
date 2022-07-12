@@ -9,7 +9,7 @@
         <div class="my-auto">
             <div class="d-flex">
                 <h4 class="content-title mb-0 my-auto"><a href="{{route("dashboard.home")}}">Dashboard</a></h4><span
-                    class="text-muted mt-1 tx-13 mr-2 mb-0">/create / Employees</span>
+                    class="text-muted mt-1 tx-13 mr-2 mb-0">/Update / Employees</span>
             </div>
         </div>
     </div>
@@ -28,11 +28,19 @@
                         <i class="mdi mdi-dots-horizontal text-gray"></i>
                     </div>
                 </div>
-
+                @if ($errors->any())
+                    <div class="alert alert-danger">
+                        <ul class="list-unstyled">
+                            @foreach ($errors->all() as $error)
+                                <li>{{ $error }}</li>
+                            @endforeach
+                        </ul>
+                    </div>
+                @endif
                 <div class="card-body">
-                    <form method="post" action="{{ route('dashboard.employees.update', $employee->slug) }}"
-                          data-parsley-validate=""
+                    <form method="post" action="{{ route('dashboard.employees.update', $employee->slug) }}" data-parsley-validate=""
                           enctype="multipart/form-data">
+                        @method('PUT')
                         @csrf
 
                         <div class="row row-sm mg-b-20">
@@ -48,8 +56,7 @@
                                                        id="first_name"
                                                        name="first_name"
                                                        placeholder="First Name"
-                                                       value="{{ old('first_name') }}"
-                                                       required
+                                                       value="{{ old('first_name', $employee->first_name) }}"
                                                        type="text">
                                                 @error('first_name')
                                                 <p class="text-danger">{{ $message }}</p>
@@ -60,20 +67,20 @@
                                                         class="tx-danger">*</span></label>
                                                 <input class="form-control @error('second_name') is-invalid @enderror"
                                                        id="second_name" name="second_name"
-                                                       value="{{ old('second_name') }}"
-                                                       placeholder="Second Name" required type="text">
+                                                       value="{{ old('second_name',$employee->second_name) }}"
+                                                       placeholder="Second Name" type="text">
                                                 @error('second_name')
                                                 <p class="text-danger">{{ $message }}</p>
                                                 @enderror
                                             </div>
                                             <div class="col-md-5 col-lg-4 mg-t-20 mg-md-t-0">
-                                                <label id="last_name" class="form-control-label">Family Name <span
+                                                <label id="family_name" class="form-control-label">Family Name <span
                                                         class="tx-danger">*</span></label>
-                                                <input class="form-control @error('last_name') is-invalid @enderror"
-                                                       id="last_name" name="last_name"
-                                                       value="{{ old('last_name') }}"
-                                                       placeholder="Family Name" required type="text">
-                                                @error('last_name')
+                                                <input class="form-control @error('family_name') is-invalid @enderror"
+                                                       id="family_name" name="family_name"
+                                                       value="{{ old('family_name',$employee->family_name) }}"
+                                                       placeholder="Family Name" type="text">
+                                                @error('family_name')
                                                 <p class="text-danger">{{ $message }}</p>
                                                 @enderror
                                             </div>
@@ -96,7 +103,7 @@
                                                     <option label="Choose Gender"></option>
                                                     @foreach(App\Models\Employee::GENDER as $key=>$item)
                                                         <option
-                                                            value="{{ $key }}" {{ old('gender', '') == $key ? 'selected' : '' }}>{{ $item }}</option>
+                                                            value="{{ $key }}" {{ old('gender') ==$key || $employee->gender == $key ? 'selected' : '' }}>{{ $item }}</option>
                                                     @endforeach
                                                 </select>
                                                 @error('gender')
@@ -109,8 +116,8 @@
                                                         class="tx-danger">*</span></label>
                                                 <input class="form-control @error('job_title') is-invalid @enderror"
                                                        id="job_title" name="job_title"
-                                                       value="{{ old('job_title') }}"
-                                                       placeholder="Job Title" required type="text">
+                                                       value="{{ old('job_title',$employee->job_title) }}"
+                                                       placeholder="Job Title" type="text">
                                                 @error('job_title')
                                                 <p class="text-danger">{{ $message }}</p>
                                                 @enderror
@@ -121,8 +128,8 @@
                                                         class="tx-danger">*</span></label>
                                                 <input class="form-control @error('id_card') is-invalid @enderror"
                                                        id="id_card" name="id_card"
-                                                       value="{{ old('id_card') }}"
-                                                       placeholder="ID Card Number" required type="text">
+                                                       value="{{ old('id_card',$employee->id_card) }}"
+                                                       placeholder="ID Card Number" type="text">
                                                 @error('id_card')
                                                 <p class="text-danger">{{ $message }}</p>
                                                 @enderror
@@ -133,8 +140,8 @@
                                                         class="tx-danger">*</span></label>
                                                 <input class="form-control @error('mobile') is-invalid @enderror"
                                                        id="mobile" name="mobile"
-                                                       value="{{ old('mobile') }}"
-                                                       placeholder="Mobile Number" required type="text">
+                                                       value="{{ old('mobile',$employee->mobile) }}"
+                                                       placeholder="Mobile Number" type="text">
                                                 @error('mobile')
                                                 <p class="text-danger">{{ $message }}</p>
                                                 @enderror
@@ -146,7 +153,7 @@
                                                 <label for="address" class="form-control-label">Address: <span
                                                         class="tx-danger">*</span></label>
                                                 <textarea name="address" id="address" rows="5"
-                                                          class="form-control">{{ old('address') }}</textarea>
+                                                          class="form-control">{{ old('address',$employee->address) }}</textarea>
                                             </div>
                                         </div>
                                     </div>
@@ -167,8 +174,8 @@
                                                        id="date_of_birth"
                                                        name="date_of_birth"
                                                        placeholder="Date Of Birth"
-                                                       value="{{ old('date_of_birth') }}"
-                                                       required
+                                                       value="{{ old('date_of_birth',$employee->date_of_birth->format('Y-m-d')) }}"
+
                                                        type="date">
                                                 @error('date_of_birth')
                                                 <p class="text-danger">{{ $message }}</p>
@@ -185,8 +192,7 @@
                                                     id="date_of_employment"
                                                     name="date_of_employment"
                                                     placeholder="Date Of Employment"
-                                                    value="{{ old('date_of_employment') }}"
-                                                    required
+                                                    value="{{ old('date_of_employment', $employee->date_of_employment->format('Y-m-d')) }}"
                                                     type="date">
                                                 @error('date_of_employment')
                                                 <p class="text-danger">{{ $message }}</p>
@@ -212,8 +218,8 @@
                                                        id="nationality"
                                                        name="nationality"
                                                        placeholder="Nationality"
-                                                       value="{{ old('nationality') }}"
-                                                       required
+                                                       value="{{ old('nationality',$employee->nationality) }}"
+
                                                        type="text">
                                                 @error('nationality')
                                                 <p class="text-danger">{{ $message }}</p>
@@ -228,8 +234,8 @@
                                                        id="office_tel"
                                                        name="office_tel"
                                                        placeholder="Office Telephone"
-                                                       value="{{ old('office_tel') }}"
-                                                       required
+                                                       value="{{ old('office_tel',$employee->office_tel) }}"
+
                                                        type="tel">
                                                 @error('office_tel')
                                                 <p class="text-danger">{{ $message }}</p>
@@ -244,8 +250,8 @@
                                                        id="salary"
                                                        name="salary"
                                                        placeholder="Salary"
-                                                       value="{{ old('salary') }}"
-                                                       required
+                                                       value="{{ old('salary',$employee->salary) }}"
+
                                                        type="number"
                                                        step="0.01">
                                                 @error('salary')
@@ -261,8 +267,8 @@
                                                        id="bank_account"
                                                        name="bank_account"
                                                        placeholder="Bank Account"
-                                                       value="{{ old('salary') }}"
-                                                       required
+                                                       value="{{ old('bank_account',$employee->bank_account) }}"
+
                                                        type="text">
                                                 @error('bank_account')
                                                 <p class="text-danger">{{ $message }}</p>
@@ -289,7 +295,7 @@
                                                     <option label="Choose Company"></option>
                                                     @foreach($companies as $key=>$item)
                                                         <option
-                                                            value="{{ $key }}" {{ old('company_id', '') == $key ? 'selected' : '' }}>{{ $item }}</option>
+                                                            value="{{ $key }}" {{ old('company_id', '') == $key || $employee->company_id == $key ? 'selected' : '' }}>{{ $item }}</option>
                                                     @endforeach
                                                 </select>
                                                 @error('company_id')
@@ -306,7 +312,7 @@
                                                     <option label="Choose Department"></option>
                                                     @foreach($departments as $key=>$item)
                                                         <option
-                                                            value="{{ $key }}" {{ old('department_id', '') == $key ? 'selected' : '' }}>{{ $item }}</option>
+                                                            value="{{ $key }}" {{ old('department_id', '') == $key || $employee->department_id == $key ? 'selected' : '' }}>{{ $item }}</option>
                                                     @endforeach
                                                 </select>
                                                 @error('department_id')
@@ -322,7 +328,7 @@
                                                     <option label="Choose Section"></option>
                                                     @foreach($sections as $key=>$item)
                                                         <option
-                                                            value="{{ $key }}" {{ old('section_id', '') == $key ? 'selected' : '' }}>{{ $item }}</option>
+                                                            value="{{ $key }}" {{ old('section_id', '') == $key || $employee->section_id == $key ? 'selected' : '' }}>{{ $item }}</option>
                                                     @endforeach
                                                 </select>
                                                 @error('section_id')
@@ -338,7 +344,7 @@
                                                     <option label="Choose Shift"></option>
                                                     @foreach($shifts as $key=>$item)
                                                         <option
-                                                            value="{{ $key }}" {{ old('shift_id', '') == $key ? 'selected' : '' }}>{{ $item }}</option>
+                                                            value="{{ $key }}" {{ old('shift_id', '') == $key || $employee->shift_id == $key ? 'selected' : '' }}>{{ $item }}</option>
                                                     @endforeach
                                                 </select>
                                                 @error('shift_id')
@@ -372,7 +378,6 @@
                                             <div class="col-md-4 col-lg-4 mg-t-20 mg-md-t-0">
                                                 <label for="birth_certificate" class="form-control-label">Employee Birth
                                                     Certificate:
-                                                    <span class="tx-danger">*</span>
                                                 </label>
                                                 <input type="file" name="birth_certificate" id="birth_certificate"
                                                        class="form-control @error('birth_certificate') is-invalid @enderror">
@@ -384,7 +389,6 @@
                                             <div class="col-md-4 col-lg-4 mg-t-20 mg-md-t-0">
                                                 <label for="collage_certificate" class="form-control-label">Employee
                                                     Collage Certificate:
-                                                    <span class="tx-danger">*</span>
                                                 </label>
                                                 <input type="file" name="collage_certificate" id="collage_certificate"
                                                        class="form-control @error('collage_certificate') is-invalid @enderror">
@@ -408,7 +412,6 @@
                                             <div class="col-md-6 col-lg-6">
                                                 <label for="military_status" class="form-control-label">Employee
                                                     Military Status:
-                                                    <span class="tx-danger">*</span>
                                                 </label>
                                                 <input type="file" name="military_status" id="military_status"
                                                        class="form-control @error('military_status') is-invalid @enderror">
@@ -420,7 +423,6 @@
                                             <div class="col-md-6 col-lg-6 mg-t-20 mg-md-t-0">
                                                 <label for="criminal_record" class="form-control-label">Employee
                                                     Criminal Record:
-                                                    <span class="tx-danger">*</span>
                                                 </label>
                                                 <input type="file" name="criminal_record" id="criminal_record"
                                                        class="form-control @error('criminal_record') is-invalid @enderror">
@@ -444,7 +446,6 @@
                                             <div class="col-md-12 col-lg-12">
                                                 <label for="additional_files" class="form-control-label">Employee
                                                     Additional files:
-                                                    <span class="tx-danger">*</span>
                                                 </label>
                                                 <input type="file" name="additional_files[]" multiple
                                                        id="additional_files"
