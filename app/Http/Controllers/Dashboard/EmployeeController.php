@@ -206,13 +206,9 @@ class EmployeeController extends Controller
     {
         abort_if(!auth()->user()->can('create_company'), Response::HTTP_FORBIDDEN, '403 Forbidden');
         $companies = Company::query()->listsTranslations('name')->pluck('name', 'id');
-        $departments = Department::query()->listsTranslations('name')->pluck('name', 'id');
-        $sections = Section::query()->listsTranslations('name')->pluck('name', 'id');
         $shifts = Shift::query()->pluck('name', 'id');
         return view('dashboard.employee.create', compact([
-            'departments',
             'companies',
-            'sections',
             'shifts',
         ]));
     }
@@ -303,6 +299,38 @@ class EmployeeController extends Controller
             Alert::error('Error', 'Something went wrong, Please try again');
             return redirect()->route('dashboard.employees.index');
         }
+    }
+
+    public function getDepartments(Company $company)
+    {
+        $departments = Department::query()->whereHas('companies', function ($query) use ($company) {
+            $query->where('company_id', $company->id);
+        })->listsTranslations('name')->pluck('name', 'id');
+
+        $data = collect($departments)->map(function ($name, $id) {
+            return [
+                'id' => $id,
+                'name' => $name
+            ];
+        });
+
+        return json_encode($data);
+    }
+
+    public function getSections(Department $department)
+    {
+        $sections = Section::query()->whereHas('department', function ($query) use ($department) {
+            $query->where('department_id', $department->id);
+        })->listsTranslations('name')->pluck('name', 'id');
+
+        $data = collect($sections)->map(function ($name, $id) {
+            return [
+                'id' => $id,
+                'name' => $name
+            ];
+        });
+
+        return json_encode($data);
     }
 
     public function destroy(Employee $employee): RedirectResponse

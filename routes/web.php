@@ -40,6 +40,8 @@ Route::group(
 
         Route::resource('shifts', ShiftController::class);
 
+        Route::get('get-departments/{company}', [EmployeeController::class, 'getDepartments'])->name('employee.getDepartments');
+        Route::get('get-sections/{department}', [EmployeeController::class, 'getSections'])->name('employee.getSections');
         Route::resource('employees', EmployeeController::class);
 
     });

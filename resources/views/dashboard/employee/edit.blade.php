@@ -482,4 +482,59 @@
     <script src="{{URL::asset('assets/js/form-elements.js')}}"></script>
     <!-- Internal Form-validation js -->
     <script src="{{URL::asset('assets/js/form-validation.js')}}"></script>
+
+    <script>
+        $(document).ready(function () {
+
+            $('#company_id').on('change', function () {
+
+                let companyId = $(this).val()
+
+                $('#department_id').empty()
+                $('#department_id').html("<option label='Choose Department'></option>")
+
+                $.ajax({
+                    type: 'get',
+                    url: '{{ url('/admin/get-departments') }}/' + companyId,
+                    success: function (response) {
+                        var response = JSON.parse(response)
+                        var data = $.map(response, function (value, index) {
+                            return [value]
+                        })
+
+                        data.forEach((element) => {
+                            $('#department_id').append(`'<option value="${element['id']}">${element['name']}</option>'`)
+                        })
+
+                    }
+                })
+
+            })
+
+            $('#department_id').on('change', function(){
+                let departmentId = $(this).val()
+
+                $('#section_id').empty()
+                $('#section_id').html("<option label='Choose Section'></option>")
+                $.ajax({
+                    type: 'get',
+                    url: '{{ url('/admin/get-sections') }}/' + departmentId,
+                    success: function (response) {
+                        var response = JSON.parse(response)
+                        var data = $.map(response, function (value, index) {
+                            return [value]
+                        })
+
+
+
+                        data.forEach((element) => {
+                            $('#section_id').append(`'<option value="${element['id']}">${element['name']}</option>'`)
+                        })
+
+                    }
+                })
+            })
+
+        })
+    </script>
 @endsection

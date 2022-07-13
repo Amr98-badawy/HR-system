@@ -59,7 +59,7 @@
                                                 <input class="form-control @error('second_name') is-invalid @enderror"
                                                        id="second_name" name="second_name"
                                                        value="{{ old('second_name') }}"
-                                                       placeholder="Second Name"  type="text">
+                                                       placeholder="Second Name" type="text">
                                                 @error('second_name')
                                                 <p class="text-danger">{{ $message }}</p>
                                                 @enderror
@@ -70,7 +70,7 @@
                                                 <input class="form-control @error('family_name') is-invalid @enderror"
                                                        id="family_name" name="family_name"
                                                        value="{{ old('family_name') }}"
-                                                       placeholder="Family Name"  type="text">
+                                                       placeholder="Family Name" type="text">
                                                 @error('family_name')
                                                 <p class="text-danger">{{ $message }}</p>
                                                 @enderror
@@ -108,7 +108,7 @@
                                                 <input class="form-control @error('job_title') is-invalid @enderror"
                                                        id="job_title" name="job_title"
                                                        value="{{ old('job_title') }}"
-                                                       placeholder="Job Title"  type="text">
+                                                       placeholder="Job Title" type="text">
                                                 @error('job_title')
                                                 <p class="text-danger">{{ $message }}</p>
                                                 @enderror
@@ -120,7 +120,7 @@
                                                 <input class="form-control @error('id_card') is-invalid @enderror"
                                                        id="id_card" name="id_card"
                                                        value="{{ old('id_card') }}"
-                                                       placeholder="ID Card Number"  type="text">
+                                                       placeholder="ID Card Number" type="text">
                                                 @error('id_card')
                                                 <p class="text-danger">{{ $message }}</p>
                                                 @enderror
@@ -132,7 +132,7 @@
                                                 <input class="form-control @error('mobile') is-invalid @enderror"
                                                        id="mobile" name="mobile"
                                                        value="{{ old('mobile') }}"
-                                                       placeholder="Mobile Number"  type="text">
+                                                       placeholder="Mobile Number" type="text">
                                                 @error('mobile')
                                                 <p class="text-danger">{{ $message }}</p>
                                                 @enderror
@@ -302,10 +302,6 @@
                                                 <select name="department_id" id="department_id"
                                                         class="form-control select2">
                                                     <option label="Choose Department"></option>
-                                                    @foreach($departments as $key=>$item)
-                                                        <option
-                                                            value="{{ $key }}" {{ old('department_id', '') == $key ? 'selected' : '' }}>{{ $item }}</option>
-                                                    @endforeach
                                                 </select>
                                                 @error('department_id')
                                                 <p class="text-danger">{{ $message }}</p>
@@ -318,10 +314,7 @@
                                                 </label>
                                                 <select name="section_id" id="section_id" class="form-control select2">
                                                     <option label="Choose Section"></option>
-                                                    @foreach($sections as $key=>$item)
-                                                        <option
-                                                            value="{{ $key }}" {{ old('section_id', '') == $key ? 'selected' : '' }}>{{ $item }}</option>
-                                                    @endforeach
+
                                                 </select>
                                                 @error('section_id')
                                                 <p class="text-danger">{{ $message }}</p>
@@ -474,4 +467,58 @@
     <script src="{{URL::asset('assets/js/form-elements.js')}}"></script>
     <!-- Internal Form-validation js -->
     <script src="{{URL::asset('assets/js/form-validation.js')}}"></script>
+
+    <script>
+        $(document).ready(function () {
+
+            $('#company_id').on('change', function () {
+
+                let companyId = $(this).val()
+
+                $.ajax({
+                    type: 'get',
+                    url: '{{ url('/admin/get-departments') }}/' + companyId,
+                    success: function (response) {
+                        var response = JSON.parse(response)
+                        var data = $.map(response, function (value, index) {
+                            return [value]
+                        })
+
+                        $('#department_id').empty()
+                        $('#department_id').html("<option label='Choose Department'></option>")
+
+                        data.forEach((element) => {
+                            $('#department_id').append(`'<option value="${element['id']}">${element['name']}</option>'`)
+                        })
+
+                    }
+                })
+
+            })
+
+            $('#department_id').on('change', function () {
+                let departmentId = $(this).val()
+
+                $.ajax({
+                    type: 'get',
+                    url: '{{ url('/admin/get-sections') }}/' + departmentId,
+                    success: function (response) {
+                        var response = JSON.parse(response)
+                        var data = $.map(response, function (value, index) {
+                            return [value]
+                        })
+
+                        $('#section_id').empty()
+                        $('#section_id').html("<option label='Choose Section'></option>")
+
+                        data.forEach((element) => {
+                            $('#section_id').append(`'<option value="${element['id']}">${element['name']}</option>'`)
+                        })
+
+                    }
+                })
+            })
+
+        })
+    </script>
 @endsection
