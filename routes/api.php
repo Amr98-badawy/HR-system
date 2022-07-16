@@ -21,5 +21,5 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 
 Route::group(['prefix' => 'admin', 'as' => 'dashboard.'], function () {
 
-    Route::post('get-employee{employee:account_no}', [EmployeeController::class, 'getEmployee']);
+    Route::post('get-employee/{employee:account_no}', [EmployeeController::class, 'getEmployee']);
 });
