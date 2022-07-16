@@ -96,4 +96,9 @@ class Employee extends Model implements HasMedia
         $this->attributes['salary'] = $value * 100;
     }
 
+    public function getFullNameAttribute(): string
+    {
+        return $this->first_name . ' ' . $this->last_name . ' ' . $this->family_name;
+    }
+
 }
