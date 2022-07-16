@@ -339,4 +339,16 @@ class EmployeeController extends Controller
         $employee->delete();
         return redirect()->route('dashboard.employees.index');
     }
+
+
+    public function getEmployee(Employee $employee)
+    {
+        try {
+            return response(['msg' => 'Employee Found Successfully', 'data' => ['employee' => $employee]], Response::HTTP_OK);
+        }catch(Exception $exception){
+
+            return response(['msg' => 'Something went wrong, please try again'], Response::HTTP_OK);
+        }
+
+    }
 }
