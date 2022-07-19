@@ -218,5 +218,30 @@ class PermissionTableSeeder extends Seeder
             'name' => 'show_employee',
             'guard_name' => 'web'
         ]);
+
+        Permission::create([
+            'name' => 'access_attendance',
+            'guard_name' => 'web'
+        ]);
+
+        Permission::create([
+            'name' => 'show_attendance',
+            'guard_name' => 'web'
+        ]);
+
+        Permission::create([
+            'name' => 'create_attendance',
+            'guard_name' => 'web'
+        ]);
+
+        Permission::create([
+            'name' => 'edit_attendance',
+            'guard_name' => 'web'
+        ]);
+
+        Permission::create([
+            'name' => 'delete_attendance',
+            'guard_name' => 'web'
+        ]);
     }
 }

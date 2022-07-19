@@ -15,42 +15,25 @@
         <div class="app-sidebar__user clearfix">
             <div class="dropdown user-pro-body">
                 <div class="">
-                    <img alt="user-img" class="avatar avatar-xl brround" src="{{URL::asset('assets/img/faces/6.jpg')}}"><span
-                        class="avatar-status profile-status bg-green"></span>
+                    <img alt="user-img" class="avatar avatar-xl brround" src="{{URL::asset('assets/img/faces/6.jpg')}}">
+                    <span class="avatar-status profile-status bg-green"></span>
                 </div>
                 <div class="user-info">
-                    <h4 class="font-weight-semibold mt-3 mb-0">Petey Cruiser</h4>
-                    <span class="mb-0 text-muted">Premium Member</span>
+                    <h4 class="font-weight-semibold mt-3 mb-0">{{ auth()->user()->name }}</h4>
+
+                    <span class="mb-0 text-muted">
+                        @forelse( auth()->user()->roles as $role)
+                            {{ $role->name }}
+                        @empty
+                        @endforelse
+                    </span>
                 </div>
             </div>
         </div>
         <ul class="side-menu">
-
-            <li class="slide">
-                <a class="side-menu__item" data-toggle="slide" href="{{ url('/' . $page='#') }}">
-                    <svg xmlns="http://www.w3.org/2000/svg" class="side-menu__icon" viewBox="0 0 448 512">
-                        <path
-                            d="M224 256c70.7 0 128-57.3 128-128S294.7 0 224 0 96 57.3 96 128s57.3 128 128 128zm95.8 32.6L272 480l-32-136 32-56h-96l32 56-32 136-47.8-191.4C56.9 292 0 350.3 0 422.4V464c0 26.5 21.5 48 48 48h352c26.5 0 48-21.5 48-48v-41.6c0-72.1-56.9-130.4-128.2-133.8z"/>
-                    </svg>
-                    <span class="side-menu__label">
-                                Management System
-                            </span>
-                    <i class="angle fe fe-chevron-down"></i>
-                </a>
-                <ul class="slide-menu">
-                    <li>
-                        <a class="slide-item" href="{{ route('dashboard.users.index') }}">Users</a>
-                    </li>
-                    <li>
-                        <a class="slide-item" href="{{ route('dashboard.roles.index') }}">Roles</a>
-                    </li>
-                    <li>
-                        <a class="slide-item" href="{{ route('dashboard.permissions.index') }}">Permissions</a>
-                    </li>
-                </ul>
-            </li>
-
-            <li class="slide">
+            <li class="side-item side-item-category">Companies</li>
+            @forelse($companies as $item)
+                <li class="slide">
                 <a class="side-menu__item" data-toggle="slide" href="javascript:void(0)">
                     <svg xmlns="http://www.w3.org/2000/svg" class="side-menu__icon" viewBox="0 0 448 512">
                         <path
@@ -58,29 +41,21 @@
                     </svg>
 
                     <span class="side-menu__label">
-                                Organization
+                                {{ $item }}
                             </span>
                     <i class="angle fe fe-chevron-down"></i>
                 </a>
                 <ul class="slide-menu">
                     <li>
-                        <a class="slide-item" href="{{ route('dashboard.companies.index') }}">Companies</a>
+                        <a class="slide-item" href="{{ route('dashboard.companies.index') }}">Employee</a>
                     </li>
                     <li>
-                        <a class="slide-item" href="{{ route('dashboard.departments.index') }}">Departments</a>
-                    </li>
-                    <li>
-                        <a class="slide-item" href="{{ route('dashboard.sections.index') }}">Sections</a>
-                    </li>
-                    <li>
-                        <a class="slide-item" href="{{ route('dashboard.shifts.index') }}">Shifts</a>
-                    </li>
-                    <li>
-                        <a class="slide-item" href="{{ route('dashboard.employees.index') }}">Employees</a>
+                        <a class="slide-item" href="{{ route('dashboard.companies.index') }}">Attendance</a>
                     </li>
                 </ul>
-            </li>
-
+                </li>
+            @empty
+            @endforelse
         </ul>
     </div>
 </aside>

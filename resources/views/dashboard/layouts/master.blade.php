@@ -20,11 +20,12 @@
 @include('dashboard.layouts.main-sidebar')
 <!-- main-content -->
 <div class="main-content app-content">
-@include('dashboard.layouts.main-header')
-<!-- container -->
+    @include('dashboard.layouts.main-header')
+    <!-- container -->
     <div class="container-fluid">
-@yield('page-header')
-@yield('content')
+        @yield('page-header')
+        @yield('content')
+        @include('dashboard.layouts.sidebar-right')
     </div>
 </div>
 @include('dashboard.layouts.sidebar')

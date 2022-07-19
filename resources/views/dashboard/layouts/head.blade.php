@@ -1,9 +1,6 @@
-
 @if(\Mcamara\LaravelLocalization\Facades\LaravelLocalization::getCurrentLocaleDirection() == 'rtl')
-
-
 <!-- Title -->
-<title> Valex -  Premium dashboard ui bootstrap rwd admin html5 template </title>
+<title>@yield('title', 'HR Management System')</title>
 <!-- Favicon -->
 <link rel="icon" href="{{URL::asset('assets/img/brand/favicon.png')}}" type="image/x-icon"/>
 <!-- Icons css -->
@@ -18,14 +15,8 @@
 
 <!--- Style css -->
 <link href="{{URL::asset('assets/css-rtl/style.css')}}" rel="stylesheet">
-{{--<!--- Dark-mode css -->--}}
-{{--<link href="{{URL::asset('assets/css-rtl/style-dark.css')}}" rel="stylesheet">--}}
-{{--<!---Skinmodes css-->--}}
-{{--<link href="{{URL::asset('assets/css-rtl/skin-modes.css')}}" rel="stylesheet">--}}
 @endif
 @if(\Mcamara\LaravelLocalization\Facades\LaravelLocalization::getCurrentLocaleDirection() == 'ltr')
-
-
     <!-- Title -->
     <title> Valex -  Premium dashboard ui bootstrap rwd admin html5 template </title>
     <!-- Favicon -->
@@ -42,10 +33,6 @@
 
     <!--- Style css -->
     <link href="{{URL::asset('assets/css/style.css')}}" rel="stylesheet">
-{{--    <!--- Dark-mode css -->--}}
-{{--    <link href="{{URL::asset('assets/css/style-dark.css')}}" rel="stylesheet">--}}
-{{--    <!---Skinmodes css-->--}}
-{{--    <link href="{{URL::asset('assets/css/skin-modes.css')}}" rel="stylesheet">--}}
 @endif
 
 

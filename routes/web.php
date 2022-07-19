@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Dashboard\AttendanceController;
 use App\Http\Controllers\Dashboard\CompanyController;
 use App\Http\Controllers\Dashboard\DashboardPageController;
 use App\Http\Controllers\Dashboard\DepartmentController;
@@ -43,6 +44,9 @@ Route::group(
         Route::get('get-departments/{company}', [EmployeeController::class, 'getDepartments'])->name('employee.getDepartments');
         Route::get('get-sections/{department}', [EmployeeController::class, 'getSections'])->name('employee.getSections');
         Route::resource('employees', EmployeeController::class);
+
+        // Attendance Route
+        Route::get('attendance', [AttendanceController::class, 'index'])->name('attendances.index');
 
     });
 
