@@ -273,5 +273,30 @@ class PermissionTableSeeder extends Seeder
             'name' => 'delete_translation',
             'guard_name' => 'web'
         ]);
+
+        Permission::create([
+            'name' => 'access_device',
+            'guard_name' => 'web'
+        ]);
+
+        Permission::create([
+            'name' => 'create_device',
+            'guard_name' => 'web'
+        ]);
+
+        Permission::create([
+            'name' => 'edit_device',
+            'guard_name' => 'web'
+        ]);
+
+        Permission::create([
+            'name' => 'show_device',
+            'guard_name' => 'web'
+        ]);
+
+        Permission::create([
+            'name' => 'delete_device',
+            'guard_name' => 'web'
+        ]);
     }
 }

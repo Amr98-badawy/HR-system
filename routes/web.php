@@ -4,6 +4,7 @@ use App\Http\Controllers\Dashboard\AttendanceController;
 use App\Http\Controllers\Dashboard\CompanyController;
 use App\Http\Controllers\Dashboard\DashboardPageController;
 use App\Http\Controllers\Dashboard\DepartmentController;
+use App\Http\Controllers\Dashboard\DeviceController;
 use App\Http\Controllers\Dashboard\EmployeeController;
 use App\Http\Controllers\Dashboard\PermissionController;
 use App\Http\Controllers\Dashboard\RolesController;
@@ -51,6 +52,9 @@ Route::group(
 
         // Language Route
         Route::resource('languages', SiteLanguageController::class);
+
+        // Device Route
+        Route::resource('devices', DeviceController::class);
 
     });
 
