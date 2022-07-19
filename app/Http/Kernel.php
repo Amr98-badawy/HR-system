@@ -2,6 +2,7 @@
 
 namespace App\Http;
 
+use App\Http\Middleware\AccessTranslation;
 use App\Http\Middleware\Authenticate;
 use App\Http\Middleware\EncryptCookies;
 use App\Http\Middleware\PreventRequestsDuringMaintenance;
@@ -89,6 +90,7 @@ class Kernel extends HttpKernel
         'signed' => ValidateSignature::class,
         'throttle' => ThrottleRequests::class,
         'verified' => EnsureEmailIsVerified::class,
+        'accessTranslation' => AccessTranslation::class,
         /**** Localization MIDDLEWARE ****/
         'localize' => LaravelLocalizationRoutes::class,
         'localizationRedirect' => LaravelLocalizationRedirectFilter::class,

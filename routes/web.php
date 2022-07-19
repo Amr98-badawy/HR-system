@@ -9,6 +9,7 @@ use App\Http\Controllers\Dashboard\PermissionController;
 use App\Http\Controllers\Dashboard\RolesController;
 use App\Http\Controllers\Dashboard\SectionController;
 use App\Http\Controllers\Dashboard\ShiftController;
+use App\Http\Controllers\Dashboard\SiteLanguageController;
 use App\Http\Controllers\Dashboard\UserController;
 use Illuminate\Support\Facades\Route;
 use Mcamara\LaravelLocalization\Facades\LaravelLocalization;
@@ -47,6 +48,9 @@ Route::group(
 
         // Attendance Route
         Route::get('attendance', [AttendanceController::class, 'index'])->name('attendances.index');
+
+        // Language Route
+        Route::resource('languages', SiteLanguageController::class);
 
     });
 

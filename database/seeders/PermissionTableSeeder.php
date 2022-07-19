@@ -243,5 +243,35 @@ class PermissionTableSeeder extends Seeder
             'name' => 'delete_attendance',
             'guard_name' => 'web'
         ]);
+
+        Permission::create([
+            'name' => 'access_language',
+            'guard_name' => 'web'
+        ]);
+
+        Permission::create([
+            'name' => 'create_language',
+            'guard_name' => 'web'
+        ]);
+
+        Permission::create([
+            'name' => 'edit_language',
+            'guard_name' => 'web'
+        ]);
+
+        Permission::create([
+            'name' => 'show_language',
+            'guard_name' => 'web'
+        ]);
+
+        Permission::create([
+            'name' => 'delete_language',
+            'guard_name' => 'web'
+        ]);
+
+        Permission::create([
+            'name' => 'delete_translation',
+            'guard_name' => 'web'
+        ]);
     }
 }

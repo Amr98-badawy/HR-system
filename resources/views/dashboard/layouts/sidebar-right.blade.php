@@ -133,7 +133,7 @@
                                     <div class="">
                                         <span class="avatar bg-primary brround avatar-md">SL</span>
                                     </div>
-                                    <a class="wrapper w-100 ml-3" href="" >
+                                    <a class="wrapper w-100 ml-3" href="{{ route('dashboard.languages.index') }}" >
                                         <p class="mb-0 d-flex ">
                                             <b>Site Languages</b>
                                         </p>
@@ -153,7 +153,7 @@
                                     <div class="">
                                         <span class="avatar bg-primary brround avatar-md">ST</span>
                                     </div>
-                                    <a class="wrapper w-100 ml-3" href="" >
+                                    <a class="wrapper w-100 ml-3" target="_blank" href="{{ route('languages.index') }}" >
                                         <p class="mb-0 d-flex ">
                                             <b>Site Translations</b>
                                         </p>
