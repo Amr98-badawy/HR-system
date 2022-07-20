@@ -6,6 +6,7 @@ use App\Http\Controllers\Dashboard\DashboardPageController;
 use App\Http\Controllers\Dashboard\DepartmentController;
 use App\Http\Controllers\Dashboard\DeviceController;
 use App\Http\Controllers\Dashboard\EmployeeController;
+use App\Http\Controllers\Dashboard\LogController;
 use App\Http\Controllers\Dashboard\PermissionController;
 use App\Http\Controllers\Dashboard\RolesController;
 use App\Http\Controllers\Dashboard\SectionController;
@@ -56,6 +57,10 @@ Route::group(
         // Device Route
         Route::resource('devices', DeviceController::class);
 
+        //Log Routes
+        Route::get('logs', [LogController::class, 'index'])->name('logs.index');
+        Route::get('logs/{activity}', [LogController::class, 'show'])->name('logs.show');
+        Route::delete('logs/{activity}/delete', [LogController::class, 'destroy'])->name('logs.destroy');
     });
 
 });

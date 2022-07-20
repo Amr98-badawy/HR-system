@@ -161,6 +161,16 @@
                         </div>
                         <div class="list d-flex align-items-center border-bottom p-3">
                             <div class="">
+                                <span class="avatar bg-primary brround avatar-md">LS</span>
+                            </div>
+                            <a class="wrapper w-100 ml-3" href="{{ route('dashboard.logs.index') }}">
+                                <p class="mb-0 d-flex ">
+                                    <b>Log System</b>
+                                </p>
+                            </a>
+                        </div>
+                        <div class="list d-flex align-items-center border-bottom p-3">
+                            <div class="">
                                 <span class="avatar bg-primary brround avatar-md">RD</span>
                             </div>
                             <a class="wrapper w-100 ml-3" href="{{ route('dashboard.devices.index') }}">

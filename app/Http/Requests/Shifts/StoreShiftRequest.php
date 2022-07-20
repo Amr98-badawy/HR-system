@@ -24,18 +24,18 @@ class StoreShiftRequest extends FormRequest
             'from' => [
                 'required',
                 'date_format:H:i',
-                'before:to'
+//                'before:to'
             ],
             'extra_time' => [
                 'required',
                 'date_format:H:i',
-                'after:from',
-                'before:to'
+//                'after:from',
+//                'before:to'
             ],
             'to' => [
                 'required',
                 'date_format:H:i',
-                'after:from',
+//                'after:from',
             ],
             'active' => [
                 'nullable',

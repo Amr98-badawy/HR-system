@@ -6,6 +6,8 @@ use App\Traits\SetSlugTrait;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Spatie\Activitylog\LogOptions;
+use Spatie\Activitylog\Traits\LogsActivity;
 use Spatie\MediaLibrary\HasMedia;
 use Spatie\MediaLibrary\InteractsWithMedia;
 use Spatie\MediaLibrary\MediaCollections\Models\Media;
@@ -13,6 +15,7 @@ use Spatie\MediaLibrary\MediaCollections\Models\Media;
 class Employee extends Model implements HasMedia
 {
     use HasFactory, InteractsWithMedia, SetSlugTrait;
+    use LogsActivity;
 
     public const GENDER = [
         'm' => 'Male',
@@ -99,6 +102,16 @@ class Employee extends Model implements HasMedia
     public function getFullNameAttribute(): string
     {
         return $this->first_name . ' ' . $this->last_name . ' ' . $this->family_name;
+    }
+
+
+
+    public function getActivitylogOptions(): LogOptions
+    {
+        return LogOptions::defaults()
+            ->LogAll()
+            ->setDescriptionForEvent(fn(string $eventName) => "You have {$eventName} Employee")
+            ->useLogName('Employee Module');
     }
 
 }

@@ -33,19 +33,16 @@ class DeviceStoreRequest extends FormRequest
             'mac_address' => [
                 'required',
                 'string',
-                'regex:/^([0-9A-a]{2}[:-]){5}([0-9A-a]{2})$/',
                 Rule::unique('devices', 'mac_address')
             ],
             'status' => [
-                'sometimes'
+                'nullable'
             ]
         ];
     }
 
     protected function prepareForValidation()
     {
-        if ($this->status == null) {
-            $this->request->remove('status');
-        }
+        $this->request->set('status', (bool)$this->status);
     }
 }

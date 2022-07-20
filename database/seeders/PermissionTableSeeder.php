@@ -298,5 +298,20 @@ class PermissionTableSeeder extends Seeder
             'name' => 'delete_device',
             'guard_name' => 'web'
         ]);
+
+        Permission::create([
+            'name' => 'access_log',
+            'guard_name' => 'web'
+        ]);
+
+        Permission::create([
+            'name' => 'show_log',
+            'guard_name' => 'web'
+        ]);
+
+        Permission::create([
+            'name' => 'delete_log',
+            'guard_name' => 'web'
+        ]);
     }
 }

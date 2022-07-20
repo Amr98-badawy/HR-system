@@ -42,9 +42,9 @@ class DeviceController extends Controller
                 })
                 ->editColumn('status', function ($row) {
                     if ($row->status) {
-                        return '<span class="pulse-success" style="position: relative"></span>';
+                        return '<span class="badge badge-success">Active</span>';
                     } else {
-                        return '<span class="pulse-danger" style="position: relative"></span>';
+                        return '<span class="badge badge-danger">In Active</span>';
                     }
                 })
                 ->rawColumns(['actions', 'status'])
@@ -63,7 +63,7 @@ class DeviceController extends Controller
             Device::query()->create([
                 'name' => $request->name,
                 'mac_address' => $request->mac_address,
-                'status' => (bool)$request->status,
+                'status' => $request->status,
             ]);
 
             DB::commit();
@@ -96,7 +96,7 @@ class DeviceController extends Controller
     {
         abort_if(!auth()->user()->can('edit_device'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
-        return view('dashboard.device.create', compact('device'));
+        return view('dashboard.device.edit', compact('device'));
     }
 
     public function update(DeviceUpdateRequest $request, Device $device): RedirectResponse

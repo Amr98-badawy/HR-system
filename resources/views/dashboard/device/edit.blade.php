@@ -24,13 +24,13 @@
 
                 <div class="card-header pb-0">
                     <div class="d-flex justify-content-between">
-                        <h4 class="card-title mg-b-0">Update Language</h4>
+                        <h4 class="card-title mg-b-0">Add New Device</h4>
                         <i class="mdi mdi-dots-horizontal text-gray"></i>
                     </div>
                 </div>
 
                 <div class="card-body">
-                    <form method="post" action="{{ route('dashboard.languages.update', $language->id) }}" data-parsley-validate="">
+                    <form method="post" action="{{ route('dashboard.devices.update', $device->id) }}" data-parsley-validate="">
                         @method('PUT')
                         @csrf
                         <div class="row row-sm mg-b-20">
@@ -39,14 +39,14 @@
                                     <div class="card-body">
                                         <div class="row">
                                             <div class="col-md-6 col-lg-6">
-                                                <label id="first_name" class="form-control-label">Language Name:
+                                                <label id="first_name" class="form-control-label">Device Name:
                                                     <span class="tx-danger">*</span>
                                                 </label>
                                                 <input class="form-control @error('name') is-invalid @enderror"
                                                        id="name"
                                                        name="name"
-                                                       placeholder="Language Name"
-                                                       value="{{ old('name', $language->name) }}"
+                                                       placeholder="Device Name"
+                                                       value="{{ old('name', $device->name) }}"
                                                        required
                                                        type="text">
                                                 @error('name')
@@ -54,17 +54,38 @@
                                                 @enderror
                                             </div>
                                             <div class="col-md-6 col-lg-6 mg-t-20 mg-md-t-0">
-                                                <label id="second_name" class="form-control-label">Language Locale:
-                                                    <span
+                                                <label id="second_name" class="form-control-label">Device Mac Address: <span
                                                         class="tx-danger">*</span></label>
-                                                <input class="form-control @error('lang_locale') is-invalid @enderror"
-                                                       id="lang_locale" name="lang_locale"
-                                                       value="{{ old('lang_locale',$language->locale) }}"
-                                                       placeholder="Language Locale" required type="text">
-                                                @error('lang_locale')
+                                                <input class="form-control @error('mac_address') is-invalid @enderror"
+                                                       id="mac_address" name="mac_address"
+                                                       value="{{ old('mac_address', $device->mac_address) }}"
+                                                       placeholder="Device Mac Address" required type="text">
+                                                @error('mac_address')
                                                 <p class="text-danger">{{ $message }}</p>
                                                 @enderror
                                             </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row row-sm mg-b-20">
+                            <div class="col-md-12 col-xl-12 col-xs-12 col-sm-12">
+                                <div class="card">
+                                    <div class="card-body">
+                                        <div class="row">
+
+                                            <div class="col-md-4 col-lg-4 mg-t-20 mg-md-t-0">
+                                                <div class="form-check-inline">
+                                                    <input type="checkbox" {{ old('status', $device->status) === 1 ? 'checked' : '' }} value="1" name="status" id="status" class="form-check mr-2">
+                                                    <label for="active" class="form-check-label"> Status </label>
+                                                </div>
+                                                @error('status')
+                                                <p class="text-danger">{{ $message }}</p>
+                                                @enderror
+                                            </div>
+
                                         </div>
                                     </div>
                                 </div>
