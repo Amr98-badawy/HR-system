@@ -46,7 +46,7 @@
                             <th class="border-bottom-0">Delay Time</th>
                             <th class="border-bottom-0">Additional Time</th>
                             <th class="border-bottom-0">Note</th>
-{{--                            <th class="border-bottom-0">Actions</th>--}}
+                            <th class="border-bottom-0">Actions</th>
                         </tr>
                         </thead>
                         <tbody></tbody>
@@ -103,7 +103,7 @@
                 {data: "delay"},
                 {data: "additional"},
                 {data: "note"},
-                // {data: 'actions', name: 'actions', orderable: false, searchable: false},
+                {data: 'actions', name: 'actions', orderable: false, searchable: false},
             ]
         });
         table.buttons().container()

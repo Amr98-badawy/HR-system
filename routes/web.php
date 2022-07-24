@@ -50,6 +50,8 @@ Route::group(
 
         // Attendance Route
         Route::get('attendance', [AttendanceController::class, 'index'])->name('attendances.index');
+        Route::get('attendance/{attendance}', [AttendanceController::class, 'show'])->name('attendances.show');
+        Route::delete('attendance/{attendance}/delete', [AttendanceController::class, 'destroy'])->name('attendances.destroy');
 
         // Language Route
         Route::resource('languages', SiteLanguageController::class);

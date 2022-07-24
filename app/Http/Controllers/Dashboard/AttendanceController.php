@@ -4,7 +4,6 @@ namespace App\Http\Controllers\Dashboard;
 
 use App\Http\Controllers\Controller;
 use App\Models\Attendance;
-use App\Models\Employee;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -57,7 +56,7 @@ class AttendanceController extends Controller
                 })
                 ->editColumn('delay', function ($row) {
                     if ($row->delay) {
-                        return Carbon::make($row->delay)->format('h:i A');
+                        return sprintf("<span class='badge badge-danger'>%s</span>", Carbon::make($row->delay)->format('H:i'));
                     }
                     return '';
                 })
@@ -73,36 +72,38 @@ class AttendanceController extends Controller
                     }
                     return '';
                 })
-//                ->addColumn('actions', function ($row) {
-//                    $showGate = 'show_attendance';
-//                    $editGate = 'edit_attendance';
-//                    $deleteGate = 'delete_attendance';
-//                    $crudRoutePart = 'attendances';
-//                    $key = $row->id;
-//                    $show = false;
-//
-//                    return view('dashboard.partials.datatable-actions', compact([
-//                        'showGate',
-//                        'editGate',
-//                        'deleteGate',
-//                        'crudRoutePart',
-//                        'key',
-//                        'show',
-//                    ]));
-//                })
-//                ->rawColumns(['actions'])
+                ->addColumn('actions', function ($row) {
+                    $showGate = 'show_attendance';
+                    $deleteGate = 'delete_attendance';
+                    $crudRoutePart = 'attendances';
+                    $key = $row->id;
+                    $show = true;
+
+                    return view('dashboard.partials.datatable-actions-attendance', compact([
+                        'showGate',
+                        'deleteGate',
+                        'crudRoutePart',
+                        'key',
+                        'show',
+                    ]));
+                })
+                ->rawColumns(['check_in', 'check_out', 'actions', 'day_status', 'additional', 'delay', 'work_hour'])
                 ->make(true);
         }
 
         return view('dashboard.attendance.index');
     }
 
-    public function setCheckIn(Employee $employee)
+    public function show(Attendance $attendance)
     {
-        Attendance::query()->create([
-            'employee_id' => $employee->id,
-            'day_status' => 'wd',
-            'check_in' => now()->format('H:i:s'),
-        ]);
+
+    }
+
+    public function destroy(Attendance $attendance)
+    {
+        abort_if(!auth()->user()->can('delete_company'), Response::HTTP_FORBIDDEN, '403 Forbidden');
+        $attendance->delete();
+
+        return redirect()->route('dashboard.attendances.index');
     }
 }
