@@ -18,7 +18,7 @@
 @endif
 @if(\Mcamara\LaravelLocalization\Facades\LaravelLocalization::getCurrentLocaleDirection() == 'ltr')
     <!-- Title -->
-    <title> Valex -  Premium dashboard ui bootstrap rwd admin html5 template </title>
+    <title>@yield('title', 'HR Management System')</title>
     <!-- Favicon -->
     <link rel="icon" href="{{URL::asset('assets/img/brand/favicon.png')}}" type="image/x-icon"/>
     <!-- Icons css -->

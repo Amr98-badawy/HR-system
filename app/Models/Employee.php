@@ -33,8 +33,7 @@ class Employee extends Model implements HasMedia
         'slug', 'account_no', 'first_name', 'second_name', 'family_name',
         'gender', 'job_title', 'date_of_birth', 'id_card', 'address',
         'mobile', 'date_of_employment', 'office_tel', 'nationality', 'company_id', 'department_id',
-        'section_id', 'salary',
-        'bank_account', 'shift_id',
+        'section_id', 'salary', 'bank_account', 'shift_id', 'device_number'
     ];
 
     public function registerMediaCollections(): void
@@ -103,7 +102,6 @@ class Employee extends Model implements HasMedia
     {
         return $this->first_name . ' ' . $this->last_name . ' ' . $this->family_name;
     }
-
 
 
     public function getActivitylogOptions(): LogOptions

@@ -1,6 +1,6 @@
 
-<!-- Back-to-top -->
-<a href="#top" id="back-to-top"><i class="las la-angle-double-up"></i></a>
+{{--<!-- Back-to-top -->--}}
+{{--<a href="#top" id="back-to-top"><i class="las la-angle-double-up"></i></a>--}}
 <!-- JQuery min js -->
 <script src="{{URL::asset('assets/plugins/jquery/jquery.min.js')}}"></script>
 <!-- Bootstrap Bundle js -->
@@ -34,3 +34,16 @@
 <script src="{{URL::asset('assets/js/custom.js')}}"></script><!-- Left-menu js-->
 <script src="{{URL::asset('assets/plugins/side-menu/sidemenu.js')}}"></script>
 
+<!--Start of Tawk.to Script-->
+<script type="text/javascript">
+    var Tawk_API=Tawk_API||{}, Tawk_LoadStart=new Date();
+    (function(){
+        var s1=document.createElement("script"),s0=document.getElementsByTagName("script")[0];
+        s1.async=true;
+        s1.src='https://embed.tawk.to/62d90bc837898912e95ee38e/1g8ftcap8';
+        s1.charset='UTF-8';
+        s1.setAttribute('crossorigin','*');
+        s0.parentNode.insertBefore(s1,s0);
+    })();
+</script>
+<!--End of Tawk.to Script-->

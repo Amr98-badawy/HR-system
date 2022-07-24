@@ -5,7 +5,6 @@ namespace App\Http\Controllers\Dashboard;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Employees\StoreEmployeeRequest;
 use App\Http\Requests\Employees\UpdateEmployeeRequest;
-use App\Http\Resources\Employee\EmployeeResource;
 use App\Models\Company;
 use App\Models\Department;
 use App\Models\Employee;
@@ -339,22 +338,5 @@ class EmployeeController extends Controller
         abort_if(!auth()->user()->can('delete_company'), Response::HTTP_FORBIDDEN, '403 Forbidden');
         $employee->delete();
         return redirect()->route('dashboard.employees.index');
-    }
-
-
-    public function getEmployee(Employee $employee)
-    {
-        try {
-            $employee->load(['company', 'department', 'section', 'media', 'shift']);
-
-            return EmployeeResource::collection($employee)
-                ->additional(['message' => 'Employee found successfully'])
-                ->response()
-                ->setStatusCode(200);
-
-        } catch (Exception $exception) {
-            return response(['msg' => 'Something went wrong, please try again'], Response::HTTP_OK);
-        }
-
     }
 }
