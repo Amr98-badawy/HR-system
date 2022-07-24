@@ -54,6 +54,6 @@ class AttendanceApiController extends Controller
 
     public function setCheckOut(Attendance $attendance)
     {
-        
+
     }
 }
