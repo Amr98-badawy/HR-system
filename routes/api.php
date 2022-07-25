@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Api\Attendance\AttendanceApiController;
+use App\Http\Controllers\Api\Device\DeviceApiController;
 use App\Http\Controllers\Api\Employee\EmployeeApiController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -26,4 +27,8 @@ Route::group(['middleware' => ['guest'], 'as' => 'dashboard.'], function () {
 
     // Attendance Routes
     Route::post('check-in-employee/{employee:account_no}', [AttendanceApiController::class, 'setCheckIn'])->name('checkin.employees');
+    Route::post('check-out-employee/{attendance}', [AttendanceApiController::class, 'setCheckOut'])->name('checkout.employees');
+
+    //Devices Routes
+    Route::post('get-devices', [DeviceApiController::class, 'getDevices'])->name('devices');
 });

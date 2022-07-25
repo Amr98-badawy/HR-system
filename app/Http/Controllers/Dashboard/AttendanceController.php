@@ -13,6 +13,7 @@ class AttendanceController extends Controller
 {
     public function index(Request $request)
     {
+//        dd(Attendance::with('employee', 'employee.department', 'employee.section')->latest()->get());
         abort_if(!auth()->user()->can('access_attendance'), Response::HTTP_FORBIDDEN, '403 Forbidden');
         if ($request->ajax()) {
             $query = Attendance::with('employee', 'employee.department', 'employee.section')->latest()->get();
@@ -49,8 +50,8 @@ class AttendanceController extends Controller
                     return '';
                 })
                 ->editColumn('work_hour', function ($row) {
-                    if ($row->check_out) {
-                        return Carbon::make($row->work_hour)->format('h:i A');
+                    if ($row->work_hour) {
+                        return Carbon::make($row->work_hour)->format('H:i:s');
                     }
                     return '';
                 })
@@ -62,13 +63,19 @@ class AttendanceController extends Controller
                 })
                 ->editColumn('additional', function ($row) {
                     if ($row->additional) {
-                        return Carbon::make($row->additional)->format('h:i A');
+                        return sprintf("<span class='badge badge-success'>%s</span>", Carbon::make($row->additional)->format('h:i'));
                     }
-                    return '';
+                    return '<span class="badge badge-success">00:00</span>';
                 })
                 ->editColumn('note', function ($row) {
                     if ($row->note) {
                         return $row->note;
+                    }
+                    return '';
+                })
+                ->editColumn('created_at', function ($row) {
+                    if ($row->created_at) {
+                        return $row->created_at->format('Md, Y');
                     }
                     return '';
                 })
@@ -87,7 +94,7 @@ class AttendanceController extends Controller
                         'show',
                     ]));
                 })
-                ->rawColumns(['check_in', 'check_out', 'actions', 'day_status', 'additional', 'delay', 'work_hour'])
+                ->rawColumns(['created_at','check_in', 'check_out', 'actions', 'day_status', 'additional', 'delay', 'work_hour'])
                 ->make(true);
         }
 

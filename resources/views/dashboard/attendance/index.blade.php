@@ -39,6 +39,7 @@
                             <th class="border-bottom-0">Employee</th>
                             <th class="border-bottom-0">Department</th>
                             <th class="border-bottom-0">Section</th>
+                            <th class="border-bottom-0">Day</th>
                             <th class="border-bottom-0">Day Status</th>
                             <th class="border-bottom-0">Check In</th>
                             <th class="border-bottom-0">Check out</th>
@@ -96,6 +97,7 @@
                 {data: "name"},
                 {data: "department"},
                 {data: "section"},
+                {data: "created_at"},
                 {data: "day_status"},
                 {data: "check_in"},
                 {data: "check_out"},
