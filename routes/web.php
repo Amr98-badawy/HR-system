@@ -46,12 +46,14 @@ Route::group(
 
         Route::get('get-departments/{company}', [EmployeeController::class, 'getDepartments'])->name('employee.getDepartments');
         Route::get('get-sections/{department}', [EmployeeController::class, 'getSections'])->name('employee.getSections');
+        Route::get('employees/{company}/company', [EmployeeController::class, 'employeeCompany'])->name('employees.company');
         Route::resource('employees', EmployeeController::class);
 
         // Attendance Route
         Route::get('attendance', [AttendanceController::class, 'index'])->name('attendances.index');
         Route::get('attendance/{attendance}', [AttendanceController::class, 'show'])->name('attendances.show');
         Route::delete('attendance/{attendance}/delete', [AttendanceController::class, 'destroy'])->name('attendances.destroy');
+        Route::get('attendance/{company}/company', [AttendanceController::class, 'companyAttendance'])->name('attendances.company');
 
         // Language Route
         Route::resource('languages', SiteLanguageController::class);

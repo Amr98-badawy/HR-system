@@ -21,7 +21,6 @@ class UserController extends Controller
 {
     public function index(Request $request)
     {
-        dd(Activity::all());
         abort_if(!auth()->user()->can('access_user'), Response::HTTP_FORBIDDEN, '403 Forbidden');
         if ($request->ajax()) {
             $query = User::with('roles', 'media')->whereHas('roles', function ($query) {

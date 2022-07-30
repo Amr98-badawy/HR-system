@@ -122,6 +122,109 @@ class EmployeeController extends Controller
         return view('dashboard.employee.index');
     }
 
+    public function employeeCompany(Request $request, Company $company)
+    {
+        abort_if(!auth()->user()->can('access_employee'), Response::HTTP_FORBIDDEN, '403 Forbidden');
+
+        if ($request->ajax()) {
+            $query = Employee::query()->with(['media', 'company.translations', 'department.translations', 'section.translations', 'shift'])
+                ->whereHas('company', function ($query) use ($company) {
+                    $query->where('id', $company->id);
+                })
+                ->latest()
+                ->get();
+
+            return DataTables::of($query)
+                ->addColumn('actions', function ($row) {
+                    $showGate = 'show_employee';
+                    $editGate = 'edit_employee';
+                    $deleteGate = 'delete_employee';
+                    $crudRoutePart = 'employees';
+                    $key = $row->slug;
+                    $show = true;
+
+                    return view('dashboard.partials.datatable-actions', compact([
+                        'showGate',
+                        'editGate',
+                        'deleteGate',
+                        'crudRoutePart',
+                        'key',
+                        'show',
+                    ]));
+                })
+                ->editColumn('name', function ($row) {
+                    if ($row->first_name && $row->second_name && $row->family_name) {
+                        return "{$row->first_name} {$row->second_name} {$row->family_name}";
+                    }
+                    return '';
+                })
+                ->editColumn('company', function ($row) {
+                    if ($row->company) {
+                        return $row->company->name;
+                    }
+                    return '';
+                })
+                ->editColumn('department', function ($row) {
+                    if ($row->section) {
+                        return $row->department->name;
+                    }
+                    return '';
+                })
+                ->editColumn('section', function ($row) {
+                    if ($row->section) {
+                        return $row->section->name;
+                    }
+                    return '';
+                })
+                ->editColumn('shift', function ($row) {
+                    if ($row->shift) {
+                        return $row->shift->name;
+                    }
+                    return '';
+                })
+                ->editColumn('date_of_employment', function ($row) {
+                    if ($row->shift) {
+                        return $row->date_of_employment->format('M d Y');
+                    }
+                    return '';
+                })
+                ->editColumn('salary', function ($row) {
+                    if ($row->salary) {
+                        return $row->salary . 'EGP';
+                    }
+                    return '';
+                })
+                ->editColumn('office_tel', function ($row) {
+                    if ($row->office_tel) {
+                        return sprintf(
+                            '<a href="tel:%s">%s</a>',
+                            $row->office_tel,
+                            $row->office_tel
+                        );
+                    }
+                    return '';
+                })
+                ->editColumn('photo', function ($row) {
+                    if ($row->getFirstMedia('photo')) {
+                        return sprintf(
+                            '<a href="%s" target="_blank"><img class="rounded-50" src="%s" width="50px" height="50px"></a>',
+                            $row->getFirstMedia('photo')->getUrl(),
+                            $row->getFirstMedia('photo')->getUrl('thumb'),
+                        );
+                    }
+                    return sprintf(
+                        '<a href="%s" target="_blank"><img class="rounded-50" src="%s" width="50px" height="50px"></a>',
+                        asset('assets/img/Avatar/user-avatar.png'),
+                        asset('assets/img/Avatar/user-avatar.png'),
+                    );
+                })
+                ->rawColumns(['photo', 'company', 'department', 'section', 'shift', 'date_of_employment', 'office_tel', 'salary', 'actions'])
+                ->make(true);
+        }
+
+        return view('dashboard.employee.company-index', compact('company'));
+    }
+
     public function store(StoreEmployeeRequest $request): RedirectResponse
     {
         DB::beginTransaction();
