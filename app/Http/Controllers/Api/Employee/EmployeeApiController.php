@@ -7,7 +7,9 @@ use App\Http\Requests\Api\Employee\EmployeeSignRequest;
 use App\Http\Resources\Employee\EmployeeResource;
 use App\Models\Employee;
 use Exception;
+use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 class EmployeeApiController extends Controller
 {
@@ -25,8 +27,8 @@ class EmployeeApiController extends Controller
                 ->response()
                 ->setStatusCode(200);
 
-        } catch (Exception $exception) {
-            return response(['msg' => 'Something went wrong, please try again'], Response::HTTP_OK);
+        } catch (Exception $e) {
+            return response(['data' => null, 'message' => 'Something went wrong, please try again'], Response::HTTP_INTERNAL_SERVER_ERROR);
         }
     }
 }
