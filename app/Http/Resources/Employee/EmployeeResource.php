@@ -11,6 +11,7 @@ class EmployeeResource extends JsonResource
         return [
             'account_no' => $this->account_no,
             'name' => $this->fullName,
+            'email' => $this->email,
             'gender' => $this->gender,
             'job_title' => $this->job_title,
             'salary' => $this->salary,
@@ -25,6 +26,12 @@ class EmployeeResource extends JsonResource
             }),
             'shift' => $this->whenLoaded('shift', function () {
                 return $this->shift->name;
+            }),
+            'from' => $this->whenLoaded('shift', function () {
+                return $this->shift->from;
+            }),
+            'to' => $this->whenLoaded('shift', function () {
+                return $this->shift->to;
             }),
             'photo' => $this->whenLoaded('media', function () {
                 return $this->getFirstMedia('photo')->getUrl();
