@@ -7,8 +7,8 @@
     <div class="breadcrumb-header justify-content-between">
         <div class="my-auto">
             <div class="d-flex">
-                <h4 class="content-title mb-0 my-auto"><a href="{{route("dashboard.home")}}">Dashboard</a></h4><span
-                    class="text-muted mt-1 tx-13 mr-2 mb-0"> / update / company</span>
+                <h4 class="content-title mb-0 my-auto"><a href="{{route("dashboard.home")}}">@lang('lang.dashboard')</a></h4><span
+                    class="text-muted mt-1 tx-13 mr-2 mb-0"> / @lang('lang.Departments') / @lang('lang.update')</span>
             </div>
         </div>
     </div>
@@ -23,7 +23,7 @@
 
                 <div class="card-header pb-0">
                     <div class="d-flex justify-content-between">
-                        <h4 class="card-title mg-b-0">Update Department</h4>
+                        <h4 class="card-title mg-b-0">@lang('lang.update') @lang('lang.department')</h4>
                         <i class="mdi mdi-dots-horizontal text-gray"></i>
                     </div>
                 </div>
@@ -39,14 +39,14 @@
                                     <div class="card-body">
                                         <div class="row">
                                             <div class="col-md-12 col-lg-12 mg-t-20 mg-md-t-0">
-                                                <label id="email" class="form-control-label"> Department
-                                                    Name:
+                                                <label id="email" class="form-control-label"> @lang('lang.name')
+                                                    @lang('lang.department'):
                                                     <span class="tx-danger">*</span>
                                                 </label>
                                                 <input
                                                     class="form-control @error('name') is-invalid @enderror"
                                                     name="name"
-                                                    placeholder="Company"
+                                                    placeholder="@lang('lang.name')"
                                                     value="{{ old('name', $department->name) }}"
                                                     required
                                                     type="text">
@@ -66,7 +66,7 @@
                                     <div class="card-body">
                                         <div class="row">
                                             <div class="col-md-12 col-lg-12 mg-t-20 mg-md-t-0">
-                                                <p class="mg-b-10"> Companies: </p>
+                                                <p class="mg-b-10"> @lang('lang.Companies'): </p>
                                                 <select class="form-control select2" name="companies[]" multiple>
                                                     @foreach($companies as $key=>$item)
                                                         <option
@@ -88,8 +88,8 @@
 
                         <div class="row row-xs wd-xl-80p">
                             <div class="col-sm-6 col-md-3 mg-t-10 mg-md-t-0">
-                                <button type="submit" class="btn btn-success">Submit</button>
-                                <button type="reset" class="btn btn-danger">Reset</button>
+                                <button type="submit" class="btn btn-success">@lang('lang.submit')</button>
+                                <button type="reset" class="btn btn-danger">@lang('lang.reset')</button>
                             </div>
                         </div>
                     </form>

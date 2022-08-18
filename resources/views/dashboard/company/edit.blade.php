@@ -7,8 +7,8 @@
     <div class="breadcrumb-header justify-content-between">
         <div class="my-auto">
             <div class="d-flex">
-                <h4 class="content-title mb-0 my-auto"><a href="{{route("dashboard.home")}}">Dashboard</a></h4><span
-                    class="text-muted mt-1 tx-13 mr-2 mb-0"> / update / company</span>
+                <h4 class="content-title mb-0 my-auto"><a href="{{route("dashboard.home")}}"> @lang('lang.dashboard')</a></h4><span
+                    class="text-muted mt-1 tx-13 mr-2 mb-0"> /  @lang('lang.company') /  @lang('lang.update')</span>
             </div>
         </div>
     </div>
@@ -23,7 +23,7 @@
 
                 <div class="card-header pb-0">
                     <div class="d-flex justify-content-between">
-                        <h4 class="card-title mg-b-0">Update company</h4>
+                        <h4 class="card-title mg-b-0"> @lang('lang.update')  @lang('lang.company')</h4>
                         <i class="mdi mdi-dots-horizontal text-gray"></i>
                     </div>
                 </div>
@@ -39,13 +39,13 @@
                                     <div class="card-body">
                                         <div class="row">
                                             <div class="col-md-6 col-lg-6 mg-t-20 mg-md-t-0">
-                                                <label id="email" class="form-control-label"> Company Name:
+                                                <label id="email" class="form-control-label">  @lang('lang.name')  @lang('lang.company'):
                                                     <span class="tx-danger">*</span>
                                                 </label>
                                                 <input
                                                     class="form-control @error('name') is-invalid @enderror"
                                                     name="name"
-                                                    placeholder="Company"
+                                                    placeholder=" @lang('lang.name')"
                                                     value="{{ old('name', $company->name) }}"
                                                     required
                                                     type="text">
@@ -66,7 +66,7 @@
                                         <div class="row">
                                             <div class="col-md-12 col-lg-12 mg-t-20 mg-md-t-0">
                                                 <div class="form-group">
-                                                    <label for="logo" class="mg-b-10"> logo: </label>
+                                                    <label for="logo" class="mg-b-10">  @lang('lang.img'): </label>
                                                     <input type="file" name="logo" id="logo" class="form-control">
                                                     @error('logo')
                                                     <p class="text-danger">{{ $message }}</p>
@@ -85,7 +85,7 @@
                                     <div class="card-body">
                                         <div class="row">
                                             <div class="col-md-12 col-lg-12 mg-t-20 mg-md-t-0">
-                                                <p class="mg-b-10"> Departments: </p>
+                                                <p class="mg-b-10">  @lang('lang.Departments'): </p>
                                                 <select class="form-control select2" name="departments[]" multiple>
                                                     <option label="Choose roles for user">
                                                     </option>
@@ -109,8 +109,8 @@
 
                         <div class="row row-xs wd-xl-80p">
                             <div class="col-sm-6 col-md-3 mg-t-10 mg-md-t-0">
-                                <button type="submit" class="btn btn-success">Submit</button>
-                                <button type="reset" class="btn btn-danger">Reset</button>
+                                <button type="submit" class="btn btn-success">@lang('lang.submit')</button>
+                                <button type="reset" class="btn btn-danger">@lang('lang.reset')</button>
                             </div>
                         </div>
                     </form>

@@ -9,8 +9,8 @@
     <div class="breadcrumb-header justify-content-between">
         <div class="my-auto">
             <div class="d-flex">
-                <h4 class="content-title mb-0 my-auto"><a href="{{route("dashboard.home")}}">Dashboard</a></h4><span
-                    class="text-muted mt-1 tx-13 mr-2 mb-0">/ Languages</span>
+                <h4 class="content-title mb-0 my-auto"><a href="{{route("dashboard.home")}}">@lang('lang.dashboard')</a></h4><span
+                    class="text-muted mt-1 tx-13 mr-2 mb-0">/ @lang('lang.route_devices')</span>
             </div>
         </div>
     </div>
@@ -24,7 +24,7 @@
 
                 <div class="card-header pb-0">
                     <div class="d-flex justify-content-between">
-                        <h4 class="card-title mg-b-0">Add New Device</h4>
+                        <h4 class="card-title mg-b-0">@lang('lang.create') @lang('lang.device')</h4>
                         <i class="mdi mdi-dots-horizontal text-gray"></i>
                     </div>
                 </div>
@@ -38,7 +38,7 @@
                                     <div class="card-body">
                                         <div class="row">
                                             <div class="col-md-6 col-lg-6">
-                                                <label id="first_name" class="form-control-label">Device Name:
+                                                <label id="first_name" class="form-control-label">@lang('lang.name') @lang('lang.device'):
                                                     <span class="tx-danger">*</span>
                                                 </label>
                                                 <input class="form-control @error('name') is-invalid @enderror"
@@ -77,8 +77,9 @@
 
                                             <div class="col-md-4 col-lg-4 mg-t-20 mg-md-t-0">
                                                 <div class="form-check-inline">
+
                                                     <input type="checkbox" {{ old('status', 0) === 1 ? 'checked' : '' }} value="1" name="status" id="status" class="form-check mr-2">
-                                                    <label for="active" class="form-check-label"> Status </label>
+                                                    <label for="active" class="form-check-label mg-20" > @lang("lang.status") </label>
                                                 </div>
                                                 @error('status')
                                                 <p class="text-danger">{{ $message }}</p>
@@ -93,8 +94,8 @@
 
                         <div class="row row-xs wd-xl-80p">
                             <div class="col-sm-6 col-md-3 mg-t-10 mg-md-t-0">
-                                <button type="submit" class="btn btn-success">Submit</button>
-                                <button type="reset" class="btn btn-danger">Reset</button>
+                                <button type="submit" class="btn btn-success">@lang("lang.submit")</button>
+                                <button type="reset" class="btn btn-danger">@lang("lang.reset")</button>
                             </div>
                         </div>
                     </form>

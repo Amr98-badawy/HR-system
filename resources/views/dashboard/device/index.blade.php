@@ -13,7 +13,7 @@
     <div class="breadcrumb-header justify-content-between">
         <div class="my-auto">
             <div class="d-flex">
-                <h4 class="content-title mb-0 my-auto"><a href="{{route("dashboard.home")}}">Dashboard</a></h4><span class="text-muted mt-1 tx-13 mr-2 mb-0">/ Devices</span>
+                <h4 class="content-title mb-0 my-auto"><a href="{{route("dashboard.home")}}">@lang('lang.dashboard')</a></h4><span class="text-muted mt-1 tx-13 mr-2 mb-0">/ @lang('lang.route_devices')</span>
             </div>
         </div>
     </div>
@@ -27,8 +27,8 @@
         <div class="card mg-b-20">
             <div class="card-header pb-0">
                 <div class="d-flex justify-content-between">
-                    <h4 class="card-title mg-b-0">Router Devices Table</h4>
-                    <a href="{{ route('dashboard.devices.create') }}" class="btn btn-success">Create</a>
+                    <h4 class="card-title mg-b-0">@lang('lang.table') @lang('lang.route_devices')</h4>
+                    <a href="{{ route('dashboard.devices.create') }}" class="btn btn-success">@lang('lang.create')</a>
                 </div>
             </div>
             <div class="card-body">
@@ -36,10 +36,10 @@
                     <table id="example" class="table key-buttons text-md-nowrap">
                         <thead>
                         <tr>
-                            <th class="border-bottom-0">Name</th>
+                            <th class="border-bottom-0">@lang('lang.name')</th>
                             <th class="border-bottom-0">Mac Address</th>
-                            <th class="border-bottom-0">Status</th>
-                            <th class="border-bottom-0">Actions</th>
+                            <th class="border-bottom-0">@lang('lang.status')</th>
+                            <th class="border-bottom-0">@lang('lang.action')</th>
                         </tr>
                         </thead>
                         <tbody></tbody>

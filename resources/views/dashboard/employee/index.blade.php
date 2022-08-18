@@ -13,8 +13,8 @@
     <div class="breadcrumb-header justify-content-between">
         <div class="my-auto">
             <div class="d-flex">
-                <h4 class="content-title mb-0 my-auto"><a href="{{route("dashboard.home")}}">Dashboard</a></h4><span
-                    class="text-muted mt-1 tx-13 mr-2 mb-0">/ Employees</span>
+                <h4 class="content-title mb-0 my-auto"><a href="{{route("dashboard.home")}}"> @lang('lang.dashboard')</a></h4><span
+                    class="text-muted mt-1 tx-13 mr-2 mb-0">/  @lang('lang.Employees')</span>
             </div>
         </div>
     </div>
@@ -28,8 +28,8 @@
         <div class="card mg-b-20">
             <div class="card-header pb-0">
                 <div class="d-flex justify-content-between">
-                    <h4 class="card-title mg-b-0">Employees Table</h4>
-                    <a href="{{ route('dashboard.employees.create') }}" class="btn btn-success">Create</a>
+                    <h4 class="card-title mg-b-0"> @lang('lang.table') @lang('lang.Employees')</h4>
+                    <a href="{{ route('dashboard.employees.create') }}" class="btn btn-success"> @lang('lang.create')</a>
                 </div>
             </div>
             <div class="card-body">
@@ -37,18 +37,18 @@
                     <table id="example" class="table key-buttons text-md-nowrap">
                         <thead>
                         <tr>
-                            <th class="border-bottom-0">Account No.</th>
-                            <th class="border-bottom-0">Name</th>
-                            <th class="border-bottom-0">Photo</th>
-                            <th class="border-bottom-0">Job Title</th>
-                            <th class="border-bottom-0">Company</th>
-                            <th class="border-bottom-0">Department</th>
-                            <th class="border-bottom-0">Section</th>
-                            <th class="border-bottom-0">Office Telephone</th>
-                            <th class="border-bottom-0">Shift</th>
-                            <th class="border-bottom-0">Salary</th>
-                            <th class="border-bottom-0">Date of employment</th>
-                            <th class="border-bottom-0">Actions</th>
+                            <th class="border-bottom-0"> @lang('lang.account_no')</th>
+                            <th class="border-bottom-0">@lang('lang.name')</th>
+                            {{--                            <th class="border-bottom-0">Photo</th>--}}
+                            <th class="border-bottom-0">@lang('lang.job_title')
+                            <th class="border-bottom-0">@lang('lang.company')</th>
+                            <th class="border-bottom-0">@lang('lang.department')</th>
+                            {{--                            <th class="border-bottom-0">Section</th>--}}
+                            {{--                            <th class="border-bottom-0">Office Telephone</th>--}}
+                            <th class="border-bottom-0">@lang('lang.shift')</th>
+                            {{--                            <th class="border-bottom-0">Salary</th>--}}
+                            {{--                            <th class="border-bottom-0">Date of employment</th>--}}
+                            <th class="border-bottom-0">@lang('lang.action')</th>
                         </tr>
                         </thead>
                         <tbody></tbody>
@@ -97,15 +97,15 @@
             columns: [
                 {data: "account_no"},
                 {data: "name"},
-                {data: "photo"},
+                // {data: "photo"},
                 {data: "job_title"},
                 {data: "company"},
                 {data: "department"},
-                {data: "section"},
-                {data: "office_tel"},
+                // {data: "section"},
+                // {data: "office_tel"},
                 {data: "shift"},
-                {data: "salary"},
-                {data: "date_of_employment"},
+                // {data: "salary"},
+                // {data: "date_of_employment"},
                 {data: 'actions', name: 'actions', orderable: false, searchable: false},
             ]
         });

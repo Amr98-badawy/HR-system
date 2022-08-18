@@ -16,11 +16,11 @@
 @section('content')
 
     <div class="row row-sm">
-        <div class="col-lg-6">
+        <div class="col-lg-4 ">
             <div class="card mg-b-20">
                 <div class="card-body">
-                    <div class="pl-0">
-                        <div class="main-profile-overview">
+                    <div class="pl-0 ">
+                        <div class="main-profile-overview   ">
                             <div class="main-img-user profile-user">
                                 <img alt="" src="{{ asset('assets/img/Avatar/user-avatar.png')}}">
                             </div>

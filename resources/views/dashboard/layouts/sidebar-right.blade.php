@@ -14,23 +14,27 @@
                     @can('access_user')
                         <li class="">
                             <a href="#user" class="active" data-toggle="tab">
-                                <i class="ion ion-md-person tx-18 mr-2"></i>
-                                User Management
+                                <i class="ion ion-md-person tx-18 mr-2" style="margin-right: 10px;"></i>
+                                <b  style=" font-size: larger;margin-right: 10px;">
+                                @lang("lang.UserManage")
+                                </b>
                             </a>
                         </li>
                     @endcan
                     @if(auth()->user()->can('access_company') || auth()->user()->can('access_department') || auth()->user()->can('access_employee') || auth()->user()->can('access_section') || auth()->user()->can('access_shift') || auth()->user()->can('access_attendance'))
                         <li>
                             <a href="#org" data-toggle="tab">
-                                <i class="ion ion-md-business tx-18  mr-2"></i>
-                                Organization
+                                <i class="ion ion-md-business tx-18  mr-2" style="margin-right: 10px;"></i>
+                                <b  style=" font-size: larger;margin-right: 10px;">
+                                @lang("lang.Organization")
+                                </b>
                             </a>
                         </li>
                     @endif
                     @if(auth()->user()->can('access_company') || auth()->user()->can('access_department') || auth()->user()->can('access_employee') || auth()->user()->can('access_section') || auth()->user()->can('access_shift') || auth()->user()->can('access_attendance'))
-                        <li><a href="#setting" data-toggle="tab">
-                                <i class="ion ion-md-cog tx-18 mr-2"></i>
-                                Settings
+                        <li><a href="#setting" data-toggle="tab" >
+                                <i class="ion ion-md-cog tx-18 mr-2" style="margin-right: 10px;"></i>
+                                <b  style=" font-size: larger;margin-right: 10px;"> @lang("lang.Settings") </b>
                             </a>
                         </li>
                     @endif
@@ -44,8 +48,8 @@
                                 <span class="avatar bg-primary brround avatar-md">U</span>
                             </div>
                             <a class="wrapper w-100 ml-3" href="{{ route('dashboard.users.index') }}">
-                                <p class="mb-0 d-flex ">
-                                    <b>Users</b>
+                                <p class="mb-0 d-flex " style="margin-right: 10px;">
+                                    <b>@lang("lang.users")   </b>
                                 </p>
                             </a>
                         </div>
@@ -56,8 +60,8 @@
                                 <span class="avatar bg-primary brround avatar-md">R</span>
                             </div>
                             <a class="wrapper w-100 ml-3" href="{{ route('dashboard.roles.index') }}">
-                                <p class="mb-0 d-flex ">
-                                    <b>Roles</b>
+                                <p class="mb-0 d-flex " style="margin-right: 10px;">
+                                    <b> @lang("lang.Roles")   </b>
                                 </p>
                             </a>
                         </div>
@@ -68,8 +72,8 @@
                                 <span class="avatar bg-primary brround avatar-md">P</span>
                             </div>
                             <a class="wrapper w-100 ml-3" href="{{ route('dashboard.permissions.index') }}">
-                                <p class="mb-0 d-flex ">
-                                    <b>Permissions</b>
+                                <p class="mb-2 d-flex " style="margin-right: 10px;">
+                                    <b>@lang("lang.permissions") </b>
                                 </p>
                             </a>
                         </div>
@@ -83,8 +87,8 @@
                                     <span class="avatar bg-primary brround avatar-md">C</span>
                                 </div>
                                 <a class="wrapper w-100 ml-3" href="{{ route('dashboard.companies.index') }}">
-                                    <p class="mb-0 d-flex ">
-                                        <b>Companies</b>
+                                    <p class="mb-0 d-flex " style="margin-right: 10px;">
+                                                                          <b> @lang("lang.Companies") </b>
                                     </p>
                                 </a>
                             </div>
@@ -95,8 +99,8 @@
                                     <span class="avatar bg-primary brround avatar-md">D</span>
                                 </div>
                                 <a class="wrapper w-100 ml-3" href="{{ route('dashboard.departments.index') }}">
-                                    <p class="mb-0 d-flex ">
-                                        <b>Departments</b>
+                                    <p class="mb-0 d-flex " style="margin-right: 10px;">
+                                        <b>@lang("lang.Departments") </b>
                                     </p>
                                 </a>
                             </div>
@@ -107,8 +111,8 @@
                                     <span class="avatar bg-primary brround avatar-md">S</span>
                                 </div>
                                 <a class="wrapper w-100 ml-3" href="{{ route('dashboard.sections.index') }}">
-                                    <p class="mb-0 d-flex ">
-                                        <b>Sections</b>
+                                    <p class="mb-0 d-flex " style="margin-right: 10px;">
+                                        <b>@lang("lang.Sections") </b>
                                     </p>
                                 </a>
                             </div>
@@ -119,8 +123,8 @@
                                     <span class="avatar bg-primary brround avatar-md">S</span>
                                 </div>
                                 <a class="wrapper w-100 ml-3" href="{{ route('dashboard.shifts.index') }}">
-                                    <p class="mb-0 d-flex ">
-                                        <b>Shifts</b>
+                                    <p class="mb-0 d-flex " style="margin-right: 10px;">
+                                        <b>@lang("lang.Shifts") </b>
                                     </p>
                                 </a>
                             </div>
@@ -131,8 +135,8 @@
                                     <span class="avatar bg-primary brround avatar-md">E</span>
                                 </div>
                                 <a class="wrapper w-100 ml-3" href="{{ route('dashboard.employees.index') }}">
-                                    <p class="mb-0 d-flex ">
-                                        <b>Employees</b>
+                                    <p class="mb-0 d-flex " style="margin-right: 10px;">
+                                        <b>@lang("lang.Employees") </b>
                                     </p>
                                 </a>
                             </div>
@@ -143,8 +147,8 @@
                                     <span class="avatar bg-primary brround avatar-md">A</span>
                                 </div>
                                 <a class="wrapper w-100 ml-3" href="{{ route('dashboard.attendances.index') }}">
-                                    <p class="mb-0 d-flex ">
-                                        <b>Attendances</b>
+                                    <p class="mb-0 d-flex " style="margin-right: 10px;">
+                                        <b>@lang("lang.Attendances") </b>
                                     </p>
                                 </a>
                             </div>
@@ -160,8 +164,8 @@
                                     <span class="avatar bg-primary brround avatar-md">ST</span>
                                 </div>
                                 <a class="wrapper w-100 ml-3" target="_blank" href="{{ route('languages.index') }}">
-                                    <p class="mb-0 d-flex ">
-                                        <b>Site Translations</b>
+                                    <p class="mb-0 d-flex " style="margin-right: 10px;">
+                                        <b>@lang("lang.site_trans") </b>
                                     </p>
                                 </a>
                             </div>
@@ -172,8 +176,8 @@
                                     <span class="avatar bg-primary brround avatar-md">LS</span>
                                 </div>
                                 <a class="wrapper w-100 ml-3" href="{{ route('dashboard.logs.index') }}">
-                                    <p class="mb-0 d-flex ">
-                                        <b>Log System</b>
+                                    <p class="mb-0 d-flex " style="margin-right: 10px;">
+                                        <b>@lang("lang.log_system") </b>
                                     </p>
                                 </a>
                             </div>
@@ -184,8 +188,8 @@
                                     <span class="avatar bg-primary brround avatar-md">RD</span>
                                 </div>
                                 <a class="wrapper w-100 ml-3" href="{{ route('dashboard.devices.index') }}">
-                                    <p class="mb-0 d-flex ">
-                                        <b>Route Devices</b>
+                                    <p class="mb-0 d-flex " style="margin-right: 10px;">
+                                        <b>@lang("lang.route_devices")</b>
                                     </p>
                                 </a>
                             </div>

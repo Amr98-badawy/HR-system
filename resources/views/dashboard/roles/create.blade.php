@@ -16,7 +16,7 @@
     <div class="breadcrumb-header justify-content-between">
         <div class="my-auto">
             <div class="d-flex">
-                <h4 class="content-title mb-0 my-auto"><a href="{{route("dashboard.home")}}">Dashboard</a></h4><span class="text-muted mt-1 tx-13 mr-2 mb-0"> / create / Role</span>
+                <h4 class="content-title mb-0 my-auto"><a href="{{route("dashboard.home")}}">@lang('lang.dashboard')</a></h4><span class="text-muted mt-1 tx-13 mr-2 mb-0"> / @lang('lang.Roles') / @lang('lang.create')</span>
             </div>
         </div>
     </div>
@@ -32,7 +32,7 @@
 
                 <div class="card-header pb-0">
                     <div class="d-flex justify-content-between">
-                        <h4 class="card-title mg-b-0">Add New Role</h4>
+                        <h4 class="card-title mg-b-0">@lang('lang.create') @lang('lang.permissions')</h4>
                         <i class="mdi mdi-dots-horizontal text-gray"></i>
                     </div>
                 </div>
@@ -48,13 +48,13 @@
                                     <div class="card-body">
                                         <div class="row">
                                             <div class="col-md-12 col-lg-12 mg-t-20 mg-md-t-0 mb-3">
-                                                <label id="email" class="form-control-label"> Name:
+                                                <label id="email" class="form-control-label"> @lang('lang.name'):
                                                     <span class="tx-danger">*</span>
                                                 </label>
                                                 <input class="form-control @error('name') is-invalid @enderror"
                                                        id="name"
                                                        name="name"
-                                                       placeholder="name "
+                                                       placeholder="@lang('lang.name') "
                                                        value="{{ old('name') }}"
                                                        required
                                                        type="text">
@@ -64,7 +64,7 @@
                                             </div>
 
                                             <div class="col-md-12 col-lg-12 mg-t-20 mg-md-t-0">
-                                                <p class="mg-b-10">Permissions</p>
+                                                <p class="mg-b-10">@lang('lang.permissions')</p>
                                                 <select multiple="multiple" name="permissions[]" class="testselect2">
                                                     @foreach($permissions as $key=>$val)
                                                         <option
@@ -85,8 +85,8 @@
 
                         <div class="row row-xs wd-xl-80p">
                             <div class="col-sm-6 col-md-3 mg-t-10 mg-md-t-0">
-                                <button type="submit" class="btn btn-success">Submit</button>
-                                <button type="reset" class="btn btn-danger">Reset</button>
+                                <button type="submit" class="btn btn-success">@lang('lang.submit')</button>
+                                <button type="reset" class="btn btn-danger">@lang('lang.reset')</button>
                             </div>
                         </div>
                     </form>

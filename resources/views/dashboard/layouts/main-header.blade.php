@@ -3,23 +3,20 @@
     <div class="container-fluid">
         <div class="main-header-left ">
             <div class="responsive-logo">
-                <a href="{{ url('/' . $page='index') }}"><img src="{{URL::asset('assets/img/brand/logo.png')}}"
+                <a href="{{ route('dashboard.home') }}"><img src="{{URL::asset('assets/img/brand/logo.png')}}"
                                                               class="logo-1" alt="logo"></a>
-                <a href="{{ url('/' . $page='index') }}"><img src="{{URL::asset('assets/img/brand/logo-white.png')}}"
+                <a href="{{ route('dashboard.home') }}"><img src="{{URL::asset('assets/img/brand/logo-white.png')}}"
                                                               class="dark-logo-1" alt="logo"></a>
-                <a href="{{ url('/' . $page='index') }}"><img src="{{URL::asset('assets/img/brand/favicon.png')}}"
+                <a href="{{ route('dashboard.home') }}"><img src="{{URL::asset('assets/img/brand/favicon.png')}}"
                                                               class="logo-2" alt="logo"></a>
-                <a href="{{ url('/' . $page='index') }}"><img src="{{URL::asset('assets/img/brand/favicon.png')}}"
+                <a href="{{ route('dashboard.home') }}"><img src="{{URL::asset('assets/img/brand/favicon.png')}}"
                                                               class="dark-logo-2" alt="logo"></a>
             </div>
             <div class="app-sidebar__toggle" data-toggle="sidebar">
-                <a class="open-toggle" href="#"><i class="header-icon fe fe-align-left"></i></a>
-                <a class="close-toggle" href="#"><i class="header-icons fe fe-x"></i></a>
+                <a class="open-toggle" style="color: #fff;" href="#"><i class="header-icon fe fe-align-left"></i></a>
+                <a class="close-toggle" style="color: #fff;" href="#"><i class="header-icons fe fe-x"></i></a>
             </div>
-            <div class="main-header-center mr-3 d-sm-none d-md-none d-lg-block">
-                <input class="form-control" placeholder="Search for anything..." type="search">
-                <button class="btn"><i class="fas fa-search d-none d-md-block"></i></button>
-            </div>
+
         </div>
         <div class="main-header-right">
             <ul class="nav">
@@ -61,7 +58,7 @@
 												<i class="fas fa-times"></i>
 											</button>
 											<button type="submit" class="btn btn-default nav-link resp-btn">
-												<svg xmlns="http://www.w3.org/2000/svg" class="header-icon-svgs"
+												<svg xmlns="http://www.w3.org/2000/svg"  class="header-icon-svgs"
                                                      viewBox="0 0 24 24" fill="none" stroke="currentColor"
                                                      stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
                                                      class="feather feather-search"><circle cx="11" cy="11"
@@ -78,7 +75,7 @@
 
                 <div class="nav-item full-screen fullscreen-button">
                     <a class="new nav-link full-screen-link" href="#">
-                        <svg xmlns="http://www.w3.org/2000/svg" class="header-icon-svgs feather feather-maximize" viewBox="0 0 24 24" fill="none"
+                        <svg xmlns="http://www.w3.org/2000/svg" class="header-icon-svgs feather feather-maximize" style="color: #fff;" viewBox="0 0 24 24" fill="none"
                              stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                             <path
                                 d="M8 3H5a2 2 0 0 0-2 2v3m18 0V5a2 2 0 0 0-2-2h-3m0 18h3a2 2 0 0 0 2-2v-3M3 16v3a2 2 0 0 0 2 2h3"></path>
@@ -87,28 +84,41 @@
                 </div>
                 <div class="dropdown main-profile-menu nav nav-item nav-link">
                     <a class="profile-user d-flex" href="">
-                        <img alt="" src="{{URL::asset('assets/img/faces/6.jpg')}}" class="">
+                        @if (auth()->user()->avatar)
+                            {{ auth()->user()->avatar->img()}}
+                        @else
+                            <img alt="user-img"
+                                 src="{{URL::asset('assets/img/Avatar/user-avatar.png')}}">
+
+                        @endif
                     </a>
                     <div class="dropdown-menu">
                         <div class="main-header-profile bg-primary p-3">
                             <div class="d-flex wd-100p">
                                 <div class="main-img-user">
-                                    <img alt="" src="{{URL::asset('assets/img/faces/6.jpg')}}" class="">
+
+                                    @if (auth()->user()->avatar)
+                                        {{ auth()->user()->avatar->img()}}
+                                    @else
+                                        <img alt="user-img"
+                                             src="{{URL::asset('assets/img/Avatar/user-avatar.png')}}">
+
+                                    @endif
                                 </div>
                                 <div class="mr-3 my-auto">
                                     <h6>{{ auth()->user()->name }}</h6><span>{{ auth()->user()->roles[0]->name }}</span>
                                 </div>
                             </div>
                         </div>
-                        <a class="dropdown-item" href=""><i class="bx bx-user-circle"></i>Profile</a>
-                        <a class="dropdown-item" href=""
+                        <a class="dropdown-item"  href=""><i class="bx bx-user-circle"></i>Profile</a>
+                        <a class="dropdown-item"  href=""
                            onclick="event.preventDefault();document.getElementById('logoutForm').submit()"><i
                                 class="bx bx-log-out"></i> Sign Out</a>
                     </div>
                 </div>
                 <div class="dropdown main-header-message right-toggle">
-                    <a class="nav-link pr-0" data-toggle="sidebar-right" data-target=".sidebar-right">
-                        <svg xmlns="http://www.w3.org/2000/svg" class="header-icon-svgs feather feather-menu" viewBox="0 0 24 24" fill="none"
+                    <a class="nav-link pr-0" data-toggle="sidebar-right"  data-target=".sidebar-right">
+                        <svg xmlns="http://www.w3.org/2000/svg" style="color: #fff;" class="header-icon-svgs feather feather-menu" viewBox="0 0 24 24" fill="none"
                              stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                             <line x1="3" y1="12" x2="21" y2="12"></line>
                             <line x1="3" y1="6" x2="21" y2="6"></line>

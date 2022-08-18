@@ -1,8 +1,1 @@
-$(function() {
-	
-	//Modal Popup
-	$(document).on("click",".phone-button", function(e) {
-		$('body').addClass('modal-open1');
-	});
-	
-});
+$((function(){$(document).on("click",".phone-button",(function(n){$("body").addClass("modal-open1")}))}));

@@ -13,7 +13,7 @@
     <div class="breadcrumb-header justify-content-between">
         <div class="my-auto">
             <div class="d-flex">
-                <h4 class="content-title mb-0 my-auto"><a href="{{route("dashboard.home")}}">Dashboard</a></h4><span class="text-muted mt-1 tx-13 mr-2 mb-0">/ Attendance</span>
+                <h4 class="content-title mb-0 my-auto"><a href="{{route("dashboard.home")}}">@lang('lang.dashboard')</a></h4><span class="text-muted mt-1 tx-13 mr-2 mb-0">/ @lang('lang.Attendances')</span>
             </div>
         </div>
     </div>
@@ -27,8 +27,8 @@
         <div class="card mg-b-20">
             <div class="card-header pb-0">
                 <div class="d-flex justify-content-between">
-                    <h4 class="card-title mg-b-0">Users Table</h4>
-                    <a href="{{ route('dashboard.users.create') }}" class="btn btn-success">Create</a>
+                    <h4 class="card-title mg-b-0">@lang('lang.table') @lang('lang.Attendances')</h4>
+                    <a href="{{ route('dashboard.users.create') }}" class="btn btn-success">@lang('lang.create')</a>
                 </div>
             </div>
             <div class="card-body">
@@ -36,18 +36,18 @@
                     <table id="example" class="table key-buttons text-md-nowrap">
                         <thead>
                         <tr>
-                            <th class="border-bottom-0">Employee</th>
-                            <th class="border-bottom-0">Department</th>
-                            <th class="border-bottom-0">Section</th>
-                            <th class="border-bottom-0">Day</th>
-                            <th class="border-bottom-0">Day Status</th>
-                            <th class="border-bottom-0">Check In</th>
-                            <th class="border-bottom-0">Check out</th>
-                            <th class="border-bottom-0">Working Hour</th>
-                            <th class="border-bottom-0">Delay Time</th>
-                            <th class="border-bottom-0">Additional Time</th>
-                            <th class="border-bottom-0">Note</th>
-                            <th class="border-bottom-0">Actions</th>
+                            <th class="border-bottom-0">@lang('lang.employee')</th>
+                            {{--                            <th class="border-bottom-0">Department</th>--}}
+                            {{--                            <th class="border-bottom-0">Section</th>--}}
+                            <th class="border-bottom-0">@lang('lang.day')</th>
+                            <th class="border-bottom-0">@lang('lang.d_status')</th>
+                            <th class="border-bottom-0">@lang('lang.check_in')</th>
+                            <th class="border-bottom-0">@lang('lang.check_out')</th>
+                            <th class="border-bottom-0">@lang('lang.W_hour')</th>
+                            <th class="border-bottom-0">@lang('lang.d_time')</th>
+                            <th class="border-bottom-0">@lang('lang.A_time')</th>
+                            <th class="border-bottom-0">@lang('lang.note')</th>
+                            <th class="border-bottom-0">@lang('lang.action')</th>
                         </tr>
                         </thead>
                         <tbody></tbody>
@@ -95,8 +95,8 @@
             },
             columns: [
                 {data: "name"},
-                {data: "department"},
-                {data: "section"},
+                // {data: "department"},
+                // {data: "section"},
                 {data: "created_at"},
                 {data: "day_status"},
                 {data: "check_in"},
