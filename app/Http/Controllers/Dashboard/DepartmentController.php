@@ -23,7 +23,7 @@ class DepartmentController extends Controller
     {
         abort_if(!auth()->user()->can('access_department'), Response::HTTP_FORBIDDEN, '403 Forbidden');
         if ($request->ajax()) {
-            $query = Department::query()->withTranslation()->get();
+            $query = Department::query()->get();
 
             return DataTables::of($query)
                 ->addColumn('actions', function ($row) {
@@ -79,7 +79,7 @@ class DepartmentController extends Controller
     public function create()
     {
         abort_if(!auth()->user()->can('create_department'), Response::HTTP_FORBIDDEN, '403 Forbidden');
-        $companies = Company::query()->listsTranslations('name')->pluck('name','id');
+        $companies = Company::query()->pluck('name','id');
         return view('dashboard.department.create', compact('companies'));
     }
 
@@ -94,10 +94,10 @@ class DepartmentController extends Controller
     {
         abort_if(!auth()->user()->can('edit_department'), Response::HTTP_FORBIDDEN, '403 Forbidden');
         $department->load('companies');
-        $companies = Company::query()->listsTranslations('name')->pluck('name','id');
+        $companies = Company::query()->pluck('name','id');
         return view('dashboard.department.edit', compact([
             'department',
-            'companies'
+            'companies',
         ]));
     }
 

@@ -22,7 +22,7 @@ class SectionController extends Controller
         abort_if(!auth()->user()->can('access_section'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
         if ($request->ajax()) {
-            $query = Section::query()->with('department')->latest()->get();
+            $query = Section::query()->with('departments')->latest()->get();
 
             return DataTables::of($query)
                 ->addColumn('actions', function ($row) {
@@ -42,16 +42,20 @@ class SectionController extends Controller
                         'show',
                     ]));
                 })
-                ->editColumn('department', function ($row) {
-                    if ($row->department) {
-                        return sprintf('<span class="badge badge-primary">%s</span>', $row->department->name);
+                ->editColumn('departments', function ($row) {
+                    if ($row->departments) {
+                        $links = [];
+                        foreach ($row->departments as $item) {
+                            $links[] = sprintf('<span class="badge badge-primary">%s</span>', $item->name);
+                        }
+                        return implode(' ', $links);
                     }
                     return '';
                 })
                 ->editColumn('created_at', function ($row) {
                     return $row->created_at ? $row->created_at->format('Md Y') : '';
                 })
-                ->rawColumns(['actions', 'department', 'created_at'])
+                ->rawColumns(['actions', 'departments', 'created_at'])
                 ->make(true);
         }
 
@@ -64,7 +68,9 @@ class SectionController extends Controller
 
         try {
 
-            Section::query()->create($request->validated());
+            $section = Section::query()->create($request->except('departments'));
+
+            $section->departments()->sync($request->departments ?? []);
 
             DB::commit();
 
@@ -84,21 +90,22 @@ class SectionController extends Controller
     public function create()
     {
         abort_if(!auth()->user()->can('create_section'), Response::HTTP_FORBIDDEN, '403 Forbidden');
-        $departments = Department::query()->listsTranslations('name')->pluck('name', 'id');
+        $departments = Department::query()->pluck('name', 'id');
         return view('dashboard.section.create', compact('departments'));
     }
 
     public function show(Section $section)
     {
         abort_if(!auth()->user()->can('show_section'), Response::HTTP_FORBIDDEN, '403 Forbidden');
+        $section->load('departments');
         return view('dashboard.section.show', compact('section'));
     }
 
     public function edit(Section $section)
     {
         abort_if(!auth()->user()->can('create_section'), Response::HTTP_FORBIDDEN, '403 Forbidden');
-        $section->load('department');
-        $departments = Department::query()->listsTranslations('name')->pluck('name', 'id');
+        $section->load('departments');
+        $departments = Department::query()->pluck('name', 'id');
         return view('dashboard.section.edit', compact('section', 'departments'));
     }
 
@@ -108,7 +115,9 @@ class SectionController extends Controller
 
         try {
 
-            $section->update($request->validated());
+            $section->update($request->except('departments'));
+
+            $section->departments()->sync($request->departments ?? []);
 
             DB::commit();
 

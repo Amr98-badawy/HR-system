@@ -17,7 +17,6 @@ use Yajra\DataTables\Facades\DataTables;
 
 class CompanyController extends Controller
 {
-
     public function index(Request $request)
     {
         abort_if(!auth()->user()->can('access_company'), Response::HTTP_FORBIDDEN, '403 Forbidden');
@@ -82,7 +81,6 @@ class CompanyController extends Controller
         DB::beginTransaction();
 
         try {
-
             $company = Company::query()->create($request->except('departments', 'logo'));
 
             if ($request->hasFile('logo')) {
@@ -107,14 +105,14 @@ class CompanyController extends Controller
     public function create()
     {
         abort_if(!auth()->user()->can('create_company'), Response::HTTP_FORBIDDEN, '403 Forbidden');
-        $departments = Department::query()->listsTranslations('name')->pluck('name', 'id');
+        $departments = Department::query()->pluck('name', 'id');
         return view('dashboard.company.create', compact('departments'));
     }
 
     public function show(Company $company)
     {
         abort_if(!auth()->user()->can('show_company'), Response::HTTP_FORBIDDEN, '403 Forbidden');
-        $company->load('departments.translations', 'departments.sections.translations', 'media');
+        $company->load('departments', 'departments.sections', 'media');
         return view('dashboard.company.show', compact('company'));
     }
 
@@ -122,8 +120,7 @@ class CompanyController extends Controller
     {
         abort_if(!auth()->user()->can('edit_company'), Response::HTTP_FORBIDDEN, '403 Forbidden');
         $company->load('departments');
-        $company->withTranslation();
-        $departments = Department::query()->listsTranslations('name')->pluck('name', 'id');
+        $departments = Department::query()->pluck('name', 'id');
         return view('dashboard.company.edit', compact('company', 'departments'));
     }
 

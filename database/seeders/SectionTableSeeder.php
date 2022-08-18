@@ -15,53 +15,23 @@ class SectionTableSeeder extends Seeder
     public function run()
     {
         Section::query()->create([
-            'en' => [
-                'name' => 'Section One'
-            ],
-            'ar' => [
-                'name' => 'قسم الأول'
-            ],
-            'department_id' => 1
+            'name' => 'Section One',
         ]);
 
         Section::query()->create([
-            'en' => [
-                'name' => 'Section Two'
-            ],
-            'ar' => [
-                'name' => 'قسم الثاني'
-            ],
-            'department_id' => 2
+            'name' => 'Section Two',
         ]);
 
         Section::query()->create([
-            'en' => [
-                'name' => 'Section Three'
-            ],
-            'ar' => [
-                'name' => 'قسم الثالث'
-            ],
-            'department_id' => 3
+            'name' => 'Section Three',
         ]);
 
         Section::query()->create([
-            'en' => [
-                'name' => 'Section Four'
-            ],
-            'ar' => [
-                'name' => 'قسم الرابع'
-            ],
-            'department_id' => 4
+            'name' => 'Section Four',
         ]);
 
         Section::query()->create([
-            'en' => [
-                'name' => 'Section Five'
-            ],
-            'ar' => [
-                'name' => 'قسم الخامس'
-            ],
-            'department_id' => 5
+            'name' => 'Section Five',
         ]);
     }
 }

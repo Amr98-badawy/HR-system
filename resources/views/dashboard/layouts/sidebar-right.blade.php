@@ -11,178 +11,188 @@
             <div class="tabs-menu ">
                 <!-- Tabs -->
                 <ul class="nav panel-tabs">
-                    <li class="">
-                        <a href="#user" class="active" data-toggle="tab">
-                            <i class="ion ion-md-person tx-18 mr-2"></i>
-                            User Management
-                        </a>
-                    </li>
-                    <li>
-                        <a href="#org" data-toggle="tab">
-                            <i class="ion ion-md-business tx-18  mr-2"></i>
-                            Organization
-                        </a>
-                    </li>
-                    <li><a href="#setting" data-toggle="tab">
-                            <i class="ion ion-md-cog tx-18 mr-2"></i>
-                            Settings
-                        </a>
-                    </li>
+                    @can('access_user')
+                        <li class="">
+                            <a href="#user" class="active" data-toggle="tab">
+                                <i class="ion ion-md-person tx-18 mr-2"></i>
+                                User Management
+                            </a>
+                        </li>
+                    @endcan
+                    @if(auth()->user()->can('access_company') || auth()->user()->can('access_department') || auth()->user()->can('access_employee') || auth()->user()->can('access_section') || auth()->user()->can('access_shift') || auth()->user()->can('access_attendance'))
+                        <li>
+                            <a href="#org" data-toggle="tab">
+                                <i class="ion ion-md-business tx-18  mr-2"></i>
+                                Organization
+                            </a>
+                        </li>
+                    @endif
+                    @if(auth()->user()->can('access_company') || auth()->user()->can('access_department') || auth()->user()->can('access_employee') || auth()->user()->can('access_section') || auth()->user()->can('access_shift') || auth()->user()->can('access_attendance'))
+                        <li><a href="#setting" data-toggle="tab">
+                                <i class="ion ion-md-cog tx-18 mr-2"></i>
+                                Settings
+                            </a>
+                        </li>
+                    @endif
                 </ul>
             </div>
             <div class="tab-content">
                 <div class="tab-pane active " id="user">
-                    <div class="list d-flex align-items-center border-bottom p-3">
-                        <div class="">
-                            <span class="avatar bg-primary brround avatar-md">U</span>
+                    @can('access_user')
+                        <div class="list d-flex align-items-center border-bottom p-3">
+                            <div class="">
+                                <span class="avatar bg-primary brround avatar-md">U</span>
+                            </div>
+                            <a class="wrapper w-100 ml-3" href="{{ route('dashboard.users.index') }}">
+                                <p class="mb-0 d-flex ">
+                                    <b>Users</b>
+                                </p>
+                            </a>
                         </div>
-                        <a class="wrapper w-100 ml-3" href="{{ route('dashboard.users.index') }}">
-                            <p class="mb-0 d-flex ">
-                                <b>Users</b>
-                            </p>
-                        </a>
-                    </div>
-                    <div class="list d-flex align-items-center border-bottom p-3">
-                        <div class="">
-                            <span class="avatar bg-primary brround avatar-md">R</span>
+                    @endcan
+                    @can('access_role')
+                        <div class="list d-flex align-items-center border-bottom p-3">
+                            <div class="">
+                                <span class="avatar bg-primary brround avatar-md">R</span>
+                            </div>
+                            <a class="wrapper w-100 ml-3" href="{{ route('dashboard.roles.index') }}">
+                                <p class="mb-0 d-flex ">
+                                    <b>Roles</b>
+                                </p>
+                            </a>
                         </div>
-                        <a class="wrapper w-100 ml-3" href="{{ route('dashboard.roles.index') }}">
-                            <p class="mb-0 d-flex ">
-                                <b>Roles</b>
-                            </p>
-                        </a>
-                    </div>
-                    <div class="list d-flex align-items-center border-bottom p-3">
-                        <div class="">
-                            <span class="avatar bg-primary brround avatar-md">P</span>
+                    @endcan
+                    @can('access_permission')
+                        <div class="list d-flex align-items-center border-bottom p-3">
+                            <div class="">
+                                <span class="avatar bg-primary brround avatar-md">P</span>
+                            </div>
+                            <a class="wrapper w-100 ml-3" href="{{ route('dashboard.permissions.index') }}">
+                                <p class="mb-0 d-flex ">
+                                    <b>Permissions</b>
+                                </p>
+                            </a>
                         </div>
-                        <a class="wrapper w-100 ml-3" href="{{ route('dashboard.permissions.index') }}">
-                            <p class="mb-0 d-flex ">
-                                <b>Permissions</b>
-                            </p>
-                        </a>
-                    </div>
+                    @endcan
                 </div>
                 <div class="tab-pane" id="org">
                     <div class="list-group list-group-flush ">
-                        <div class="list d-flex align-items-center border-bottom p-3">
-                            <div class="">
-                                <span class="avatar bg-primary brround avatar-md">C</span>
+                        @can('access_company')
+                            <div class="list d-flex align-items-center border-bottom p-3">
+                                <div class="">
+                                    <span class="avatar bg-primary brround avatar-md">C</span>
+                                </div>
+                                <a class="wrapper w-100 ml-3" href="{{ route('dashboard.companies.index') }}">
+                                    <p class="mb-0 d-flex ">
+                                        <b>Companies</b>
+                                    </p>
+                                </a>
                             </div>
-                            <a class="wrapper w-100 ml-3" href="{{ route('dashboard.companies.index') }}">
-                                <p class="mb-0 d-flex ">
-                                    <b>Companies</b>
-                                </p>
-                            </a>
-                        </div>
-                        <div class="list d-flex align-items-center border-bottom p-3">
-                            <div class="">
-                                <span class="avatar bg-primary brround avatar-md">D</span>
+                        @endcan
+                        @can('access_department')
+                            <div class="list d-flex align-items-center border-bottom p-3">
+                                <div class="">
+                                    <span class="avatar bg-primary brround avatar-md">D</span>
+                                </div>
+                                <a class="wrapper w-100 ml-3" href="{{ route('dashboard.departments.index') }}">
+                                    <p class="mb-0 d-flex ">
+                                        <b>Departments</b>
+                                    </p>
+                                </a>
                             </div>
-                            <a class="wrapper w-100 ml-3" href="{{ route('dashboard.departments.index') }}">
-                                <p class="mb-0 d-flex ">
-                                    <b>Departments</b>
-                                </p>
-                            </a>
-                        </div>
-                        <div class="list d-flex align-items-center border-bottom p-3">
-                            <div class="">
-                                <span class="avatar bg-primary brround avatar-md">S</span>
+                        @endcan
+                        @can('access_section')
+                            <div class="list d-flex align-items-center border-bottom p-3">
+                                <div class="">
+                                    <span class="avatar bg-primary brround avatar-md">S</span>
+                                </div>
+                                <a class="wrapper w-100 ml-3" href="{{ route('dashboard.sections.index') }}">
+                                    <p class="mb-0 d-flex ">
+                                        <b>Sections</b>
+                                    </p>
+                                </a>
                             </div>
-                            <a class="wrapper w-100 ml-3" href="{{ route('dashboard.sections.index') }}">
-                                <p class="mb-0 d-flex ">
-                                    <b>Sections</b>
-                                </p>
-                            </a>
-                        </div>
-                        <div class="list d-flex align-items-center border-bottom p-3">
-                            <div class="">
-                                <span class="avatar bg-primary brround avatar-md">S</span>
+                        @endcan
+                        @can('access_shift')
+                            <div class="list d-flex align-items-center border-bottom p-3">
+                                <div class="">
+                                    <span class="avatar bg-primary brround avatar-md">S</span>
+                                </div>
+                                <a class="wrapper w-100 ml-3" href="{{ route('dashboard.shifts.index') }}">
+                                    <p class="mb-0 d-flex ">
+                                        <b>Shifts</b>
+                                    </p>
+                                </a>
                             </div>
-                            <a class="wrapper w-100 ml-3" href="{{ route('dashboard.shifts.index') }}">
-                                <p class="mb-0 d-flex ">
-                                    <b>Shifts</b>
-                                </p>
-                            </a>
-                        </div>
-                        <div class="list d-flex align-items-center border-bottom p-3">
-                            <div class="">
-                                <span class="avatar bg-primary brround avatar-md">E</span>
+                        @endcan
+                        @can('access_employee')
+                            <div class="list d-flex align-items-center border-bottom p-3">
+                                <div class="">
+                                    <span class="avatar bg-primary brround avatar-md">E</span>
+                                </div>
+                                <a class="wrapper w-100 ml-3" href="{{ route('dashboard.employees.index') }}">
+                                    <p class="mb-0 d-flex ">
+                                        <b>Employees</b>
+                                    </p>
+                                </a>
                             </div>
-                            <a class="wrapper w-100 ml-3" href="{{ route('dashboard.employees.index') }}">
-                                <p class="mb-0 d-flex ">
-                                    <b>Employees</b>
-                                </p>
-                            </a>
-                        </div>
-                        <div class="list d-flex align-items-center border-bottom p-3">
-                            <div class="">
-                                <span class="avatar bg-primary brround avatar-md">A</span>
+                        @endcan
+                        @can('access_attendance')
+                            <div class="list d-flex align-items-center border-bottom p-3">
+                                <div class="">
+                                    <span class="avatar bg-primary brround avatar-md">A</span>
+                                </div>
+                                <a class="wrapper w-100 ml-3" href="{{ route('dashboard.attendances.index') }}">
+                                    <p class="mb-0 d-flex ">
+                                        <b>Attendances</b>
+                                    </p>
+                                </a>
                             </div>
-                            <a class="wrapper w-100 ml-3" href="{{ route('dashboard.attendances.index') }}">
-                                <p class="mb-0 d-flex ">
-                                    <b>Attendances</b>
-                                </p>
-                            </a>
-                        </div>
+                        @endcan
                     </div>
                 </div>
                 <div class="tab-pane" id="setting">
+
                     <div class="list-group list-group-flush ">
-                        <div class="list d-flex align-items-center border-bottom p-3">
-                            <div class="">
-                                <span class="avatar bg-primary brround avatar-md">SL</span>
+                        @can('access_translation')
+                            <div class="list d-flex align-items-center border-bottom p-3">
+                                <div class="">
+                                    <span class="avatar bg-primary brround avatar-md">ST</span>
+                                </div>
+                                <a class="wrapper w-100 ml-3" target="_blank" href="{{ route('languages.index') }}">
+                                    <p class="mb-0 d-flex ">
+                                        <b>Site Translations</b>
+                                    </p>
+                                </a>
                             </div>
-                            <a class="wrapper w-100 ml-3" href="{{ route('dashboard.languages.index') }}">
-                                <p class="mb-0 d-flex ">
-                                    <b>Site Languages</b>
-                                </p>
-                            </a>
-                        </div>
-                        <div class="list d-flex align-items-center border-bottom p-3">
-                            <div class="">
-                                <span class="avatar bg-primary brround avatar-md">S</span>
+                        @endcan
+                        @can('access_log')
+                            <div class="list d-flex align-items-center border-bottom p-3">
+                                <div class="">
+                                    <span class="avatar bg-primary brround avatar-md">LS</span>
+                                </div>
+                                <a class="wrapper w-100 ml-3" href="{{ route('dashboard.logs.index') }}">
+                                    <p class="mb-0 d-flex ">
+                                        <b>Log System</b>
+                                    </p>
+                                </a>
                             </div>
-                            <a class="wrapper w-100 ml-3" href="">
-                                <p class="mb-0 d-flex ">
-                                    <b>Settings</b>
-                                </p>
-                            </a>
-                        </div>
-                        <div class="list d-flex align-items-center border-bottom p-3">
-                            <div class="">
-                                <span class="avatar bg-primary brround avatar-md">ST</span>
+                        @endcan
+                        @can('access_device')
+                            <div class="list d-flex align-items-center border-bottom p-3">
+                                <div class="">
+                                    <span class="avatar bg-primary brround avatar-md">RD</span>
+                                </div>
+                                <a class="wrapper w-100 ml-3" href="{{ route('dashboard.devices.index') }}">
+                                    <p class="mb-0 d-flex ">
+                                        <b>Route Devices</b>
+                                    </p>
+                                </a>
                             </div>
-                            <a class="wrapper w-100 ml-3" target="_blank" href="{{ route('languages.index') }}">
-                                <p class="mb-0 d-flex ">
-                                    <b>Site Translations</b>
-                                </p>
-                            </a>
-                        </div>
-                        <div class="list d-flex align-items-center border-bottom p-3">
-                            <div class="">
-                                <span class="avatar bg-primary brround avatar-md">LS</span>
-                            </div>
-                            <a class="wrapper w-100 ml-3" href="{{ route('dashboard.logs.index') }}">
-                                <p class="mb-0 d-flex ">
-                                    <b>Log System</b>
-                                </p>
-                            </a>
-                        </div>
-                        <div class="list d-flex align-items-center border-bottom p-3">
-                            <div class="">
-                                <span class="avatar bg-primary brround avatar-md">RD</span>
-                            </div>
-                            <a class="wrapper w-100 ml-3" href="{{ route('dashboard.devices.index') }}">
-                                <p class="mb-0 d-flex ">
-                                    <b>Route Devices</b>
-                                </p>
-                            </a>
-                        </div>
+                        @endcan
                     </div>
                 </div>
             </div>
         </div>
     </div>
 </div>
-<!--/Sidebar-right-->

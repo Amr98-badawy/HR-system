@@ -19,7 +19,10 @@ class DepartmentUpdateRequest extends FormRequest
 
     public function rules(): array
     {
-        $data = [
+        return [
+            'name' => [
+                'required',
+            ],
             'companies' => [
                 'sometimes'
             ],
@@ -28,15 +31,6 @@ class DepartmentUpdateRequest extends FormRequest
                 Rule::exists('companies', 'id')
             ]
         ];
-
-        foreach (siteLanguages() as $locale) {
-            $data[$locale . '.name'] = [
-                'required',
-                Rule::unique('department_translations', 'name')->ignore($this->department->translate($locale) ? $this->department->translate($locale)->id : $this->department->id)
-            ];
-        }
-
-        return $data;
     }
 
     protected function prepareForValidation()

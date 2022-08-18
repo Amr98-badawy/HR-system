@@ -15,48 +15,23 @@ class DepartmentTableSeeder extends Seeder
     public function run()
     {
         Department::query()->create([
-            'en' => [
-                'name' => 'HR Department'
-            ],
-            'ar' => [
-                'name' => 'قسم الأتش أر'
-            ],
+            'name' => 'HR Department'
         ]);
 
         Department::query()->create([
-            'en' => [
-                'name' => 'Accounting Department'
-            ],
-            'ar' => [
-                'name' => 'قسم الحسابات'
-            ],
+            'name' => 'Accounting Department'
         ]);
 
         Department::query()->create([
-            'en' => [
-                'name' => 'Inventory Department'
-            ],
-            'ar' => [
-                'name' => 'قسم المخازن'
-            ],
+            'name' => 'Inventory Department'
         ]);
 
         Department::query()->create([
-            'en' => [
-                'name' => 'Marketing Department'
-            ],
-            'ar' => [
-                'name' => 'قسم التسويق'
-            ],
+            'name' => 'Marketing Department'
         ]);
 
         Department::query()->create([
-            'en' => [
-                'name' => 'Development Department'
-            ],
-            'ar' => [
-                'name' => 'قسم البرمجة'
-            ],
+            'name' => 'Development Department'
         ]);
     }
 }

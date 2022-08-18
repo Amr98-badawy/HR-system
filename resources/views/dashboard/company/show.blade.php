@@ -34,15 +34,15 @@
                             </div>
                             <div class="d-flex justify-content-between  mg-b-20">
                                 <div>
-                                    <h5 class="main-profile-name">  {{$company->translate(app()->getLocale(),true)->name}}</h5>
+                                    <h5 class="main-profile-name">  {{$company->name}}</h5>
                                     @foreach($company->departments as $dep)
                                         <p class="main-profile-name-text mg-t-10">
                                             <span
-                                                class="badge badge-purple"> {{$dep->translate(app()->getLocale(),true)->name}}</span>
+                                                class="badge badge-purple"> {{$dep->name}}</span>
 
                                             @forelse($dep->sections as $sec)
                                                 <span
-                                                    class="badge  badge-primary"> {{$sec->translate(app()->getLocale(),true)->name}}</span>
+                                                    class="badge  badge-primary"> {{$sec->name}}</span>
                                             @empty
                                                 <span class="badge  badge-warning">no Sections</span>
                                             @endforelse

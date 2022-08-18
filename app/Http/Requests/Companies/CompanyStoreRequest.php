@@ -15,7 +15,11 @@ class CompanyStoreRequest extends FormRequest
 
     public function rules(): array
     {
-        $data = [
+        return [
+            'name' => [
+                'required',
+                Rule::unique('companies', 'name')
+            ],
             'logo' => [
                 'nullable',
                 'image',
@@ -29,16 +33,6 @@ class CompanyStoreRequest extends FormRequest
                 Rule::exists('departments', 'id')
             ]
         ];
-
-
-        foreach (siteLanguages() as $locale) {
-            $data[$locale . '.name'] = [
-                'required',
-                Rule::unique('company_translations', 'name')
-            ];
-        }
-
-        return $data;
     }
 
     protected function prepareForValidation()

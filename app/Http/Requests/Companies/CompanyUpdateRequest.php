@@ -14,7 +14,11 @@ class CompanyUpdateRequest extends FormRequest
 
     public function rules(): array
     {
-        $data = [
+        return [
+            'name' => [
+                'required',
+                Rule::unique('companies', 'name')->ignore($this->company)
+            ],
             'logo' => [
                 'nullable',
                 'image',
@@ -28,15 +32,6 @@ class CompanyUpdateRequest extends FormRequest
                 Rule::exists('departments', 'id')
             ]
         ];
-
-        foreach (siteLanguages() as $locale) {
-            $data[$locale . '.name'] = [
-                'required',
-                Rule::unique('company_translations', 'name')->ignore($this->company->translate($locale) ? $this->company->translate($locale)->id : $this->company->id)
-            ];
-        }
-
-        return $data;
     }
 
     protected function prepareForValidation()

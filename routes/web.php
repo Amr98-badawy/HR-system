@@ -55,9 +55,6 @@ Route::group(
         Route::delete('attendance/{attendance}/delete', [AttendanceController::class, 'destroy'])->name('attendances.destroy');
         Route::get('attendance/{company}/company', [AttendanceController::class, 'companyAttendance'])->name('attendances.company');
 
-        // Language Route
-        Route::resource('languages', SiteLanguageController::class);
-
         // Device Route
         Route::resource('devices', DeviceController::class);
 

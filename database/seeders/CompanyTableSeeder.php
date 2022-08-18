@@ -15,21 +15,11 @@ class CompanyTableSeeder extends Seeder
     public function run()
     {
         Company::query()->create([
-            'en' => [
-                'name' => 'Company One'
-            ],
-            'ar' => [
-                'name' => 'الشركة الأولي'
-            ],
+            'name' => 'Company One'
         ]);
 
         Company::query()->create([
-            'en' => [
-                'name' => 'Company Two'
-            ],
-            'ar' => [
-                'name' => 'الشركة الثانية'
-            ],
+            'name' => 'Company Two'
         ]);
     }
 }

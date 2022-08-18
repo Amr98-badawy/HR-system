@@ -2,8 +2,6 @@
 
 namespace App\Models;
 
-use Astrotomic\Translatable\Contracts\Translatable as TranslatableContracts;
-use Astrotomic\Translatable\Translatable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
@@ -14,18 +12,15 @@ use Spatie\MediaLibrary\HasMedia;
 use Spatie\MediaLibrary\InteractsWithMedia;
 use Spatie\MediaLibrary\MediaCollections\Models\Media;
 
-class Company extends Model implements TranslatableContracts, HasMedia
+class Company extends Model implements HasMedia
 {
     use HasFactory;
-    use Translatable;
     use InteractsWithMedia;
     use LogsActivity;
 
     protected $table = 'companies';
 
-    protected $guarded = [];
-
-    protected array $translatedAttributes = [
+    protected $fillable = [
         'name'
     ];
 
@@ -49,6 +44,7 @@ class Company extends Model implements TranslatableContracts, HasMedia
     {
         return $this->hasMany(Employee::class);
     }
+
     public function getActivitylogOptions(): LogOptions
     {
         return LogOptions::defaults()

@@ -15,22 +15,18 @@ class StoreSectionRequest extends FormRequest
 
     public function rules(): array
     {
-        $data = [
-            'department_id' => [
-                'required',
-                'integer',
-                Rule::exists('departments', 'id')
-            ]
-        ];
-
-        foreach (siteLanguages() as $locale) {
-            $data[$locale . '.name'] = [
+        return [
+            'name' => [
                 'required',
                 'string',
-                Rule::unique('section_translations', 'name'),
-            ];
-        }
-
-        return $data;
+            ],
+            'departments' => [
+                'required',
+            ],
+            'departments.*' => [
+                'integer',
+                Rule::exists('departments', 'id')
+            ],
+        ];
     }
 }

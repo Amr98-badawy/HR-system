@@ -1,13 +1,21 @@
 @extends('dashboard.layouts.master')
 @section('css')
     <link href="{{asset('assets/plugins/select2/css/select2.min.css')}}" rel="stylesheet">
+    <!--Internal Sumoselect css-->
+    @if(\Mcamara\LaravelLocalization\Facades\LaravelLocalization::getCurrentLocaleDirection() == 'rtl')
+        <link rel="stylesheet" href="{{asset('assets/plugins/sumoselect/sumoselect-rtl.css')}}">
+    @endif
+    @if(\Mcamara\LaravelLocalization\Facades\LaravelLocalization::getCurrentLocaleDirection() == 'ltr')
+        <link rel="stylesheet" href="{{asset('assets/plugins/sumoselect/sumoselect.css')}}">
+    @endif
 @endsection
 @section('page-header')
     <!-- breadcrumb -->
     <div class="breadcrumb-header justify-content-between">
         <div class="my-auto">
             <div class="d-flex">
-                <h4 class="content-title mb-0 my-auto"><a href="{{route("dashboard.home")}}">Dashboard</a></h4><span class="text-muted mt-1 tx-13 mr-2 mb-0"> / create / section</span>
+                <h4 class="content-title mb-0 my-auto"><a href="{{route("dashboard.home")}}">Dashboard</a></h4><span
+                    class="text-muted mt-1 tx-13 mr-2 mb-0"> / create / section</span>
             </div>
         </div>
     </div>
@@ -35,27 +43,22 @@
                                 <div class="card">
                                     <div class="card-body">
                                         <div class="row">
-
-                                            @foreach(siteLanguages() as $locale)
-                                                <div class="col-md-6 col-lg-6 mg-t-20 mg-md-t-0">
-                                                    <label id="email" class="form-control-label"> Section
-                                                        Name {{$locale}}:
-                                                        <span class="tx-danger">*</span>
-                                                    </label>
-                                                    <input
-                                                        class="form-control @error($locale.'.name') is-invalid @enderror"
-
-                                                        name="{{$locale}}[name]"
-                                                        placeholder="Company {{$locale}} "
-                                                        value="{{ old($locale.'.name') }}"
-                                                        required
-                                                        type="text">
-                                                    @error($locale.'.name')
-                                                    <p class="text-danger">{{ $message }}</p>
-                                                    @enderror
-                                                </div>
-                                            @endforeach
-
+                                            <div class="col-md-6 col-lg-6 mg-t-20 mg-md-t-0">
+                                                <label id="email" class="form-control-label"> Section
+                                                    Name:
+                                                    <span class="tx-danger">*</span>
+                                                </label>
+                                                <input
+                                                    class="form-control @error('name') is-invalid @enderror"
+                                                    name="name"
+                                                    placeholder="Section Name"
+                                                    value="{{ old('name') }}"
+                                                    required
+                                                    type="text">
+                                                @error('name')
+                                                <p class="text-danger">{{ $message }}</p>
+                                                @enderror
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
@@ -68,19 +71,17 @@
                                     <div class="card-body">
                                         <div class="row">
                                             <div class="col-md-12 col-lg-12 mg-t-20 mg-md-t-0">
-                                                <p class="mg-b-10"> Department: </p>
-                                                <select class="form-control select2" name="department_id">
-                                                    <option label="Choose roles for user">
-                                                    </option>
+                                                <p class="mg-b-10"> Departments: </p>
+                                                <select class="testselect2" multiple name="departments[]">
                                                     @foreach($departments as $key=>$item)
                                                         <option
-                                                            {{ old('department_id') == $key ? 'selected' : '' }}
+                                                            {{ in_array($key, old('departments',[])) ? 'selected' : '' }}
                                                             value="{{ $key }}">
                                                             {{ $item }}
                                                         </option>
                                                     @endforeach
                                                 </select>
-                                                @error('department_id')
+                                                @error('departments')
                                                 <p class="text-danger">{{ $message }}</p>
                                                 @enderror
                                             </div>
@@ -104,10 +105,11 @@
     </div>
 @endsection
 @section('js')
-    <!-- Internal Select2.min js -->
-    <script src="{{URL::asset('assets/plugins/select2/js/select2.min.js')}}"></script>
-    <!-- Internal form-elements js -->
-    <script src="{{URL::asset('assets/js/form-elements.js')}}"></script>
+    <!--Internal  Form-elements js-->
+    <script src="{{URL::asset('assets/js/advanced-form-elements.js')}}"></script>
+    <script src="{{URL::asset('assets/js/select2.js')}}"></script>
+    <!--Internal Sumoselect js-->
+    <script src="{{URL::asset('assets/plugins/sumoselect/jquery.sumoselect.js')}}"></script>
     <!-- Internal Form-validation js -->
     <script src="{{URL::asset('assets/js/form-validation.js')}}"></script>
 @endsection

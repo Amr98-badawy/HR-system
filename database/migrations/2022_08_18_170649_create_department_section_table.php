@@ -4,8 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateSiteLanguagesTable extends Migration
-{
+return new class extends Migration {
     /**
      * Run the migrations.
      *
@@ -13,11 +12,10 @@ class CreateSiteLanguagesTable extends Migration
      */
     public function up()
     {
-        Schema::create('site_languages', function (Blueprint $table) {
+        Schema::create('department_section', function (Blueprint $table) {
             $table->id();
-            $table->string('name')->unique();
-            $table->string('locale')->unique();
-            $table->timestamps();
+            $table->foreignId('section_id')->constrained('sections')->cascadeOnUpdate()->cascadeOnDelete();
+            $table->foreignId('department_id')->constrained('departments')->cascadeOnUpdate()->cascadeOnDelete();
         });
     }
 
@@ -28,6 +26,6 @@ class CreateSiteLanguagesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('site_languages');
+        Schema::dropIfExists('department_section');
     }
-}
+};

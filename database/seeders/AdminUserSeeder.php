@@ -18,8 +18,8 @@ class AdminUserSeeder extends Seeder
     {
         $user = User::query()->create([
             'name' => 'Super Admin',
-            'email' => 'super-admin@limitlesscode.com',
-            'password' => Hash::make('password'),
+            'email' => 'super-admin@vodex-co.com',
+            'password' => Hash::make('vodex@super-admin'),
             'email_verified_at' => now()->toString(),
         ]);
 

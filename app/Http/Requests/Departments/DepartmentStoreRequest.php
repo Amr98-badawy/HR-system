@@ -19,7 +19,10 @@ class DepartmentStoreRequest extends FormRequest
 
     public function rules(): array
     {
-        $data = [
+        return [
+            'name' => [
+                'required',
+            ],
             'companies' => [
                 'sometimes'
             ],
@@ -28,16 +31,6 @@ class DepartmentStoreRequest extends FormRequest
                 Rule::exists('companies', 'id')
             ]
         ];
-
-
-        foreach (siteLanguages() as $locale) {
-            $data[$locale . '.name'] = [
-                'required',
-                Rule::unique('department_translations', 'name')
-            ];
-        }
-
-        return $data;
     }
 
     protected function prepareForValidation()

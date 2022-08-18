@@ -25,6 +25,8 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        View::share('companies', Company::query()->listsTranslations('name')->pluck('name', 'id'));
+        if (!app()->runningInConsole()) {
+            View::share('companies', Company::query()->pluck('name', 'id'));
+        }
     }
 }

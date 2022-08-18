@@ -2,8 +2,6 @@
 
 namespace App\Models;
 
-use Astrotomic\Translatable\Contracts\Translatable as TranslatableContracts;
-use Astrotomic\Translatable\Translatable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
@@ -11,17 +9,14 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 use Spatie\Activitylog\LogOptions;
 use Spatie\Activitylog\Traits\LogsActivity;
 
-class Department extends Model implements TranslatableContracts
+class Department extends Model
 {
     use HasFactory;
-    use Translatable;
     use LogsActivity;
 
     protected $table = 'departments';
 
-    protected $guarded = [];
-
-    protected array $translatedAttributes = [
+    protected $fillable = [
         'name',
     ];
 
@@ -30,9 +25,9 @@ class Department extends Model implements TranslatableContracts
         return $this->belongsToMany(Company::class);
     }
 
-    public function sections(): HasMany
+    public function sections(): BelongsToMany
     {
-        return $this->hasMany(Section::class);
+        return $this->belongsToMany(Section::class);
     }
 
     public function employees(): HasMany

@@ -15,11 +15,7 @@ class CreateSectionsTable extends Migration
     {
         Schema::create('sections', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('department_id')
-                ->nullable()
-                ->constrained('departments')
-                ->nullOnDelete()
-                ->cascadeOnUpdate();
+            $table->string('name')->index();
             $table->timestamps();
         });
     }
