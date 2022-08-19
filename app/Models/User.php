@@ -61,7 +61,7 @@ class User extends Authenticatable implements HasMedia
     public function getActivitylogOptions(): LogOptions
     {
         return LogOptions::defaults()
-            ->logOnly(['name', 'email'])
+            ->logAll()
             ->setDescriptionForEvent(fn(string $eventName) => "You have {$eventName} User")
             ->useLogName('User Module');
     }

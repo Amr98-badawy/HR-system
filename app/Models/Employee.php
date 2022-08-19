@@ -22,6 +22,12 @@ class Employee extends Model implements HasMedia
         'f' => 'Female',
     ];
 
+    public const STATUS = [
+        'm' => 'Married',
+        's' => 'Single',
+        'w' => 'Widow / Widower',
+    ];
+
     protected $table = 'employees';
 
     protected $dates = [
@@ -30,7 +36,7 @@ class Employee extends Model implements HasMedia
     ];
 
     protected $fillable = [
-        'slug', 'account_no', 'first_name', 'second_name', 'family_name',
+        'account_no', 'status', 'family_count', 'first_name', 'second_name', 'family_name',
         'gender', 'job_title', 'date_of_birth', 'id_card', 'address',
         'mobile', 'date_of_employment', 'office_tel', 'nationality', 'company_id', 'department_id',
         'section_id', 'salary', 'bank_account', 'shift_id', 'device_number'
@@ -85,7 +91,7 @@ class Employee extends Model implements HasMedia
 
     public function getRouteKeyName(): string
     {
-        return 'slug';
+        return 'account_no';
     }
 
     public function getSalaryAttribute($value)

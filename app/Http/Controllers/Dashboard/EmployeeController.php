@@ -15,7 +15,6 @@ use Exception;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Str;
 use RealRashid\SweetAlert\Facades\Alert;
 use Symfony\Component\HttpFoundation\Response;
 use Yajra\DataTables\Facades\DataTables;
@@ -29,7 +28,7 @@ class EmployeeController extends Controller
         abort_if(!auth()->user()->can('access_employee'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
         if ($request->ajax()) {
-            $query = Employee::query()->with(['media', 'company.translations', 'department.translations', 'section.translations', 'shift'])->latest()->get();
+            $query = Employee::query()->with(['media', 'company', 'department', 'section', 'shift'])->latest()->get();
 
             return DataTables::of($query)
                 ->addColumn('actions', function ($row) {
@@ -37,7 +36,7 @@ class EmployeeController extends Controller
                     $editGate = 'edit_employee';
                     $deleteGate = 'delete_employee';
                     $crudRoutePart = 'employees';
-                    $key = $row->slug;
+                    $key = $row->account_no;
                     $show = true;
 
                     return view('dashboard.partials.datatable-actions', compact([
@@ -127,7 +126,7 @@ class EmployeeController extends Controller
         abort_if(!auth()->user()->can('access_employee'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
         if ($request->ajax()) {
-            $query = Employee::query()->with(['media', 'company.translations', 'department.translations', 'section.translations', 'shift'])
+            $query = Employee::query()->with(['media', 'company', 'department', 'section', 'shift'])
                 ->whereHas('company', function ($query) use ($company) {
                     $query->where('id', $company->id);
                 })
@@ -140,7 +139,7 @@ class EmployeeController extends Controller
                     $editGate = 'edit_employee';
                     $deleteGate = 'delete_employee';
                     $crudRoutePart = 'employees';
-                    $key = $row->slug;
+                    $key = $row->account_no;
                     $show = true;
 
                     return view('dashboard.partials.datatable-actions', compact([
@@ -230,41 +229,39 @@ class EmployeeController extends Controller
         DB::beginTransaction();
 
         try {
-            $company = Company::query()->whereTranslation('company_id', $request->company_id)
-                ->listsTranslations('name')
+            $company = Company::query()->where('id', $request->company_id)
                 ->pluck('name')
                 ->first()[0];
-            $department = Department::query()->whereTranslation('department_id', $request->department_id)
-                ->listsTranslations('name')
+            $department = Department::query()->where('id', $request->department_id)
                 ->pluck('name')
                 ->first()[0];
-            $section = Section::query()->whereTranslation('section_id', $request->section_id)
-                ->listsTranslations('name')
+            $section = Section::query()->where('id', $request->section_id)
                 ->pluck('name')
                 ->first()[0];
 
             $str = "{$company}{$department}{$section}";
 
             $employee = Employee::query()->create([
-                'slug' => $request->slug,
                 'account_no' => $this->generateUniqueCode($str, new Employee(), 'account_no', 100, 999999),
                 'first_name' => $request->first_name,
                 'second_name' => $request->second_name,
                 'family_name' => $request->family_name,
                 'gender' => $request->gender,
+                'status' => $request->status,
+                'family_count' => $request->family_count ?? null,
                 'job_title' => $request->job_title,
                 'date_of_birth' => $request->date_of_birth,
                 'id_card' => $request->id_card,
                 'address' => $request->address,
                 'mobile' => $request->mobile,
                 'date_of_employment' => $request->date_of_employment,
-                'office_tel' => $request->office_tel,
+                'office_tel' => $request->office_tel ?? null,
                 'nationality' => $request->nationality,
                 'company_id' => $request->company_id,
                 'department_id' => $request->department_id,
                 'section_id' => $request->section_id,
                 'shift_id' => $request->shift_id,
-                'bank_account' => $request->bank_account,
+                'bank_account' => $request->bank_account ?? null,
                 'salary' => $request->salary,
             ]);
 
@@ -308,7 +305,7 @@ class EmployeeController extends Controller
     public function create()
     {
         abort_if(!auth()->user()->can('create_company'), Response::HTTP_FORBIDDEN, '403 Forbidden');
-        $companies = Company::query()->listsTranslations('name')->pluck('name', 'id');
+        $companies = Company::query()->pluck('name', 'id');
         $shifts = Shift::query()->pluck('name', 'id');
         return view('dashboard.employee.create', compact([
             'companies',
@@ -319,18 +316,18 @@ class EmployeeController extends Controller
     public function show(Employee $employee)
     {
         abort_if(!auth()->user()->can('show_company'), Response::HTTP_FORBIDDEN, '403 Forbidden');
-        $employee->load(['department.translations', 'section.translations', 'company.translations', 'shift', 'media']);
+        $employee->load(['department', 'section', 'company', 'shift', 'media']);
         return view('dashboard.employee.show', compact('employee'));
     }
 
     public function edit(Employee $employee)
     {
         abort_if(!auth()->user()->can('edit_company'), Response::HTTP_FORBIDDEN, '403 Forbidden');
-        $companies = Company::query()->listsTranslations('name')->pluck('name', 'id');
-        $departments = Department::query()->listsTranslations('name')->pluck('name', 'id');
-        $sections = Section::query()->listsTranslations('name')->pluck('name', 'id');
+        $companies = Company::query()->pluck('name', 'id');
+        $departments = Department::query()->pluck('name', 'id');
+        $sections = Section::query()->pluck('name', 'id');
         $shifts = Shift::query()->pluck('name', 'id');
-        $employee->load(['department.translations', 'section.translations', 'company.translations', 'shift']);
+        $employee->load(['department', 'section', 'company', 'shift']);
         return view('dashboard.employee.edit', compact([
             'employee',
             'departments',
@@ -346,24 +343,25 @@ class EmployeeController extends Controller
 
         try {
             $employee->update([
-                'slug' => Str::slug("{$request->first_name} {$request->second_name} {$request->family_name}"),
                 'first_name' => $request->first_name,
                 'second_name' => $request->second_name,
                 'family_name' => $request->family_name,
                 'gender' => $request->gender,
+                'status' => $request->status,
+                'family_count' => $request->family_count ?? null,
                 'job_title' => $request->job_title,
                 'date_of_birth' => $request->date_of_birth,
                 'id_Card' => $request->id_Card,
                 'address' => $request->address,
                 'mobile' => $request->mobile,
                 'date_of_employment' => $request->date_of_employment,
-                'office_tel' => $request->office_tel,
+                'office_tel' => $request->office_tel ?? null,
                 'nationality' => $request->nationality,
                 'company_id' => $request->company_id,
                 'department_id' => $request->department_id,
                 'section_id' => $request->section_id,
                 'shift_id' => $request->shift_id,
-                'bank_account' => $request->bank_account,
+                'bank_account' => $request->bank_account ?? null,
                 'salary' => $request->salary,
             ]);
 
@@ -408,7 +406,7 @@ class EmployeeController extends Controller
     {
         $departments = Department::query()->whereHas('companies', function ($query) use ($company) {
             $query->where('company_id', $company->id);
-        })->listsTranslations('name')->pluck('name', 'id');
+        })->pluck('name', 'id');
 
         $data = collect($departments)->map(function ($name, $id) {
             return [
@@ -424,7 +422,7 @@ class EmployeeController extends Controller
     {
         $sections = Section::query()->whereHas('department', function ($query) use ($department) {
             $query->where('department_id', $department->id);
-        })->listsTranslations('name')->pluck('name', 'id');
+        })->pluck('name', 'id');
 
         $data = collect($sections)->map(function ($name, $id) {
             return [

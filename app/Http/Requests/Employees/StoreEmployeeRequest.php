@@ -3,7 +3,6 @@
 namespace App\Http\Requests\Employees;
 
 use Illuminate\Foundation\Http\FormRequest;
-use Illuminate\Support\Str;
 use Illuminate\Validation\Rule;
 
 class StoreEmployeeRequest extends FormRequest
@@ -16,11 +15,6 @@ class StoreEmployeeRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'slug' => [
-                'required',
-                'string',
-                Rule::unique('employees', 'slug')
-            ],
             'first_name' => [
                 'required',
                 'string'
@@ -37,6 +31,15 @@ class StoreEmployeeRequest extends FormRequest
                 'required',
                 'string',
                 Rule::in(['m', 'f'])
+            ],
+            'status' => [
+                'required',
+                'string',
+                Rule::in(['m', 's', 'w'])
+            ],
+            'family_count' => [
+                Rule::requiredIf($this->status != 's'),
+                'integer',
             ],
             'job_title' => [
                 'required',
@@ -63,7 +66,7 @@ class StoreEmployeeRequest extends FormRequest
                 'string',
             ],
             'office_tel' => [
-                'required',
+                'nullable',
                 'string',
             ],
             'nationality' => [
@@ -95,7 +98,8 @@ class StoreEmployeeRequest extends FormRequest
                 'numeric'
             ],
             'bank_account' => [
-                'required',
+                'nullable',
+                'string'
             ],
             'photo' => [
                 'required',
@@ -135,12 +139,5 @@ class StoreEmployeeRequest extends FormRequest
                 'max:5000'
             ],
         ];
-    }
-
-    protected function prepareForValidation()
-    {
-        $this->request->add([
-            'slug' => Str::slug("{$this->first_name} {$this->second_name} {$this->family_name}")
-        ]);
     }
 }

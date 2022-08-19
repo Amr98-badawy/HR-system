@@ -23,7 +23,7 @@ class Device extends Model
     public function getActivitylogOptions(): LogOptions
     {
         return LogOptions::defaults()
-            ->logOnly(['name', 'mac_address', 'status'])
+            ->logAll()
             ->setDescriptionForEvent(fn(string $eventName) => "You have {$eventName} Device")
             ->useLogName('Device Module');
     }

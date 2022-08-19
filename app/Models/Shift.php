@@ -31,7 +31,7 @@ class Shift extends Model
     public function getActivitylogOptions(): LogOptions
     {
         return LogOptions::defaults()
-            ->logOnly(['name', 'from', 'to', 'extra_time', 'active'])
+            ->logAll()
             ->setDescriptionForEvent(fn(string $eventName) => "You have {$eventName} Shift")
             ->useLogName('Shift Module');
     }

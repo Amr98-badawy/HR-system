@@ -3,7 +3,6 @@
 namespace App\Http\Requests\Employees;
 
 use Illuminate\Foundation\Http\FormRequest;
-use Illuminate\Support\Str;
 use Illuminate\Validation\Rule;
 
 class UpdateEmployeeRequest extends FormRequest
@@ -48,6 +47,15 @@ class UpdateEmployeeRequest extends FormRequest
                 'string',
                 Rule::in(['m', 'f'])
             ],
+            'status' => [
+                'required',
+                'string',
+                Rule::in(['m', 's', 'w'])
+            ],
+            'family_count' => [
+                Rule::requiredIf($this->status != 's'),
+                'integer',
+            ],
             'job_title' => [
                 'required',
                 'string'
@@ -73,7 +81,7 @@ class UpdateEmployeeRequest extends FormRequest
                 'string',
             ],
             'office_tel' => [
-                'required',
+                'nullable',
                 'string',
             ],
             'nationality' => [
@@ -105,7 +113,8 @@ class UpdateEmployeeRequest extends FormRequest
                 'numeric'
             ],
             'bank_account' => [
-                'required',
+                'nullable',
+                'string'
             ],
             'photo' => [
                 'nullable',
@@ -145,12 +154,5 @@ class UpdateEmployeeRequest extends FormRequest
                 'max:5000'
             ],
         ];
-    }
-
-    protected function prepareForValidation()
-    {
-        $this->request->add([
-            'slug' => Str::slug("{$this->first_name} {$this->second_name} {$this->family_name}")
-        ]);
     }
 }

@@ -12,7 +12,6 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 use RealRashid\SweetAlert\Facades\Alert;
-use Spatie\Activitylog\Models\Activity;
 use Spatie\Permission\Models\Role;
 use Symfony\Component\HttpFoundation\Response;
 use Yajra\DataTables\Facades\DataTables;
@@ -112,9 +111,11 @@ class UserController extends Controller
     public function create()
     {
         abort_if(!auth()->user()->can('create_user'), Response::HTTP_FORBIDDEN, '403 Forbidden');
-
-        $roles = Role::query()->where('name', '!=', 'super-admin')->pluck('name', 'id');
-
+        if (!auth()->user()->hasRole('super-admin')) {
+            $roles = Role::query()->where('name', '!=', 'super-admin')->pluck('name', 'id');
+        }else{
+            $roles = Role::query()->pluck('name', 'id');
+        }
         return view('dashboard.user.create', compact('roles'));
     }
 
@@ -129,7 +130,11 @@ class UserController extends Controller
     {
         abort_if(!auth()->user()->can('edit_user'), Response::HTTP_FORBIDDEN, '403 Forbidden');
         $user->load('roles', 'media');
-        $roles = Role::query()->where('name', '!=', 'super-admin')->pluck('name', 'id');
+        if (!auth()->user()->hasRole('super-admin')) {
+            $roles = Role::query()->where('name', '!=', 'super-admin')->pluck('name', 'id');
+        }else{
+            $roles = Role::query()->pluck('name', 'id');
+        }
         $name = explode(' ', $user->name);
         return view('dashboard.user.edit', compact([
             'user',
