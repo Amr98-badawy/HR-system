@@ -316,7 +316,7 @@ class EmployeeController extends Controller
     public function show(Employee $employee)
     {
         abort_if(!auth()->user()->can('show_company'), Response::HTTP_FORBIDDEN, '403 Forbidden');
-        $employee->load(['department', 'section', 'company', 'shift', 'media']);
+        $employee->load(['attendances', 'department', 'section', 'company', 'shift', 'media']);
         return view('dashboard.employee.show', compact('employee'));
     }
 

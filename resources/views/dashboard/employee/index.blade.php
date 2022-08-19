@@ -13,7 +13,8 @@
     <div class="breadcrumb-header justify-content-between">
         <div class="my-auto">
             <div class="d-flex">
-                <h4 class="content-title mb-0 my-auto"><a href="{{route("dashboard.home")}}"> @lang('lang.dashboard')</a></h4><span
+                <h4 class="content-title mb-0 my-auto"><a
+                        href="{{route("dashboard.home")}}"> @lang('lang.dashboard')</a></h4><span
                     class="text-muted mt-1 tx-13 mr-2 mb-0">/  @lang('lang.Employees')</span>
             </div>
         </div>
@@ -29,7 +30,8 @@
             <div class="card-header pb-0">
                 <div class="d-flex justify-content-between">
                     <h4 class="card-title mg-b-0"> @lang('lang.table') @lang('lang.Employees')</h4>
-                    <a href="{{ route('dashboard.employees.create') }}" class="btn btn-success"> @lang('lang.create')</a>
+                    <a href="{{ route('dashboard.employees.create') }}"
+                       class="btn btn-success"> @lang('lang.create')</a>
                 </div>
             </div>
             <div class="card-body">

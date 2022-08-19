@@ -37,8 +37,8 @@
                         <thead>
                         <tr>
                             <th class="border-bottom-0">@lang('lang.employee')</th>
-{{--                            <th class="border-bottom-0">Department</th>--}}
-{{--                            <th class="border-bottom-0">Section</th>--}}
+                            <th class="border-bottom-0">Department</th>
+                            <th class="border-bottom-0">Section</th>
                             <th class="border-bottom-0">@lang('lang.day')</th>
                             <th class="border-bottom-0">@lang('lang.d_status')</th>
                             <th class="border-bottom-0">@lang('lang.check_in')</th>
