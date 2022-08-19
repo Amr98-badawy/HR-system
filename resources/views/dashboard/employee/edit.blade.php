@@ -19,12 +19,12 @@
     <!-- row -->
     <div class="row">
 
-        <div class="col-lg-12 col-md-12">
+        <div class="col-lg-12 col-md-12 ">
             <div class="card">
 
-                <div class="card-header pb-0">
+                <div class="card-header bg-gray-600 pb-0 text-white" >
                     <div class="d-flex justify-content-between">
-                        <h4 class="card-title mg-b-0">Update Employee</h4>
+                        <h4 class="card-title mg-b-0 text-white">Update Employee</h4>
                         <i class="mdi mdi-dots-horizontal text-gray"></i>
                     </div>
                 </div>
@@ -37,17 +37,17 @@
                         </ul>
                     </div>
                 @endif
-                <div class="card-body">
+                <div class="card-body bg-gray-600">
                     <form method="post" action="{{ route('dashboard.employees.update', $employee->account_no) }}"
                           data-parsley-validate=""
                           enctype="multipart/form-data">
                         @method('PUT')
                         @csrf
 
-                        <div class="row row-sm mg-b-20">
+                        <div class="row row-sm mg-b-20  ">
                             <div class="col-md-12 col-xl-12 col-xs-12 col-sm-12">
                                 <div class="card">
-                                    <div class="card-body">
+                                    <div class="card-body ">
                                         <div class="row">
                                             <div class="col-md-5 col-lg-4">
                                                 <label id="first_name" class="form-control-label">First Name:
