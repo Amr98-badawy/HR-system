@@ -140,6 +140,39 @@
 
                                         </div>
                                         <div class="row">
+                                            <div class="col-md-6 col-lg-6 mg-t-20 mg-md-t-0">
+                                                <label for="status" class="form-control-label">Status:
+                                                    <span class="tx-danger">*</span>
+                                                </label>
+                                                <select name="status" id="status" class="form-control select2">
+                                                    <option label="Choose Status"></option>
+                                                    @foreach(App\Models\Employee::STATUS as $key=>$item)
+                                                        <option
+                                                            value="{{ $key }}" {{ old('status', '') == $key ? 'selected' : '' }}>{{ $item }}</option>
+                                                    @endforeach
+                                                </select>
+                                                @error('status')
+                                                <p class="text-danger">{{ $message }}</p>
+                                                @enderror
+                                            </div>
+                                            <div class="col-md-6 col-lg-6 mg-t-20 mg-md-t-0">
+                                                <label for="family_count" class="form-control-label">Family Members
+                                                    Number:
+                                                </label>
+                                                <input type="number" name="family_count" id="family_count"
+                                                       class="form-control" value="{{ old('family_count') }}" disabled>
+                                                @error('family_count')
+                                                <p class="text-danger">{{ $message }}</p>
+                                                @enderror
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-12 col-xl-12 col-xs-12 col-sm-12">
+                                <div class="card">
+                                    <div class="card-body">
+                                        <div class="row">
                                             <div class="col-md-12 col-lg-12 mg-t-20 mg-md-t-0">
                                                 <label for="address" class="form-control-label">Address: <span
                                                         class="tx-danger">*</span></label>
@@ -495,6 +528,15 @@
                 })
 
             })
+
+            $('#status').on('change', function () {
+                if ($(this).val() != 's') {
+                    $('#family_count').removeAttr('disabled')
+                }
+                if ($(this).val() == 's') {
+                    $('#family_count').attr('disabled', 'disabled')
+                }
+            });
 
             $('#department_id').on('change', function () {
                 let departmentId = $(this).val()

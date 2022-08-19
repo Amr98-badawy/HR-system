@@ -420,7 +420,7 @@ class EmployeeController extends Controller
 
     public function getSections(Department $department)
     {
-        $sections = Section::query()->whereHas('department', function ($query) use ($department) {
+        $sections = Section::query()->whereHas('departments', function ($query) use ($department) {
             $query->where('department_id', $department->id);
         })->pluck('name', 'id');
 

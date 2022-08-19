@@ -25,11 +25,6 @@ class UpdateEmployeeRequest extends FormRequest
     public function rules()
     {
         return [
-            'slug' => [
-                'required',
-                'string',
-                Rule::unique('employees', 'slug')->ignore($this->employee)
-            ],
             'first_name' => [
                 'required',
                 'string'
