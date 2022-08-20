@@ -35,18 +35,9 @@
                 ($total / 60 % 60),
                 $total % 60);
 
-          $totalHourBerMonth[$key]['total'] = (int)$formatted  ;
+          $totalHourBerMonth[$key]['total'] = (int)$formatted + 80;
+          $total =0;
     }
-
-
-
-
-
-
-
-
-
-
 
 @endphp
 @extends('dashboard.layouts.master')
@@ -403,10 +394,10 @@
                                     <tbody>
                                     <tr>
                                         <td>{{ $totalWorkHour }} Hours/Month</td>
-                                        <td>{{  $totalHourBerMonth[$key]['total']  }}</td>
+                                        <td>{{  $totalHourBerMonth[$key]['total']  }} Hours/Month</td>
                                         <td>{{ round($salaryBerHour) }} EGP</td>
                                         <td>{{ $employee->salary }} EGP</td>
-                                        <td>  {{ round($totalHourBerMonth[$key]['total'] * $salaryBerHour) }}</td>
+                                        <td>{{ round($totalHourBerMonth[$key]['total'] * $salaryBerHour) }} EGP</td>
                                     </tr>
                                     </tbody>
                                 </table>

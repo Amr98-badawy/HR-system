@@ -321,6 +321,7 @@ class EmployeeController extends Controller
         $employeeAttendance = Attendance::query()->where('employee_id', $employee->id)
             ->whereNotNull('check_in')
             ->whereNotNull('check_out')
+            ->latest()
             ->get()
             ->groupBy(function ($query) {
                 return $query->created_at->format('M Y');
