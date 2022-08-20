@@ -2,11 +2,16 @@
 
 namespace App\Http\Controllers\Dashboard;
 
+use App\Exports\AttendanceExport;
 use App\Http\Controllers\Controller;
+use App\Http\Requests\Export\AttendanceExportRequest;
 use App\Models\Attendance;
 use App\Models\Company;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
+use Maatwebsite\Excel\Facades\Excel;
+use RealRashid\SweetAlert\Facades\Alert;
+use Symfony\Component\HttpFoundation\BinaryFileResponse;
 use Symfony\Component\HttpFoundation\Response;
 use Yajra\DataTables\Facades\DataTables;
 
@@ -63,7 +68,7 @@ class AttendanceController extends Controller
                 })
                 ->editColumn('additional', function ($row) {
                     if ($row->additional) {
-                        return sprintf("<span class='badge badge-success'>%s</span>", Carbon::make($row->additional)->format('h:i'));
+                        return sprintf("<span class='badge badge-success'>%s</span>", Carbon::make($row->additional)->format('H:i'));
                     }
                     return '<span class="badge badge-success">00:00</span>';
                 })
@@ -206,5 +211,12 @@ class AttendanceController extends Controller
         $attendance->delete();
 
         return redirect()->route('dashboard.attendances.index');
+    }
+
+    public function exportData(AttendanceExportRequest $request): BinaryFileResponse
+    {
+        Alert::success('Success', 'Data exported successfully');
+
+        return Excel::download(new AttendanceExport($request->employee_id,$request->start_date, $request->end_date), 'attendance-' . now()->format('y-m-d') . '.xlsx');
     }
 }

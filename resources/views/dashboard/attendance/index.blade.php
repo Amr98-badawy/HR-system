@@ -1,3 +1,4 @@
+@php use App\Models\Employee; @endphp
 @extends('dashboard.layouts.master')
 @section('css')
 
@@ -13,7 +14,8 @@
     <div class="breadcrumb-header justify-content-between">
         <div class="my-auto">
             <div class="d-flex">
-                <h4 class="content-title mb-0 my-auto"><a href="{{route("dashboard.home")}}">@lang('lang.dashboard')</a></h4><span class="text-muted mt-1 tx-13 mr-2 mb-0">/ @lang('lang.Attendances')</span>
+                <h4 class="content-title mb-0 my-auto"><a href="{{route("dashboard.home")}}">@lang('lang.dashboard')</a>
+                </h4><span class="text-muted mt-1 tx-13 mr-2 mb-0">/ @lang('lang.Attendances')</span>
             </div>
         </div>
     </div>
@@ -21,8 +23,49 @@
 @endsection
 @section('content')
     <!-- row -->
+    @php
+        $employeeSelect = Employee::query()->pluck('account_no','id')
+    @endphp
+        <!--div-->
+    <div class="col-xl-12">
+        <div class="card mg-b-20">
+            <div class="card-header pb-0 py-3">
+                <form action="{{ route('dashboard.attendances.export') }}" method="post">
+                    @csrf
+                    <div class="row align-items-center">
+                        <div class="col-md-3">
+                            <div class="form-group">
+                                <label for="employee_id">Employee</label>
+                                <select name="employee_id" id="employee_id" class="form-control">
+                                    <option value="{{ null }}" selected disabled>Select Employee</option>
+                                    @forelse($employeeSelect as $key=>$item)
+                                        <option value="{{$key}}">{{$item}}</option>
+                                    @empty
+                                    @endforelse
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="form-group">
+                                <label for="start_date">Start Date</label>
+                                <input type="date" name="start_date" id="start_date" class="form-control">
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="form-group">
+                                <label for="end_date">End Date</label>
+                                <input type="date" name="end_date" id="end_date" class="form-control">
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <button type="submit" class="btn btn-success">Export</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
 
-    <!--div-->
     <div class="col-xl-12">
         <div class="card mg-b-20">
             <div class="card-header pb-0">

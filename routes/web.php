@@ -54,6 +54,7 @@ Route::group(
         Route::get('attendance/{attendance}', [AttendanceController::class, 'show'])->name('attendances.show');
         Route::delete('attendance/{attendance}/delete', [AttendanceController::class, 'destroy'])->name('attendances.destroy');
         Route::get('attendance/{company}/company', [AttendanceController::class, 'companyAttendance'])->name('attendances.company');
+        Route::post('attendance/export/excel', [AttendanceController::class, 'exportData'])->name('attendances.export');
 
         // Device Route
         Route::resource('devices', DeviceController::class);
