@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Attendance;
 use App\Models\Company;
 use App\Models\Employee;
+use Carbon\Carbon;
 use Symfony\Component\HttpFoundation\Response;
 
 class DashboardPageController extends Controller
@@ -18,14 +19,14 @@ class DashboardPageController extends Controller
         $employees_count = Employee::query()->count();
 
         $attendances = Attendance::with('employee.company', 'employee.shift')
-            ->where('created_at', '>=', now()->today())
+            ->whereDate('created_at', Carbon::today())
             ->whereNotNull('check_in')
             ->latest()
             ->limit(10)
             ->get();
 
         $attendanceCheckout = Attendance::with('employee.company', 'employee.shift')
-            ->where('created_at', '>=', now()->today())
+            ->whereDate('created_at', Carbon::today())
             ->whereNotNull('check_in')
             ->whereNotNull('check_out')
             ->latest()

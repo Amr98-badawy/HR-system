@@ -22,5 +22,6 @@ class DemoProjectSeeder extends Seeder
         $this->call(ShiftTableSeeder::class);
         $this->call(EmployeeTableSeeder::class);
         $this->call(DemoCompanyTableSeeder::class);
+        $this->call(DemoAttendanceTableSeeder::class);
     }
 }

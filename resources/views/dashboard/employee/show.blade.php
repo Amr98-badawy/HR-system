@@ -19,7 +19,6 @@
     foreach ($totalHourBerMonth as $key=>$item) {
         foreach ($item as $time) {
         }
-        $totalHourBerMonth[$key]['total'];
     }
 
 @endphp
