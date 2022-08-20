@@ -7,7 +7,8 @@
     <div class="breadcrumb-header justify-content-between">
         <div class="my-auto">
             <div class="d-flex">
-                <h4 class="content-title mb-0 my-auto"><a href="{{route("dashboard.home")}}">Dashboard</a></h4><span class="text-muted mt-1 tx-13 mr-2 mb-0"> / edit / Shift</span>
+                <h4 class="content-title mb-0 my-auto"><a href="{{route("dashboard.home")}}">@lang("lang.dashboard")</a></h4><span
+                    class="text-muted mt-1 tx-13 mr-2 mb-0">/ @lang("lang.shift") / @lang("lang.update")</span>
             </div>
         </div>
     </div>
@@ -22,7 +23,7 @@
 
                 <div class="card-header pb-0">
                     <div class="d-flex justify-content-between">
-                        <h4 class="card-title mg-b-0">Edit Shift</h4>
+                        <h4 class="card-title mg-b-0">@lang("lang.update") @lang("lang.shift")</h4>
                         <i class="mdi mdi-dots-horizontal text-gray"></i>
                     </div>
                 </div>
@@ -39,15 +40,15 @@
                                         <div class="row">
 
                                             <div class="col-md-12 col-lg-12 mg-t-20 mg-md-t-0">
-                                                <label class="form-control-label"> Shift
-                                                    Name :
+                                                <label class="form-control-label">  @lang("lang.Shift_name")
+                                                     :
                                                     <span class="tx-danger">*</span>
                                                 </label>
                                                 <input
                                                     class="form-control @error('name') is-invalid @enderror"
 
                                                     name="name"
-                                                    placeholder="Shift Name"
+                                                    placeholder=" @lang("lang.Shift_name")"
                                                     value="{{ old('name', $shift->name) }}"
                                                     required
                                                     type="text">
@@ -68,13 +69,13 @@
                                     <div class="card-body">
                                         <div class="row">
                                             <div class="col-md-4 col-lg-4 mg-t-20 mg-md-t-0">
-                                                <label id="email" class="form-control-label"> Shift Start :
+                                                <label id="email" class="form-control-label"> @lang("lang.Shift_start") :
                                                     <span class="tx-danger">*</span>
                                                 </label>
                                                 <input
                                                     class="form-control @error('from') is-invalid @enderror"
                                                     name="from"
-                                                    placeholder="Shift Start"
+                                                    placeholder="@lang("lang.Shift_start")"
                                                     value="{{ old('from', $shift->from) }}"
                                                     required
                                                     type="time">
@@ -84,15 +85,14 @@
                                             </div>
 
                                             <div class="col-md-4 col-lg-4 mg-t-20 mg-md-t-0">
-                                                <label id="email" class="form-control-label"> Shift Accepted Late
-                                                    Estimated
+                                                <label id="email" class="form-control-label"> @lang('lang.Shift_space')
                                                     :
                                                     <span class="tx-danger">*</span>
                                                 </label>
                                                 <input
                                                     class="form-control @error('extra_time') is-invalid @enderror"
                                                     name="extra_time"
-                                                    placeholder="Shift Accepted Late Estimated"
+                                                    placeholder="@lang('lang.Shift_space')"
                                                     value="{{ old('extra_time', $shift->extra_time) }}"
                                                     required
                                                     type="time">
@@ -102,13 +102,13 @@
                                             </div>
 
                                             <div class="col-md-4 col-lg-4 mg-t-20 mg-md-t-0">
-                                                <label id="email" class="form-control-label"> Shift End :
+                                                <label id="email" class="form-control-label"> @lang('lang.Shift_end') :
                                                     <span class="tx-danger">*</span>
                                                 </label>
                                                 <input
                                                     class="form-control @error('to') is-invalid @enderror"
                                                     name="to"
-                                                    placeholder="Shift End"
+                                                    placeholder="@lang('lang.Shift_end')"
                                                     value="{{ old('to', $shift->to) }}"
                                                     required
                                                     type="time">
@@ -133,8 +133,8 @@
                                                     <input type="checkbox" name="active" id="active"
                                                            {{ $shift->active || old('active', 0) === 1 ? 'checked' : '' }}
                                                            class="form-check mr-2">
-                                                    <label for="active" class="form-check-label">
-                                                        Active </label>
+                                                    <label for="active"  class="form-check-label mg-20">
+                                                        @lang('lang.active') </label>
                                                 </div>
                                                 @error('active')
                                                 <p class="text-danger">{{ $message }}</p>
@@ -149,8 +149,8 @@
 
                         <div class="row row-xs wd-xl-80p">
                             <div class="col-sm-6 col-md-3 mg-t-10 mg-md-t-0">
-                                <button type="submit" class="btn btn-success">Submit</button>
-                                <button type="reset" class="btn btn-danger">Reset</button>
+                                <button type="submit" class="btn btn-success">@lang('lang.submit')</button>
+                                <button type="reset" class="btn btn-danger">@lang('lang.reset')</button>
                             </div>
                         </div>
                     </form>

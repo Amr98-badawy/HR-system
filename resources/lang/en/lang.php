@@ -21,11 +21,12 @@ return [
     //==================================
     //======= Login ====================
     //==================================
-    'Welcome'    => 'Welcome back!',
+    'Welcome'    => 'Hi, Welcome back!',
     'email'      => 'Email',
     'r-email'    => 'Enter Your Email',
     'password'   => 'Password',
     'r-password' =>  'Enter Your Password',
+    'c_password'   => 'Confirm Password',
     'sign-in'    => 'Sign In',
     //==================================
     //======== End Login ===============
@@ -35,9 +36,16 @@ return [
     //==================================
     //========== Home ==================
     //==================================
-    'dashboard'    => 'Dashboard',
-    'table'        => 'Table',
-    'no_sections'  => 'No Sections',
+    'dashboard'      => 'Dashboard',
+    'company_count'  => 'Company registered',
+    'employee_cont'  => 'Employee regitsered',
+    'checkin'        => 'THE LATEST CHECK IN',
+    'checkout'       => 'THE LATEST CHECK-OUTS',
+    'checkinT'       => 'This is your Today recent check ins for the companies employees',
+    'checkoutT'      => 'This is your Today recent check-outs for the companies employees',
+    'nodata'         => 'There is no entries right now',
+    'table'          => 'Table',
+    'no_sections'    => 'No Sections',
     'no_department'  => 'No Department',
     //==================================
     //======== End Home ================
@@ -49,7 +57,8 @@ return [
     //====== User Management ===========
     //==================================
     'UserManage'   => 'User Management',
-    'users'        => 'User',
+    'users'        => 'Users',
+    'user'         =>  'User',
     'Roles'        => 'Roles',
     'permissions'  => 'Permissions',
     //==================================
@@ -64,7 +73,11 @@ return [
     'Companies'    => 'Companies',
     'Departments'  => 'Departments',
     'Sections'     => 'Sections',
+    'Shift_name'   => 'Shift Name',
+    'Shift_space'  => 'Shift Accepted Late Estimated',
     'Shifts'       => 'Shifts',
+    'Shift_start'  => 'Shift Start',
+    'Shift_end'    => 'Shift End',
     'Employees'    => 'Employees',
     'Attendances'  => 'Attendances',
     //==================================
@@ -99,6 +112,9 @@ return [
     'd_time'        =>' Delay Time ',
     'A_time'        =>' Additional Time',
     'note'          =>' Note',
+    'from'          =>'From',
+    'to'            =>'To',
+    'etime'         =>' Extra Time ',
 
     //==================================
     //====== End attendances ===========
@@ -108,6 +124,9 @@ return [
     //==================================
     //======  Employee =================
     //==================================
+    'f_name'       => 'First Name',
+    's_name'       => 'Second Name',
+    'l_name'       => 'Family Name',
     'img'          => 'Image',
     'account_no'   => 'Account No',
     'name'         => 'Name',
@@ -125,9 +144,10 @@ return [
         //==================================
     //====== End actions ===========
     //==================================
-    'action'        => 'Action',
-    'submit'        => 'Submit',
+    'action'       => 'Action',
+    'submit'       => 'Submit',
     'reset'        => 'Reset',
+    'active'       => 'Active',
     //==================================
     //====== End actions ===========
     //==================================

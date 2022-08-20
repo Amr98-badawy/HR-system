@@ -10,7 +10,7 @@
     <div class="breadcrumb-header justify-content-between">
         <div class="left-content">
             <div>
-                <h2 class="main-content-title tx-24 mg-b-1 mg-b-lg-1">Hi, welcome back!</h2>
+                <h2 class="main-content-title tx-24 mg-b-1 mg-b-lg-1"> @lang('lang.Welcome')</h2>
                 <p class="mg-b-0">{{ auth()->user()->name }}</p>
             </div>
         </div>
@@ -22,13 +22,13 @@
             <div class="card overflow-hidden sales-card bg-primary-gradient">
                 <div class="pl-3 pt-3 pr-3 pb-2 pt-0">
                     <div class="">
-                        <h6 class="mb-3 tx-12 text-white">COMPANIES</h6>
+                        <h6 class="mb-3 tx-12 text-white">@lang("lang.Companies")</h6>
                     </div>
                     <div class="pb-0 mt-0">
                         <div class="d-flex">
                             <div class="">
                                 <h4 class="tx-20 font-weight-bold mb-1 text-white">{{ $companies_count }}</h4>
-                                <p class="mb-0 tx-12 text-white op-7">Company registered</p>
+                                <p class="mb-0 tx-12 text-white op-7">@lang("lang.company_count")</p>
                             </div>
                         </div>
                     </div>
@@ -40,13 +40,13 @@
             <div class="card overflow-hidden sales-card bg-danger-gradient">
                 <div class="pl-3 pt-3 pr-3 pb-2 pt-0">
                     <div class="">
-                        <h6 class="mb-3 tx-12 text-white">EMPLOYEES</h6>
+                        <h6 class="mb-3 tx-12 text-white">@lang("lang.Employees")</h6>
                     </div>
                     <div class="pb-0 mt-0">
                         <div class="d-flex">
                             <div class="">
                                 <h4 class="tx-20 font-weight-bold mb-1 text-white">{{ $employees_count }}</h4>
-                                <p class="mb-0 tx-12 text-white op-7">Employee regitsered</p>
+                                <p class="mb-0 tx-12 text-white op-7">@lang('lang.employee_cont')</p>
                             </div>
                         </div>
                     </div>
@@ -59,21 +59,21 @@
         <div class="col-md-12 col-lg-12 col-xl-12">
             <div class="card card-table-two">
                 <div class="d-flex justify-content-between">
-                    <h4 class="card-title mb-1">The Latest Check In</h4>
+                    <h4 class="card-title mb-1">@lang("lang.checkin")</h4>
                     <i class="mdi mdi-dots-horizontal text-gray"></i>
                 </div>
                 <span
-                    class="tx-12 tx-muted mb-3 ">This is your Today recent check ins for the companies employees</span>
+                    class="tx-12 tx-muted mb-3 ">@lang("lang.checkinT")</span>
                 <div class="table-responsive country-table">
                     <table class="table table-striped table-bordered mb-0 text-sm-nowrap text-lg-nowrap text-xl-nowrap">
                         <thead>
                         <tr>
-                            <th class="tx-center">Name</th>
-                            <th class="tx-center">Company</th>
-                            <th class="tx-center">Shift</th>
-                            <th class="tx-center">Shift Start</th>
-                            <th class="tx-center">Check In</th>
-                            <th class="tx-center">Delay</th>
+                            <th class="tx-center">@lang("lang.name")</th>
+                            <th class="tx-center">@lang("lang.company")</th>
+                            <th class="tx-center">@lang("lang.shift")</th>
+                            <th class="tx-center">@lang("lang.Shift_start")</th>
+                            <th class="tx-center">@lang("lang.check_in")</th>
+                            <th class="tx-center">@lang("lang.d_time")</th>
                         </tr>
                         </thead>
                         <tbody>
@@ -100,7 +100,7 @@
                             </tr>
                         @empty
                             <tr>
-                                <td colspan="6" class="tx-center">There is no entries right now</td>
+                                <td colspan="6" class="tx-center">@lang("lang.nodata")</td>
                             </tr>
                         @endforelse
                         </tbody>
@@ -113,22 +113,22 @@
         <div class="col-md-12 col-lg-12 col-xl-12">
             <div class="card card-table-two">
                 <div class="d-flex justify-content-between">
-                    <h4 class="card-title mb-1">The Latest Check-outs</h4>
+                    <h4 class="card-title mb-1">@lang("lang.checkout")</h4>
                     <i class="mdi mdi-dots-horizontal text-gray"></i>
                 </div>
                 <span
-                    class="tx-12 tx-muted mb-3 ">This is your Today recent check-outs for the companies employees</span>
+                    class="tx-12 tx-muted mb-3 ">@lang("lang.checkoutT")</span>
                 <div class="table-responsive country-table">
                     <table class="table table-striped table-bordered mb-0 text-sm-nowrap text-lg-nowrap text-xl-nowrap">
                         <thead>
                         <tr>
-                            <th class="tx-center">Name</th>
-                            <th class="tx-center">Company</th>
-                            <th class="tx-center">Shift</th>
-                            <th class="tx-center">Shift End</th>
-                            <th class="tx-center">Check Out</th>
-                            <th class="tx-center">Working Hour</th>
-                            <th class="tx-center">Additional Time</th>
+                            <th class="tx-center">@lang("lang.name")</th>
+                            <th class="tx-center">@lang("lang.company")</th>
+                            <th class="tx-center">@lang("lang.shift")</th>
+                            <th class="tx-center">@lang("lang.Shift_end")</th>
+                            <th class="tx-center">@lang("lang.check_out")</th>
+                            <th class="tx-center">@lang("lang.W_hour")</th>
+                            <th class="tx-center">@lang("lang.A_time")</th>
                         </tr>
                         </thead>
                         <tbody>
@@ -158,7 +158,7 @@
                             </tr>
                         @empty
                             <tr>
-                                <td colspan="7" class="tx-center">There is no entries right now</td>
+                                <td colspan="7" class="tx-center">@lang("lang.nodata")</td>
                             </tr>
                         @endforelse
                         </tbody>

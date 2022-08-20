@@ -7,7 +7,7 @@
     <div class="breadcrumb-header justify-content-between">
         <div class="my-auto">
             <div class="d-flex">
-                <h4 class="content-title mb-0 my-auto"><a href="{{route("dashboard.home")}}">Dashboard</a></h4><span class="text-muted mt-1 tx-13 mr-2 mb-0">/ Users</span>
+                <h4 class="content-title mb-0 my-auto"><a href="{{route("dashboard.home")}}">@lang('lang.dashboard')</a></h4><span class="text-muted mt-1 tx-13 mr-2 mb-0">/ @lang('lang.user')</span>
             </div>
         </div>
     </div>
@@ -30,7 +30,7 @@
                                     <p class="main-profile-name-text"> <span class="badge badge-purple"> {{$user->roles[0]['name']}}</span></p>
                                 </div>
                             </div>
-                            <h6>Email</h6>
+                            <h6>@lang('lang.email')</h6>
                             <div class="main-profile-bio">
                                 {{$user->email   }}
                             </div><!-- main-profile-bio -->
