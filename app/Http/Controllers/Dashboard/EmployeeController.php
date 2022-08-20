@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Dashboard;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Employees\StoreEmployeeRequest;
 use App\Http\Requests\Employees\UpdateEmployeeRequest;
+use App\Models\Attendance;
 use App\Models\Company;
 use App\Models\Department;
 use App\Models\Employee;
@@ -316,8 +317,15 @@ class EmployeeController extends Controller
     public function show(Employee $employee)
     {
         abort_if(!auth()->user()->can('show_company'), Response::HTTP_FORBIDDEN, '403 Forbidden');
-        $employee->load(['attendances', 'department', 'section', 'company', 'shift', 'media']);
-        return view('dashboard.employee.show', compact('employee'));
+        $employee->load(['department', 'section', 'company', 'shift', 'media']);
+        $employeeAttendance = Attendance::query()->where('employee_id', $employee->id)
+            ->whereNotNull('check_in')
+            ->whereNotNull('check_out')
+            ->get()
+            ->groupBy(function ($query) {
+                return $query->created_at->format('M Y');
+            });
+        return view('dashboard.employee.show', compact(['employee', 'employeeAttendance']));
     }
 
     public function edit(Employee $employee)

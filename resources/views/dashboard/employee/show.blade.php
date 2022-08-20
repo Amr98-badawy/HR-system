@@ -1,4 +1,28 @@
-@php use App\Models\Employee;use Carbon\Carbon; @endphp
+@php
+    use App\Models\Employee;
+    use Carbon\Carbon;
+
+    $startTime = Carbon::parse($employee->shift->from);
+    $endTime = Carbon::parse($employee->shift->to);
+    $totalWorkHour = intval(gmdate('H',$endTime->diffInSeconds($startTime))) * 30;
+    $salaryBerHour = $employee->salary / $totalWorkHour;
+
+    $totalHourBerMonth = [];
+
+    foreach ($employeeAttendance as $key=>$item) {
+        foreach ($item as $a=>$attend) {
+            $start = Carbon::createFromFormat('H:i:s', '00:00:00');
+            $totalHourBerMonth[$key][$a] = $attendWorkHour = Carbon::parse($attend->work_hour);
+        }
+    }
+
+    foreach ($totalHourBerMonth as $key=>$item) {
+        foreach ($item as $time) {
+        }
+        $totalHourBerMonth[$key]['total'];
+    }
+
+@endphp
 @extends('dashboard.layouts.master')
 @section('css')
 @endsection
@@ -130,7 +154,7 @@
                                 </div>
                                 <div class="mr-auto">
                                     <h5 class="tx-13">Salary</h5>
-                                    <h2 class="mb-0 tx-22 mb-1 mt-1">{{ $employee->salary }}</h2>
+                                    <h2 class="mb-0 tx-22 mb-1 mt-1">{{ $employee->salary }} EGP</h2>
                                 </div>
                             </div>
                         </div>
@@ -336,36 +360,32 @@
                             </div>
                         </div>
                         <div class="tab-pane" id="settings">
-                            <form role="form">
-                                <div class="form-group">
-                                    <label for="FullName">Full Name</label>
-                                    <input type="text" value="John Doe" id="FullName" class="form-control">
-                                </div>
-                                <div class="form-group">
-                                    <label for="Email">Email</label>
-                                    <input type="email" value="first.last@example.com" id="Email" class="form-control">
-                                </div>
-                                <div class="form-group">
-                                    <label for="Username">Username</label>
-                                    <input type="text" value="john" id="Username" class="form-control">
-                                </div>
-                                <div class="form-group">
-                                    <label for="Password">Password</label>
-                                    <input type="password" placeholder="6 - 15 Characters" id="Password"
-                                           class="form-control">
-                                </div>
-                                <div class="form-group">
-                                    <label for="RePassword">Re-Password</label>
-                                    <input type="password" placeholder="6 - 15 Characters" id="RePassword"
-                                           class="form-control">
-                                </div>
-                                <div class="form-group">
-                                    <label for="AboutMe">About Me</label>
-                                    <textarea id="AboutMe" class="form-control">Loren gypsum dolor sit mate, consecrate disciplining lit, tied diam nonunion nib modernism tincidunt it Loretta dolor manga Amalia erst volute. Ur wise denim ad minim venial, quid nostrum exercise ration perambulator suspicious cortisol nil it applique ex ea commodore consequent.</textarea>
-                                </div>
-                                <button class="btn btn-primary waves-effect waves-light w-md" type="submit">Save
-                                </button>
-                            </form>
+                            @forelse($employeeAttendance as $key=>$item)
+                                <table class="table table-active table-bordered mt-3">
+                                    <thead>
+                                    <tr>
+                                        <th colspan="5" class="tx-center tx-bold tx-20-f">{{ $key }}</th>
+                                    </tr>
+                                    <tr>
+                                        <th>Employee Actual Total Hour/Month</th>
+                                        <th>Employee Total Work Hour in the month</th>
+                                        <th>Employee Salary Ber Hour</th>
+                                        <th>Employee Actual Salary</th>
+                                        <th>Employee Salary for The month</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    <tr>
+                                        <td>{{ $totalWorkHour }} Hours/Month</td>
+                                        <td></td>
+                                        <td>{{ round($salaryBerHour) }} EGP</td>
+                                        <td>{{ $employee->salary }} EGP</td>
+                                        <td></td>
+                                    </tr>
+                                    </tbody>
+                                </table>
+                            @empty
+                            @endforelse
                         </div>
                     </div>
                 </div>
