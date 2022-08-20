@@ -2,24 +2,51 @@
     use App\Models\Employee;
     use Carbon\Carbon;
 
-    $startTime = Carbon::parse($employee->shift->from);
-    $endTime = Carbon::parse($employee->shift->to);
-    $totalWorkHour = intval(gmdate('H',$endTime->diffInSeconds($startTime))) * 30;
-    $salaryBerHour = $employee->salary / $totalWorkHour;
+
+
+            $startTime = Carbon::parse($employee->shift->from);
+            $endTime = Carbon::parse($employee->shift->to);
+            $totalWorkHour = intval(gmdate('H',$endTime->diffInSeconds($startTime))) * 30;
+            $salaryBerHour = $employee->salary / $totalWorkHour;
+        //=====================================
 
     $totalHourBerMonth = [];
 
     foreach ($employeeAttendance as $key=>$item) {
         foreach ($item as $a=>$attend) {
             $start = Carbon::createFromFormat('H:i:s', '00:00:00');
-            $totalHourBerMonth[$key][$a] = $attendWorkHour = Carbon::parse($attend->work_hour);
+            $totalHourBerMonth[$key][$a] = $attend->work_hour;
         }
     }
 
+    //=======================================
+    //=========total=========================
+    $total = 0;
     foreach ($totalHourBerMonth as $key=>$item) {
         foreach ($item as $time) {
+          $temp = explode(":", $time);
+           $total+= (int) $temp[0] * 3600;
+           $total+= (int) $temp[1] * 60;
+            $total+= (int) $temp[2];
+
         }
+            $formatted = sprintf('%02d',
+                ($total / 3600),
+                ($total / 60 % 60),
+                $total % 60);
+
+          $totalHourBerMonth[$key]['total'] = (int)$formatted  ;
     }
+
+
+
+
+
+
+
+
+
+
 
 @endphp
 @extends('dashboard.layouts.master')
@@ -376,10 +403,10 @@
                                     <tbody>
                                     <tr>
                                         <td>{{ $totalWorkHour }} Hours/Month</td>
-                                        <td></td>
+                                        <td>{{  $totalHourBerMonth[$key]['total']  }}</td>
                                         <td>{{ round($salaryBerHour) }} EGP</td>
                                         <td>{{ $employee->salary }} EGP</td>
-                                        <td></td>
+                                        <td>  {{ round($totalHourBerMonth[$key]['total'] * $salaryBerHour) }}</td>
                                     </tr>
                                     </tbody>
                                 </table>
