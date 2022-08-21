@@ -8,8 +8,13 @@
     <div class="breadcrumb-header justify-content-between">
         <div class="my-auto">
             <div class="d-flex">
-                <h4 class="content-title mb-0 my-auto"><a href="{{route("dashboard.home")}}">Dashboard</a></h4><span
-                    class="text-muted mt-1 tx-13 mr-2 mb-0">/create / Employees</span>
+                <h4 class="content-title mb-0 my-auto"><a href="{{route("dashboard.home")}}">@lang('lang.dashboard')</a></h4><span
+                    class="text-muted mt-1 tx-13 mr-2 mb-0">/@lang('lang.employee') / @lang('lang.create')</span>
+            </div>
+        </div>
+        <div class="d-flex my-xl-auto right-content">
+            <div class="pr-1 mb-3 mb-xl-0">
+                <a href="https://vodex-hr.tawk.help" target="_blank" type="button" class="btn btn-info btn-icon ml-2"><i class="fas fa-info"></i></a>
             </div>
         </div>
     </div>
@@ -24,7 +29,7 @@
 
                 <div class="card-header pb-0">
                     <div class="d-flex justify-content-between">
-                        <h4 class="card-title mg-b-0">Add New Employee</h4>
+                        <h4 class="card-title mg-b-0">@lang('lang.create') @lang('lang.employee')</h4>
                         <i class="mdi mdi-dots-horizontal text-gray"></i>
                     </div>
                 </div>
@@ -39,7 +44,7 @@
                                     <div class="card-body">
                                         <div class="row">
                                             <div class="col-md-5 col-lg-4">
-                                                <label id="first_name" class="form-control-label">First Name:
+                                                <label id="first_name" class="form-control-label">@lang('lang.f_name'):
                                                     <span class="tx-danger">*</span>
                                                 </label>
                                                 <input class="form-control @error('first_name') is-invalid @enderror"
@@ -54,7 +59,7 @@
                                                 @enderror
                                             </div>
                                             <div class="col-md-5 col-lg-4 mg-t-20 mg-md-t-0">
-                                                <label id="second_name" class="form-control-label">Second Name: <span
+                                                <label id="second_name" class="form-control-label">@lang('lang.s_name'): <span
                                                         class="tx-danger">*</span></label>
                                                 <input class="form-control @error('second_name') is-invalid @enderror"
                                                        id="second_name" name="second_name"
@@ -65,7 +70,7 @@
                                                 @enderror
                                             </div>
                                             <div class="col-md-5 col-lg-4 mg-t-20 mg-md-t-0">
-                                                <label id="family_name" class="form-control-label">Family Name <span
+                                                <label id="family_name" class="form-control-label">@lang('lang.l_name') <span
                                                         class="tx-danger">*</span></label>
                                                 <input class="form-control @error('family_name') is-invalid @enderror"
                                                        id="family_name" name="family_name"
@@ -87,7 +92,7 @@
                                     <div class="card-body">
                                         <div class="row">
                                             <div class="col-md-3 col-lg-3">
-                                                <label for="gender" class="form-control-label">Gender:
+                                                <label for="gender" class="form-control-label">@lang('lang.gender'):
                                                     <span class="tx-danger">*</span>
                                                 </label>
                                                 <select name="gender" id="gender" class="form-control select2">
@@ -103,7 +108,7 @@
                                             </div>
 
                                             <div class="col-md-3 col-lg-3 mg-t-20 mg-md-t-0">
-                                                <label for="job_title" class="form-control-label">Job Title: <span
+                                                <label for="job_title" class="form-control-label">@lang('lang.job_title'): <span
                                                         class="tx-danger">*</span></label>
                                                 <input class="form-control @error('job_title') is-invalid @enderror"
                                                        id="job_title" name="job_title"
@@ -115,7 +120,7 @@
                                             </div>
 
                                             <div class="col-md-3 col-lg-3 mg-t-20 mg-md-t-0 mb-3">
-                                                <label for="id_card" class="form-control-label">ID Card Number: <span
+                                                <label for="id_card" class="form-control-label">@lang('lang.NN'): <span
                                                         class="tx-danger">*</span></label>
                                                 <input class="form-control @error('id_card') is-invalid @enderror"
                                                        id="id_card" name="id_card"
@@ -127,7 +132,7 @@
                                             </div>
 
                                             <div class="col-md-3 col-lg-3 mg-t-20 mg-md-t-0 mb-3">
-                                                <label for="mobile" class="form-control-label">Mobile Number: <span
+                                                <label for="mobile" class="form-control-label">@lang('lang.mobile'): <span
                                                         class="tx-danger">*</span></label>
                                                 <input class="form-control @error('mobile') is-invalid @enderror"
                                                        id="mobile" name="mobile"
@@ -141,7 +146,7 @@
                                         </div>
                                         <div class="row">
                                             <div class="col-md-6 col-lg-6 mg-t-20 mg-md-t-0">
-                                                <label for="status" class="form-control-label">Status:
+                                                <label for="status" class="form-control-label">@lang('lang.status'):
                                                     <span class="tx-danger">*</span>
                                                 </label>
                                                 <select name="status" id="status" class="form-control select2">
@@ -156,8 +161,7 @@
                                                 @enderror
                                             </div>
                                             <div class="col-md-6 col-lg-6 mg-t-20 mg-md-t-0">
-                                                <label for="family_count" class="form-control-label">Family Members
-                                                    Number:
+                                                <label for="family_count" class="form-control-label">@lang('lang.family_number'):
                                                 </label>
                                                 <input type="number" name="family_count" id="family_count"
                                                        class="form-control" value="{{ old('family_count') }}" disabled>
@@ -174,7 +178,7 @@
                                     <div class="card-body">
                                         <div class="row">
                                             <div class="col-md-12 col-lg-12 mg-t-20 mg-md-t-0">
-                                                <label for="address" class="form-control-label">Address: <span
+                                                <label for="address" class="form-control-label">@lang('lang.address'): <span
                                                         class="tx-danger">*</span></label>
                                                 <textarea name="address" id="address" rows="5"
                                                           class="form-control">{{ old('address') }}</textarea>
@@ -191,7 +195,7 @@
                                     <div class="card-body">
                                         <div class="row">
                                             <div class="col-md-6 col-lg-6">
-                                                <label id="date_of_birth" class="form-control-label">Date Of Birth:
+                                                <label id="date_of_birth" class="form-control-label">@lang('lang.bd'):
                                                     <span class="tx-danger">*</span>
                                                 </label>
                                                 <input class="form-control @error('date_of_birth') is-invalid @enderror"
@@ -207,8 +211,7 @@
                                             </div>
 
                                             <div class="col-md-6 col-lg-6 mg-t-20 mg-md-t-0">
-                                                <label id="date_of_employment" class="form-control-label">Date Of
-                                                    Employment:
+                                                <label id="date_of_employment" class="form-control-label">@lang('lang.emp_day'):
                                                     <span class="tx-danger">*</span>
                                                 </label>
                                                 <input
@@ -236,7 +239,7 @@
                                         <div class="row">
 
                                             <div class="col-md-3 col-lg-3">
-                                                <label id="nationality" class="form-control-label">Nationality:
+                                                <label id="nationality" class="form-control-label">@lang('lang.Nationality'):
                                                     <span class="tx-danger">*</span>
                                                 </label>
                                                 <input class="form-control @error('nationality') is-invalid @enderror"
@@ -252,7 +255,7 @@
                                             </div>
 
                                             <div class="col-md-3 col-lg-3 mg-t-20 mg-md-t-0">
-                                                <label id="office_tel" class="form-control-label">Office Telephone:
+                                                <label id="office_tel" class="form-control-label">@lang('lang.t_office'):
                                                     <span class="tx-danger">*</span>
                                                 </label>
                                                 <input class="form-control @error('office_tel') is-invalid @enderror"
@@ -268,7 +271,7 @@
                                             </div>
 
                                             <div class="col-md-3 col-lg-3 mg-t-20 mg-md-t-0">
-                                                <label id="salary" class="form-control-label">Salary:
+                                                <label id="salary" class="form-control-label">@lang('lang.salary'):
                                                     <span class="tx-danger">*</span>
                                                 </label>
                                                 <input class="form-control @error('salary') is-invalid @enderror"
@@ -285,7 +288,7 @@
                                             </div>
 
                                             <div class="col-md-3 col-lg-3 mg-t-20 mg-md-t-0">
-                                                <label id="bank_account" class="form-control-label">Bank Account:
+                                                <label id="bank_account" class="form-control-label">@lang('lang.bank'):
                                                     <span class="tx-danger">*</span>
                                                 </label>
                                                 <input class="form-control @error('bank_account') is-invalid @enderror"
@@ -313,7 +316,7 @@
                                         <div class="row">
 
                                             <div class="col-md-3 col-lg-3">
-                                                <label for="companies" class="form-control-label">Company:
+                                                <label for="companies" class="form-control-label">@lang('lang.company'):
                                                     <span class="tx-danger">*</span>
                                                 </label>
                                                 <select name="company_id" id="company_id" class="form-control select2">
@@ -329,7 +332,7 @@
                                             </div>
 
                                             <div class="col-md-3 col-lg-3 mg-t-20 mg-md-t-0">
-                                                <label for="companies" class="form-control-label">Department:
+                                                <label for="companies" class="form-control-label">@lang('lang.department'):
                                                     <span class="tx-danger">*</span>
                                                 </label>
                                                 <select name="department_id" id="department_id"
@@ -342,7 +345,7 @@
                                             </div>
 
                                             <div class="col-md-3 col-lg-3 mg-t-20 mg-md-t-0">
-                                                <label for="companies" class="form-control-label">Section:
+                                                <label for="companies" class="form-control-label">@lang('lang.Sections'):
                                                     <span class="tx-danger">*</span>
                                                 </label>
                                                 <select name="section_id" id="section_id" class="form-control select2">
@@ -355,7 +358,7 @@
                                             </div>
 
                                             <div class="col-md-3 col-lg-3 mg-t-20 mg-md-t-0">
-                                                <label for="companies" class="form-control-label">Shift:
+                                                <label for="companies" class="form-control-label">@lang('lang.shift'):
                                                     <span class="tx-danger">*</span>
                                                 </label>
                                                 <select name="shift_id" id="shift_id" class="form-control select2">
@@ -383,7 +386,7 @@
                                         <div class="row">
 
                                             <div class="col-md-4 col-lg-4">
-                                                <label for="photo" class="form-control-label">Employee Photo:
+                                                <label for="photo" class="form-control-label">@lang('lang.emp_photo'):
                                                     <span class="tx-danger">*</span>
                                                 </label>
                                                 <input type="file" name="photo" id="photo"
@@ -394,8 +397,7 @@
                                             </div>
 
                                             <div class="col-md-4 col-lg-4 mg-t-20 mg-md-t-0">
-                                                <label for="birth_certificate" class="form-control-label">Employee Birth
-                                                    Certificate:
+                                                <label for="birth_certificate" class="form-control-label">@lang('lang.emp_bd'):
                                                 </label>
                                                 <input type="file" name="birth_certificate" id="birth_certificate"
                                                        class="form-control @error('birth_certificate') is-invalid @enderror">
@@ -405,8 +407,7 @@
                                             </div>
 
                                             <div class="col-md-4 col-lg-4 mg-t-20 mg-md-t-0">
-                                                <label for="collage_certificate" class="form-control-label">Employee
-                                                    Collage Certificate:
+                                                <label for="collage_certificate" class="form-control-label">@lang('lang.emp_colage'):
                                                 </label>
                                                 <input type="file" name="collage_certificate" id="collage_certificate"
                                                        class="form-control @error('collage_certificate') is-invalid @enderror">
@@ -428,8 +429,7 @@
                                         <div class="row">
 
                                             <div class="col-md-6 col-lg-6">
-                                                <label for="military_status" class="form-control-label">Employee
-                                                    Military Status:
+                                                <label for="military_status" class="form-control-label">@lang('lang.add_militry'):
                                                 </label>
                                                 <input type="file" name="military_status" id="military_status"
                                                        class="form-control @error('military_status') is-invalid @enderror">
@@ -439,8 +439,7 @@
                                             </div>
 
                                             <div class="col-md-6 col-lg-6 mg-t-20 mg-md-t-0">
-                                                <label for="criminal_record" class="form-control-label">Employee
-                                                    Criminal Record:
+                                                <label for="criminal_record" class="form-control-label">@lang('lang.add_crim'):
                                                 </label>
                                                 <input type="file" name="criminal_record" id="criminal_record"
                                                        class="form-control @error('criminal_record') is-invalid @enderror">
@@ -462,8 +461,8 @@
                                         <div class="row">
 
                                             <div class="col-md-12 col-lg-12">
-                                                <label for="additional_files" class="form-control-label">Employee
-                                                    Additional files:
+                                                <label for="additional_files" class="form-control-label">
+                                                    @lang('lang.add_file'):
                                                 </label>
                                                 <input type="file" name="additional_files[]" multiple
                                                        id="additional_files"
@@ -481,8 +480,8 @@
 
                         <div class="row row-xs wd-xl-80p">
                             <div class="col-sm-6 col-md-3 mg-t-10 mg-md-t-0">
-                                <button type="submit" class="btn btn-success">Submit</button>
-                                <button type="reset" class="btn btn-danger">Reset</button>
+                                <button type="submit" class="btn btn-success">@lang('lang.submit')</button>
+                                <button type="reset" class="btn btn-danger">@lang('lang.reset')</button>
                             </div>
                         </div>
                     </form>
