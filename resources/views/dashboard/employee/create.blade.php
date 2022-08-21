@@ -256,7 +256,6 @@
 
                                             <div class="col-md-3 col-lg-3 mg-t-20 mg-md-t-0">
                                                 <label id="office_tel" class="form-control-label">@lang('lang.t_office'):
-                                                    <span class="tx-danger">*</span>
                                                 </label>
                                                 <input class="form-control @error('office_tel') is-invalid @enderror"
                                                        id="office_tel"
@@ -288,8 +287,8 @@
                                             </div>
 
                                             <div class="col-md-3 col-lg-3 mg-t-20 mg-md-t-0">
-                                                <label id="bank_account" class="form-control-label">@lang('lang.bank'):
-                                                    <span class="tx-danger">*</span>
+                                                <label id="bank_account" class="form-control-label">
+                                                    @lang('lang.bank'):
                                                 </label>
                                                 <input class="form-control @error('bank_account') is-invalid @enderror"
                                                        id="bank_account"
