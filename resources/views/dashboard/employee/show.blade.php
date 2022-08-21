@@ -48,8 +48,8 @@
     <div class="breadcrumb-header justify-content-between">
         <div class="my-auto">
             <div class="d-flex">
-                <h4 class="content-title mb-0 my-auto">Dashboard</h4><span
-                    class="text-muted mt-1 tx-13 mr-2 mb-0">/ Profile</span>
+                <h4 class="content-title mb-0 my-auto">@lang('lang.dashboard')</h4><span
+                    class="text-muted mt-1 tx-13 mr-2 mb-0">/ @lang('lang.profile')</span>
             </div>
         </div>
     </div>
@@ -78,7 +78,7 @@
                                 </div>
                             </div>
                             <hr class="mg-y-30">
-                            <label class="main-content-label tx-13 mg-b-20">Social</label>
+                            <label class="main-content-label tx-13 mg-b-20">@lang('lang.social')</label>
                             <div class="main-profile-social-list">
                                 <div class="media">
                                     <div class="media-icon bg-primary-transparent text-white">
@@ -94,7 +94,7 @@
                                         <i class="fas fa-venus-mars"></i>
                                     </div>
                                     <div class="media-body">
-                                        <span>Gender</span>
+                                        <span>@lang('lang.gender')</span>
                                         <a href="javascript:void(0)">{{ Employee::GENDER[$employee->gender] }}</a>
                                     </div>
                                 </div>
@@ -103,7 +103,7 @@
                                         <i class="fas fa-users"></i>
                                     </div>
                                     <div class="media-body">
-                                        <span>Status</span>
+                                        <span>@lang('lang.status')</span>
                                         <a href="javascript:void(0)">{{ Employee::STATUS[$employee->status] }}</a>
                                     </div>
                                 </div>
@@ -123,7 +123,7 @@
                                     <i class="fas fa-building text-white"></i>
                                 </div>
                                 <div class="mr-auto">
-                                    <h5 class="tx-13">Company</h5>
+                                    <h5 class="tx-13">@lang('lang.company')</h5>
                                     <h2 class="mb-0 tx-22 mb-1 mt-1">{{ $employee->company->name }}</h2>
                                 </div>
                             </div>
@@ -138,7 +138,7 @@
                                     <i class="fas fa-building text-danger"></i>
                                 </div>
                                 <div class="mr-auto">
-                                    <h5 class="tx-13">Department</h5>
+                                    <h5 class="tx-13">@lang('lang.department')</h5>
                                     <h2 class="mb-0 tx-22 mb-1 mt-1">{{ $employee->department->name }}</h2>
                                 </div>
                             </div>
@@ -153,7 +153,7 @@
                                     <i class="fas fa-building text-success"></i>
                                 </div>
                                 <div class="mr-auto">
-                                    <h5 class="tx-13">Section</h5>
+                                    <h5 class="tx-13">@lang('lang.Sections')</h5>
                                     <h2 class="mb-0 tx-22 mb-1 mt-1">{{ $employee->section->name }}</h2>
                                 </div>
                             </div>
@@ -170,7 +170,7 @@
                                     <i class="fas fa-dollar-sign text-warning"></i>
                                 </div>
                                 <div class="mr-auto">
-                                    <h5 class="tx-13">Salary</h5>
+                                    <h5 class="tx-13">@lang('lang.salary')</h5>
                                     <h2 class="mb-0 tx-22 mb-1 mt-1">{{ $employee->salary }} EGP</h2>
                                 </div>
                             </div>
@@ -185,35 +185,35 @@
                         <ul class="nav nav-tabs profile navtab-custom panel-tabs">
                             <li class="active">
                                 <a href="#home" data-toggle="tab" aria-expanded="true"> <span class="visible-xs"><i
-                                            class="las la-user-circle tx-16 mr-1"></i></span> <span class="hidden-xs">About Employee</span>
+                                            class="las la-user-circle tx-16 mr-1"></i></span> <span class="hidden-xs">@lang('lang.emp_about')</span>
                                 </a>
                             </li>
                             <li class="">
                                 <a href="#profile" data-toggle="tab" aria-expanded="false"> <span class="visible-xs"><i
                                             class="las la-images tx-15 mr-1"></i></span> <span
-                                        class="hidden-xs">Files</span> </a>
+                                        class="hidden-xs">@lang('lang.file')</span> </a>
                             </li>
                             <li class="">
                                 <a href="#settings" data-toggle="tab" aria-expanded="false"> <span class="visible-xs"><i
                                             class="las la-cog tx-16 mr-1"></i></span> <span
-                                        class="hidden-xs">Attendance</span> </a>
+                                        class="hidden-xs">@lang('lang.Attendances')</span> </a>
                             </li>
                         </ul>
                     </div>
                     <div class="tab-content border-left border-bottom border-right border-top-0 p-4">
                         <div class="tab-pane active" id="home">
-                            <h4 class="tx-15 text-uppercase mb-3">Address</h4>
+                            <h4 class="tx-15 text-uppercase mb-3">@lang('lang.address')</h4>
                             <p class="m-b-5">
                                 {{ $employee->address }}
                             </p>
                             <div class="m-t-30">
-                                <h4 class="tx-15 text-uppercase mt-3">Date Of Birth</h4>
+                                <h4 class="tx-15 text-uppercase mt-3">@lang('lang.bd')</h4>
                                 <div class=" p-t-10">
                                     <p><b>{{ $employee->date_of_birth }}</b></p>
                                 </div>
                                 <hr>
                                 <div class="">
-                                    <h4 class="tx-15 text-uppercase mt-3">Date Of Employment</h4>
+                                    <h4 class="tx-15 text-uppercase mt-3">@lang('lang.emp_day')</h4>
                                     <div class=" p-t-10">
                                         <p><b>{{ $employee->date_of_employment }}</b></p>
                                     </div>
@@ -221,13 +221,13 @@
                             </div>
                             <hr>
                             <div class="m-t-30">
-                                <h4 class="tx-15 text-uppercase mt-3">ID Card</h4>
+                                <h4 class="tx-15 text-uppercase mt-3">@lang('lang.NN')</h4>
                                 <div class=" p-t-10">
                                     <p><b>{{ $employee->id_card }}</b></p>
                                 </div>
 
                                 <div class="">
-                                    <h4 class="tx-15 text-uppercase mt-3">Nationality</h4>
+                                    <h4 class="tx-15 text-uppercase mt-3">@lang('lang.Nationality')</h4>
                                     <div class=" p-t-10">
                                         <p><b>{{ $employee->nationality }}</b></p>
                                     </div>
@@ -235,7 +235,7 @@
                             </div>
                             <hr>
                             <div class="m-t-30">
-                                <h4 class="tx-15 text-uppercase mt-3">Bank Account</h4>
+                                <h4 class="tx-15 text-uppercase mt-3">@lang('lang.bank')</h4>
                                 <div class=" p-t-10">
                                     <p><b>{{ $employee->bank_account }}</b></p>
                                 </div>
@@ -243,7 +243,7 @@
                             <hr>
                             <div class="m-t-30">
                                 <div class="">
-                                    <h4 class="tx-15 text-uppercase mt-3">Shift</h4>
+                                    <h4 class="tx-15 text-uppercase mt-3">@lang('lang.shift')</h4>
                                     <div class=" p-t-10">
                                         <p><b>{{ $employee->shift->name }}</b></p>
                                     </div>
@@ -251,7 +251,7 @@
 
                                 <div class="row">
                                     <div class="col-md-6">
-                                        <h4 class="tx-15 text-uppercase mt-3">From</h4>
+                                        <h4 class="tx-15 text-uppercase mt-3">@lang('lang.from')</h4>
                                         <div class=" p-t-10">
                                             <p>
                                                 <b>{{ Carbon::make($employee->shift->from)->format('h:i A') }}</b>
@@ -259,7 +259,7 @@
                                         </div>
                                     </div>
                                     <div class="col-md-6">
-                                        <h4 class="tx-15 text-uppercase mt-3">To</h4>
+                                        <h4 class="tx-15 text-uppercase mt-3">@lang('lang.to')</h4>
                                         <div class=" p-t-10">
                                             <p><b>{{ Carbon::make($employee->shift->to)->format('h:i A') }}</b>
                                             </p>
@@ -281,7 +281,7 @@
                                                      alt="work-thumbnail" height="250">
                                             </a>
                                             <h4 class="text-center tx-14 mt-3 mb-0">
-                                                Personal Photo
+                                                @lang('lang.emp_photo')
                                             </h4>
                                             <div class="ga-border"></div>
                                             <p class="text-muted text-center">
@@ -298,7 +298,7 @@
                                                 <img src="{{ asset('assets/img/Avatar/docs.jpg') }}" class="thumb-img"
                                                      height="250" alt="work-thumbnail">
                                             </a>
-                                            <h4 class="text-center tx-14 mt-3 mb-0">Military File</h4>
+                                            <h4 class="text-center tx-14 mt-3 mb-0">@lang('lang.add_militry') </h4>
                                             <div class="ga-border"></div>
                                             <p class="text-muted text-center">
                                                 <small>Docs</small>
@@ -314,7 +314,7 @@
                                                 <img src="{{ asset('assets/img/Avatar/docs.jpg') }}" class="thumb-img"
                                                      height="250" alt="work-thumbnail">
                                             </a>
-                                            <h4 class="text-center tx-14 mt-3 mb-0">Criminal Record</h4>
+                                            <h4 class="text-center tx-14 mt-3 mb-0"> @lang('lang.add_crim')</h4>
                                             <div class="ga-border"></div>
                                             <p class="text-muted text-center">
                                                 <small>Docs</small>
@@ -330,7 +330,7 @@
                                                 <img src="{{ asset('assets/img/Avatar/docs.jpg') }}" class="thumb-img"
                                                      height="250" alt="work-thumbnail">
                                             </a>
-                                            <h4 class="text-center tx-14 mt-3 mb-0">Collage Certificate</h4>
+                                            <h4 class="text-center tx-14 mt-3 mb-0">@lang('lang.emp_colage')</h4>
                                             <div class="ga-border"></div>
                                             <p class="text-muted text-center">
                                                 <small>Docs</small>
@@ -346,7 +346,7 @@
                                                 <img src="{{ asset('assets/img/Avatar/docs.jpg') }}" class="thumb-img"
                                                      height="250" alt="work-thumbnail">
                                             </a>
-                                            <h4 class="text-center tx-14 mt-3 mb-0">Birth Certificate</h4>
+                                            <h4 class="text-center tx-14 mt-3 mb-0">@lang('lang.bd')</h4>
                                             <div class="ga-border"></div>
                                             <p class="text-muted text-center">
                                                 <small>Docs</small>
@@ -364,7 +364,7 @@
                                                          class="thumb-img"
                                                          height="250" alt="work-thumbnail">
                                                 </a>
-                                                <h4 class="text-center tx-14 mt-3 mb-0">Additional Data</h4>
+                                                <h4 class="text-center tx-14 mt-3 mb-0"> @lang('lang.add_file')</h4>
                                                 <div class="ga-border"></div>
                                                 <p class="text-muted text-center">
                                                     <small>Docs</small>
@@ -384,11 +384,11 @@
                                         <th colspan="5" class="tx-center tx-bold tx-20-f">{{ $key }}</th>
                                     </tr>
                                     <tr>
-                                        <th>Employee Actual Total Hour/Month</th>
-                                        <th>Employee Total Work Hour in the month</th>
-                                        <th>Employee Salary Ber Hour</th>
-                                        <th>Employee Actual Salary</th>
-                                        <th>Employee Salary for The month</th>
+                                        <th>@lang('lang.emp_cal_totle')</th>
+                                        <th>@lang('lang.emp_hour')</th>
+                                        <th>@lang('lang.emp_s_h')</th>
+                                        <th>@lang('lang.emp_salary')</th>
+                                        <th>@lang('lang.emp_month')</th>
                                     </tr>
                                     </thead>
                                     <tbody>

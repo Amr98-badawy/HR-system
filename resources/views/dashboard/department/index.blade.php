@@ -16,6 +16,11 @@
                 <h4 class="content-title mb-0 my-auto"><a href="{{route("dashboard.home")}}">@lang('lang.dashboard')</a></h4><span class="text-muted mt-1 tx-13 mr-2 mb-0">/ @lang('lang.Departments')</span>
             </div>
         </div>
+        <div class="d-flex my-xl-auto right-content">
+            <div class="pr-1 mb-3 mb-xl-0">
+                <a href="https://vodex-hr.tawk.help" target="_blank" type="button" class="btn btn-info btn-icon ml-2"><i class="fas fa-info"></i></a>
+            </div>
+        </div>
     </div>
     <!-- breadcrumb -->
 @endsection
