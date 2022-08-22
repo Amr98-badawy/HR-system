@@ -11,32 +11,64 @@
         //=====================================
 
     $totalHourBerMonth = [];
-
+    $totalDealyTimeMonth = [];
+    $totalAdditionalTimeMonth = [];
     foreach ($employeeAttendance as $key=>$item) {
         foreach ($item as $a=>$attend) {
             $start = Carbon::createFromFormat('H:i:s', '00:00:00');
             $totalHourBerMonth[$key][$a] = $attend->work_hour;
+            $totalDealyTimeMonth[$key][$a] = $attend->delay;
+            $totalAdditionalTimeMonth[$key][$a] = $attend->additional;
         }
     }
 
     //=======================================
     //=========total=========================
     $total = 0;
+    $totalDelay = 0;
+    $totalAdd = 0;
+
     foreach ($totalHourBerMonth as $key=>$item) {
         foreach ($item as $time) {
           $temp = explode(":", $time);
-           $total+= (int) $temp[0] * 3600;
-           $total+= (int) $temp[1] * 60;
-            $total+= (int) $temp[2];
-
+          $total+= (int) $temp[0] * 3600;
+          $total+= (int) $temp[1] * 60;
+          $total+= (int) $temp[2];
         }
-            $formatted = sprintf('%02d',
-                ($total / 3600),
-                ($total / 60 % 60),
-                $total % 60);
 
-          $totalHourBerMonth[$key]['total'] = (int)$formatted + 80;
-          $total =0;
+        $formattedWorkHour = sprintf('%02d',($total / 3600),($total / 60 % 60),$total % 60);
+
+        $totalHourBerMonth[$key]['total'] = (int)$formattedWorkHour + 80;
+        $total =0;
+    }
+
+    foreach ($totalDealyTimeMonth as $key=>$item) {
+        foreach ($item as $time) {
+          $temp = explode(":", $time);
+          $totalDelay+= (int) $temp[0] * 3600;
+          $totalDelay+= (int) $temp[1] * 60;
+          $totalDelay+= (int) $temp[2];
+        }
+
+        $formattedDelayTime = sprintf('%02d',($totalDelay / 3600),($totalDelay / 60 % 60),$totalDelay % 60);
+
+        $totalDealyTimeMonth[$key]['total'] = (int)$formattedDelayTime;
+        $totalDelay =0;
+    }
+
+    foreach ($totalAdditionalTimeMonth as $key=>$item) {
+        foreach ($item as $time) {
+          $temp = explode(":", $time);
+          $totalAdd+= (int) $temp[0] * 3600;
+          $totalAdd+= (int) $temp[1] * 60;
+          $totalAdd+= (int) $temp[2];
+        }
+
+        $formattedAdditionalTime = sprintf('%02d',($totalAdd / 3600),($totalAdd / 60 % 60),$totalAdd % 60);
+
+        $totalAdditionalTimeMonth[$key]['total'] = (int)$formattedAdditionalTime;
+
+        $totalAdd =0;
     }
 
 @endphp
@@ -185,7 +217,8 @@
                         <ul class="nav nav-tabs profile navtab-custom panel-tabs">
                             <li class="active">
                                 <a href="#home" data-toggle="tab" aria-expanded="true"> <span class="visible-xs"><i
-                                            class="las la-user-circle tx-16 mr-1"></i></span> <span class="hidden-xs">@lang('lang.emp_about')</span>
+                                            class="las la-user-circle tx-16 mr-1"></i></span> <span
+                                        class="hidden-xs">@lang('lang.emp_about')</span>
                                 </a>
                             </li>
                             <li class="">
@@ -384,6 +417,9 @@
                                         <th colspan="5" class="tx-center tx-bold tx-20-f">{{ $key }}</th>
                                     </tr>
                                     <tr>
+                                        <th colspan="5" class="tx-center tx-bold tx-20-f">Salary</th>
+                                    </tr>
+                                    <tr>
                                         <th>@lang('lang.emp_cal_totle')</th>
                                         <th>@lang('lang.emp_hour')</th>
                                         <th>@lang('lang.emp_s_h')</th>
@@ -398,6 +434,70 @@
                                         <td>{{ round($salaryBerHour) }} EGP</td>
                                         <td>{{ $employee->salary }} EGP</td>
                                         <td>{{ round($totalHourBerMonth[$key]['total'] * $salaryBerHour) }} EGP</td>
+                                    </tr>
+                                    </tbody>
+                                    <thead>
+                                    <tr>
+                                        <th colspan="5" class="tx-center tx-bold tx-20-f">Additional</th>
+                                    </tr>
+                                    <tr>
+                                        <th colspan="2">
+                                            Total Add Hours
+                                        </th>
+                                        <th colspan="2">
+                                            Salary/Hour
+                                        </th>
+                                        <th>
+                                            Total Add Salary
+                                        </th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    <tr>
+                                        <td colspan="2">
+                                            {{ $totalAdditionalTimeMonth[$key]['total'] }} hour/month
+                                        </td>
+                                        <td colspan="2">
+                                            {{ round($salaryBerHour) }} EGP
+                                        </td>
+                                        <td>
+                                            {{ $totalAdditionalTimeMonth[$key]['total'] * $salaryBerHour }} EGP
+                                        </td>
+                                    </tr>
+                                    </tbody>
+                                    <thead>
+                                    <tr>
+                                        <th colspan="5" class="tx-center tx-bold tx-20-f">Deducted</th>
+                                    </tr>
+                                    <tr>
+                                        <th colspan="2">
+                                            Total Deducted Hours
+                                        </th>
+                                        <th colspan="2">
+                                            Salary/Hour
+                                        </th>
+                                        <th>
+                                            Total Deducted Salary
+                                        </th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    <tr>
+                                        <td colspan="2">
+                                            {{ $totalDealyTimeMonth[$key]['total'] }} hour/month
+                                        </td>
+                                        <td colspan="2">
+                                            {{ round($salaryBerHour) }} EGP
+                                        </td>
+                                        <td>
+                                            {{ $totalDealyTimeMonth[$key]['total'] * $salaryBerHour}} EGP
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td colspan="4">Total</td>
+                                        <td colspan="4">{{ round((($totalHourBerMonth[$key]['total'] * $salaryBerHour) + ($totalAdditionalTimeMonth[$key]['total'] * $salaryBerHour) ) - ($totalDealyTimeMonth[$key]['total'] * $salaryBerHour)) }}
+                                            EGP
+                                        </td>
                                     </tr>
                                     </tbody>
                                 </table>
