@@ -1,180 +1,102 @@
 <?php
 
-return [
-
-
-    //==================================
-    //=========CRUD ====================
-    //==================================
-
-    'create'   => ' Create',
-    'update'   => ' Update',
-    'delete'   => ' Delete ',
-    'read'     => ' Read ',
-
-    //==================================
-    //=========End  CRUD ===============
-    //==================================
-
-
-
-    //==================================
-    //======= Login ====================
-    //==================================
-    'Welcome'    => 'Hi, Welcome back!',
-    'email'      => 'Email',
-    'r-email'    => 'Enter Your Email',
-    'password'   => 'Password',
-    'r-password' =>  'Enter Your Password',
-    'c_password'   => 'Confirm Password',
-    'sign-in'    => 'Sign In',
-    //==================================
-    //======== End Login ===============
-    //==================================
-
-
-    //==================================
-    //========== Home ==================
-    //==================================
-    'dashboard'      => 'Dashboard',
-    'company_count'  => 'Company registered',
-    'employee_cont'  => 'Employee regitsered',
-    'checkin'        => 'THE LATEST CHECK IN',
-    'checkout'       => 'THE LATEST CHECK-OUTS',
-    'checkinT'       => 'This is your Today recent check ins for the companies employees',
-    'checkoutT'      => 'This is your Today recent check-outs for the companies employees',
-    'nodata'         => 'There is no entries right now',
-    'table'          => 'Table',
-    'no_sections'    => 'No Sections',
-    'no_department'  => 'No Department',
-    //==================================
-    //======== End Home ================
-    //==================================
-
-
-
-    //==================================
-    //====== User Management ===========
-    //==================================
-    'UserManage'   => 'User Management',
-    'users'        => 'Users',
-    'user'         =>  'User',
-    'Roles'        => 'Roles',
-    'permissions'  => 'Permissions',
-    //==================================
-    //==== End User Management==========
-    //==================================
-
-
-    //==================================
-    //=======Organization===============
-    //==================================
-    'Organization' => 'Organization',
-    'Companies'    => 'Companies',
-    'Departments'  => 'Departments',
-    'Sections'     => 'Sections',
-    'Shift_name'   => 'Shift Name',
-    'Shift_space'  => 'Shift Accepted Late Estimated',
-    'Shifts'       => 'Shifts',
-    'Shift_start'  => 'Shift Start',
-    'Shift_end'    => 'Shift End',
-    'Employees'    => 'Employees',
-    'Attendances'  => 'Attendances',
-    //==================================
-    //====== End Organization===========
-    //==================================
-
-
-    //==================================
-    //====== Settings ==================
-    //==================================
-    'Settings'        => 'Settings',
-    'site_languages'  => 'Site Languages',
-    'site_trans'      => 'Site Translations',
-    'log_system'      => 'Log System',
-    'route_devices'   => 'Route Devices',
-    'device'          => ' Devices',
-    'status'          => ' Status',
-    //===================================
-    //====== End Settings ===============
-    //===================================
-
-    //==================================
-    //======  attendances ==============
-    //==================================
-
-    'employee'      =>' Employee',
-    'day'           =>' Day',
-    'd_status'      =>' Day Status',
-    'check_in'      =>' Check In',
-    'check_out'     =>' Check Out',
-    'W_hour'        =>' Working Hour',
-    'd_time'        =>' Delay Time ',
-    'A_time'        =>' Additional Time',
-    'note'          =>' Note',
-    'from'          =>'From',
-    'to'            =>'To',
-    'etime'         =>' Extra Time ',
-
-    //==================================
-    //====== End attendances ===========
-    //==================================
-
-
-    //==================================
-    //======  Employee =================
-    //==================================
-    'f_name'       => 'First Name',
-    's_name'       => 'Second Name',
-    'l_name'       => 'Family Name',
-    'img'          => 'Image',
-    'account_no'   => 'Account No',
-    'name'         => 'Name',
-    'job_title'    => 'Job Title',
-    'company'      => 'Company',
-    'department'   => 'Department',
-    'shift'        => 'Shift',
-    'create_at'    => 'Create At',
-    'add_file'     => 'Employee Additional files',
-    'add_crim'     => 'Employee Criminal Record',
-    'add_militry'  => 'Employee Military Status',
-    'emp_photo'    =>  'Employee Photo',
-    'emp_bd'       =>  'Employee Birth Certificate',
-    'emp_colage'   =>  'Employee Collage Certificate',
-    'bank'         =>  'Bank Account',
-    'salary'       => 'Salary',
-    't_office'     => 'Office Telephone',
-    'Nationality'  => 'Nationality',
-    'emp_day'      => 'Date Of Employment',
-    'bd'           => 'Date Of Birth',
-    'address'      => 'Address',
-    'family_number'=> 'Family Members Number',
-    'gender'       => 'Gender',
-    'NN'           => 'ID Card Number',
-    'mobile'       => 'Mobile Number',
-    'profile'      => 'Profile',
-    'social'       => 'Social',
-    'emp_about'    => ' About Emploayee',
-    'file'         => 'Files',
-    'emp_cal_totle'=> 'EMPLOYEE ACTUAL TOTAL HOUR/MONTH',
-    'emp_hour'             => 'EMPLOYEE TOTAL WORK HOUR IN THE MONTH',
-    'emp_s_h'             => 'EMPLOYEE SALARY BER HOUR	',
-    'emp_salary'             => 'EMPLOYEE ACTUAL SALARY	',
-    'emp_month'             => 'EMPLOYEE SALARY FOR THE MONTH',
-    //==================================
-    //====== End Employee ===========
-    //==================================
-
-
-
-        //==================================
-    //====== End actions ===========
-    //==================================
-    'action'       => 'Action',
-    'submit'       => 'Submit',
-    'reset'        => 'Reset',
-    'active'       => 'Active',
-    //==================================
-    //====== End actions ===========
-    //==================================
-];
+return array (
+  'A_time' => ' Additional Time',
+  'Attendances' => 'Attendances',
+  'Companies' => 'Companies',
+  'Departments' => 'Departments',
+  'Employees' => 'Employees',
+  'NN' => 'ID Card Number',
+  'Nationality' => 'Nationality',
+  'Organization' => 'Organization',
+  'Roles' => 'Roles',
+  'Sections' => 'Sections',
+  'Settings' => 'Settings',
+  'Shift_end' => 'Shift End',
+  'Shift_name' => 'Shift Name',
+  'Shift_space' => 'Shift Accepted Late Estimated',
+  'Shift_start' => 'Shift Start',
+  'Shifts' => 'Shifts',
+  'UserManage' => 'User Management',
+  'W_hour' => ' Working Hour',
+  'Welcome' => 'Hi, Welcome back!',
+  'account_no' => 'Account No',
+  'action' => 'Action',
+  'active' => 'Active',
+  'add_crim' => 'Employee Criminal Record',
+  'add_file' => 'Employee Additional files',
+  'add_militry' => 'Employee Military Status',
+  'address' => 'Address',
+  'bank' => 'Bank Account',
+  'bd' => 'Date Of Birth',
+  'c_password' => 'Confirm Password',
+  'check_in' => ' Check In',
+  'check_out' => ' Check Out',
+  'checkin' => 'THE LATEST CHECK IN',
+  'checkinT' => 'This is your Today recent check ins for the companies employees',
+  'checkout' => 'THE LATEST CHECK-OUTS',
+  'checkoutT' => 'This is your Today recent check-outs for the companies employees',
+  'company' => 'Company',
+  'company_count' => 'Company registered',
+  'create' => ' Create',
+  'create_at' => 'Create At',
+  'd_status' => ' Day Status',
+  'd_time' => ' Delay Time ',
+  'dashboard' => 'Dashboard',
+  'day' => ' Day',
+  'delete' => ' Delete ',
+  'department' => 'Department',
+  'device' => ' Devices',
+  'email' => 'Email',
+  'emp_about' => ' About Emploayee',
+  'emp_bd' => 'Employee Birth Certificate',
+  'emp_cal_totle' => 'EMPLOYEE ACTUAL TOTAL HOUR/MONTH',
+  'emp_colage' => 'Employee Collage Certificate',
+  'emp_day' => 'Date Of Employment',
+  'emp_hour' => 'EMPLOYEE TOTAL WORK HOUR IN THE MONTH',
+  'emp_month' => 'EMPLOYEE SALARY FOR THE MONTH',
+  'emp_photo' => 'Employee Photo',
+  'emp_s_h' => 'EMPLOYEE SALARY BER HOUR	',
+  'emp_salary' => 'EMPLOYEE ACTUAL SALARY	',
+  'employee' => ' Employee',
+  'employee_cont' => 'Employee regitsered',
+  'etime' => ' Extra Time ',
+  'f_name' => 'First Name',
+  'family_number' => 'Family Members Number',
+  'file' => 'Files',
+  'from' => 'From',
+  'gender' => 'Gender',
+  'img' => 'Image',
+  'job_title' => 'Job Title',
+  'l_name' => 'Third Name',
+  'log_system' => 'Log System',
+  'mobile' => 'Mobile Number',
+  'name' => 'Name',
+  'no_department' => 'No Department',
+  'no_sections' => 'No Sections',
+  'nodata' => 'There is no entries right now',
+  'note' => ' Note',
+  'password' => 'Password',
+  'permissions' => 'Permissions',
+  'profile' => 'Profile',
+  'r-email' => 'Enter Your Email',
+  'r-password' => 'Enter Your Password',
+  'read' => ' Read ',
+  'reset' => 'Reset',
+  'route_devices' => 'Route Devices',
+  's_name' => 'Second Name',
+  'salary' => 'Salary',
+  'shift' => 'Shift',
+  'sign-in' => 'Sign In',
+  'site_languages' => 'Site Languages',
+  'site_trans' => 'Site Translations',
+  'social' => 'Social',
+  'status' => ' Status',
+  'submit' => 'Submit',
+  't_office' => 'Office Telephone',
+  'table' => 'Table',
+  'to' => 'To',
+  'update' => ' Update',
+  'user' => 'User',
+  'users' => 'Users',
+);

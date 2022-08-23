@@ -16,9 +16,9 @@
     foreach ($employeeAttendance as $key=>$item) {
         foreach ($item as $a=>$attend) {
             $start = Carbon::createFromFormat('H:i:s', '00:00:00');
-            $totalHourBerMonth[$key][$a] = $attend->work_hour;
-            $totalDealyTimeMonth[$key][$a] = $attend->delay;
-            $totalAdditionalTimeMonth[$key][$a] = $attend->additional;
+            $totalHourBerMonth[$key][$a] = $attend->work_hour ?? "00:00:00";
+            $totalDealyTimeMonth[$key][$a] = $attend->delay ?? "00:00:00";
+            $totalAdditionalTimeMonth[$key][$a] = $attend->additional ?? "00:00:00";
         }
     }
 
