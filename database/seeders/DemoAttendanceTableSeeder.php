@@ -604,6 +604,16 @@ class DemoAttendanceTableSeeder extends Seeder
             'additional' => "00:00:00",
             'created_at' => '2022-10-19 12:00:00'
         ]);
+        Attendance::query()->create([
+            'employee_id' => 1,
+            'check_in' => "09:00:00",
+            'check_out' => "05:00:00",
+            'work_hour' => "08:00:00",
+            'day_status' => 'wd',
+            'delay' => "00:00:00",
+            'additional' => "00:00:00",
+            'created_at' => '2022-10-20 12:00:00'
+        ]);
 
     }
 }

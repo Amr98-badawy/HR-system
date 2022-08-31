@@ -5,6 +5,7 @@ namespace App\services;
 use App\Models\Attendance;
 use App\Models\Employee;
 use Carbon\Carbon;
+use Illuminate\Support\Facades\DB;
 
 class PayrollService
 {
@@ -39,26 +40,27 @@ class PayrollService
 
 
 
-    public function totalHourPerMonth($work_hour ,$month)
+    public function totalHourPerMonth($month)
     {
-        $yearData =  Attendance::selectRaw('year(created_at) as Year, monthname(created_at) as Month, count(id) as Trips')
-            ->groupBy('Year','Month')
+//        $month = '08';
+        $data = Attendance::whereMonth('created_at', $month)
+            ->selectRaw('year(created_at) as Year, monthname(created_at) as Month')
+            ->groupBy('Year', 'Month')
             ->orderByRaw('min(created_at) desc')
             ->get();
-        $years = $yearData->pluck('Year')->toArray();
+        $data->map(function ($item) {
+            $item->hours = Attendance::whereMonth('created_at', date('m', strtotime($item->Month)))
+                ->whereYear('created_at', (string)$item->Year)->sum(DB::raw('HOUR(work_hour)'));
 
-        $data['Monthly'] =  Attendance::selectRaw('year(created_at) as Year, monthname(created_at) as Month, count(id) as Trips')
-            ->groupBy('Year','Month')
-            ->orderByRaw('min(created_at) desc')
-            ->get();
-        $data['Monthly']->map(function ($item){
-            $item->hour = Attendance::whereMonth('created_at', date('m',strtotime($item->Month)))
-                ->whereYear('created_at',(String)$item->Year)->sum('work_hour');
+            unset($item->Year);
+            unset($item->Month);
+            unset($item->SEC);
+
         });
         return $data;
     }
 
-    public function totalSalaryPerHour()
+        public function totalSalaryPerHour()
     {
 
     }
