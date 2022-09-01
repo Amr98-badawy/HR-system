@@ -68,7 +68,7 @@ Route::group(
         Route::get('logs/{activity}', [LogController::class, 'show'])->name('logs.show');
         Route::delete('logs/{activity}/delete', [LogController::class, 'destroy'])->name('logs.destroy');
 
-        Route::get('test',[\App\services\PayrollService::class,'totalHourPerMonth'])->name('totalHourPerMonth');
+        //Route::get('test',[\App\services\PayrollService::class,'totalSalaryPerMonth'])->name('totalHourPerMonth');
     });
 
 });
