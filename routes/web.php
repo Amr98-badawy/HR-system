@@ -7,12 +7,10 @@ use App\Http\Controllers\Dashboard\DepartmentController;
 use App\Http\Controllers\Dashboard\DeviceController;
 use App\Http\Controllers\Dashboard\EmployeeController;
 use App\Http\Controllers\Dashboard\LogController;
-use App\Http\Controllers\Dashboard\PayRollController;
 use App\Http\Controllers\Dashboard\PermissionController;
 use App\Http\Controllers\Dashboard\RolesController;
 use App\Http\Controllers\Dashboard\SectionController;
 use App\Http\Controllers\Dashboard\ShiftController;
-use App\Http\Controllers\Dashboard\SiteLanguageController;
 use App\Http\Controllers\Dashboard\UserController;
 use Illuminate\Support\Facades\Route;
 use Mcamara\LaravelLocalization\Facades\LaravelLocalization;
@@ -56,9 +54,6 @@ Route::group(
         Route::delete('attendance/{attendance}/delete', [AttendanceController::class, 'destroy'])->name('attendances.destroy');
         Route::get('attendance/{company}/company', [AttendanceController::class, 'companyAttendance'])->name('attendances.company');
         Route::post('attendance/export/excel', [AttendanceController::class, 'exportData'])->name('attendances.export');
-
-        // Payroll Route
-        Route::resource('payroll', PayRollController::class);
 
         // Device Route
         Route::resource('devices', DeviceController::class);
