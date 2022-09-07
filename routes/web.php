@@ -12,6 +12,7 @@ use App\Http\Controllers\Dashboard\RolesController;
 use App\Http\Controllers\Dashboard\SectionController;
 use App\Http\Controllers\Dashboard\ShiftController;
 use App\Http\Controllers\Dashboard\UserController;
+use App\Http\Controllers\Dashboard\VacationRequestController;
 use Illuminate\Support\Facades\Route;
 use Mcamara\LaravelLocalization\Facades\LaravelLocalization;
 
@@ -54,6 +55,9 @@ Route::group(
         Route::delete('attendance/{attendance}/delete', [AttendanceController::class, 'destroy'])->name('attendances.destroy');
         Route::get('attendance/{company}/company', [AttendanceController::class, 'companyAttendance'])->name('attendances.company');
         Route::post('attendance/export/excel', [AttendanceController::class, 'exportData'])->name('attendances.export');
+
+        // Vacation Routes
+        Route::resource("vacation-request", VacationRequestController::class);
 
         // Device Route
         Route::resource('devices', DeviceController::class);
